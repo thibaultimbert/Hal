@@ -35,7 +35,6 @@
 		044CEE4A1F16E51D005CBD0E /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 044CEE491F16E51D005CBD0E /* HealthKit.framework */; };
 		046D86E41F20FD1D000BC423 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 046D86E11F20FCDB000BC423 /* Charts.framework */; };
 		046D86E51F20FD1D000BC423 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 046D86E11F20FCDB000BC423 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		046D86EB1F210112000BC423 /* DataGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046D86EA1F210112000BC423 /* DataGenerator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -165,7 +164,6 @@
 		044CEE491F16E51D005CBD0E /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS3.2.sdk/System/Library/Frameworks/HealthKit.framework; sourceTree = DEVELOPER_DIR; };
 		044CEE4B1F16E51D005CBD0E /* Scout Watch App Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Scout Watch App Extension.entitlements"; sourceTree = "<group>"; };
 		046D86DB1F20FCDB000BC423 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = "../../Downloads/Charts-master/Charts.xcodeproj"; sourceTree = "<group>"; };
-		046D86EA1F210112000BC423 /* DataGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataGenerator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -241,7 +239,6 @@
 				042701291F1EC85200133257 /* BGSample.swift */,
 				04471CA31F18A29000F1023A /* EventDispatcher.swift */,
 				04471CA11F1898DD00F1023A /* Math.swift */,
-				046D86EA1F210112000BC423 /* DataGenerator.swift */,
 				044CEDE31F169E4E005CBD0E /* ViewController.swift */,
 				044CEDE51F169E4E005CBD0E /* Main.storyboard */,
 				044CEDEB1F169E4E005CBD0E /* Assets.xcassets */,
@@ -571,7 +568,6 @@
 				042701281F1EB7D000133257 /* DexcomBridge.swift in Sources */,
 				0427012A1F1EC85200133257 /* BGSample.swift in Sources */,
 				044CEDE41F169E4E005CBD0E /* ViewController.swift in Sources */,
-				046D86EB1F210112000BC423 /* DataGenerator.swift in Sources */,
 				044CEDE21F169E4E005CBD0E /* AppDelegate.swift in Sources */,
 				04471CA21F1898DD00F1023A /* Math.swift in Sources */,
 			);
