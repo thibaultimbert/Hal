@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:Beacon.xcodeproj">
+      location = "self:/Users/timbert/Documents/Beacon/Hal.xcodeproj">
    </FileRef>
 </Workspace>

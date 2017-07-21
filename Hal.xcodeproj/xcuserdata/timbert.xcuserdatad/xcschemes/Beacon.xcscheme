@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "044CEDDD1F169E4E005CBD0E"
-               BuildableName = "Beacon.app"
-               BlueprintName = "Beacon"
-               ReferencedContainer = "container:Beacon.xcodeproj">
+               BuildableName = "Hal.app"
+               BlueprintName = "Hal"
+               ReferencedContainer = "container:Hal.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "044CEDF41F169E4E005CBD0E"
-               BuildableName = "BeaconTests.xctest"
-               BlueprintName = "BeaconTests"
-               ReferencedContainer = "container:Beacon.xcodeproj">
+               BuildableName = "HalTests.xctest"
+               BlueprintName = "HalTests"
+               ReferencedContainer = "container:Hal.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -43,9 +43,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "044CEDFF1F169E4F005CBD0E"
-               BuildableName = "BeaconUITests.xctest"
-               BlueprintName = "BeaconUITests"
-               ReferencedContainer = "container:Beacon.xcodeproj">
+               BuildableName = "HalUITests.xctest"
+               BlueprintName = "HalUITests"
+               ReferencedContainer = "container:Hal.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -53,9 +53,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "044CEDDD1F169E4E005CBD0E"
-            BuildableName = "Beacon.app"
-            BlueprintName = "Beacon"
-            ReferencedContainer = "container:Beacon.xcodeproj">
+            BuildableName = "Hal.app"
+            BlueprintName = "Hal"
+            ReferencedContainer = "container:Hal.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -76,9 +76,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "044CEDDD1F169E4E005CBD0E"
-            BuildableName = "Beacon.app"
-            BlueprintName = "Beacon"
-            ReferencedContainer = "container:Beacon.xcodeproj">
+            BuildableName = "Hal.app"
+            BlueprintName = "Hal"
+            ReferencedContainer = "container:Hal.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -95,9 +95,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "044CEDDD1F169E4E005CBD0E"
-            BuildableName = "Beacon.app"
-            BlueprintName = "Beacon"
-            ReferencedContainer = "container:Beacon.xcodeproj">
+            BuildableName = "Hal.app"
+            BlueprintName = "Hal"
+            ReferencedContainer = "container:Hal.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
