@@ -96,6 +96,18 @@ class ViewController: UIViewController {
             circleColors.append(color)
             let chartDataSet = LineChartDataSet(values: lineDataEntry, label: "Time")
             
+            var xAxisDate = Utils.getCurrentLocalDate()
+            xAxisDate.addTimeInterval(TimeInterval(-3600))
+            
+            let calChart = Calendar.current
+            
+            var compChart: DateComponents
+            for index in 1...3 {
+                xAxisDate.addTimeInterval(TimeInterval(-3600))
+                compChart = calChart.dateComponents([.hour], from: xAxisDate)
+                //print (compChart.hour)
+            }
+            
             chartDataSet.setCircleColor(UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0))
             chartDataSet.drawValuesEnabled = false
             chartDataSet.circleRadius = 2.0
@@ -106,6 +118,7 @@ class ViewController: UIViewController {
             self.myChart.leftAxis.drawLabelsEnabled = false
             self.myChart.leftAxis.enabled = false
             self.myChart.rightAxis.drawAxisLineEnabled = false
+            self.myChart.xAxis.enabled = false
             self.myChart.legend.enabled = false
             self.myChart.chartDescription?.enabled = false
             
@@ -134,9 +147,9 @@ class ViewController: UIViewController {
             let lows: [BGSample] = Math.computeLowBG(samples: results)
             let normal: [BGSample] = Math.computeNormalRangeBG(samples: results)
             
-            let averageHigh: Double = Math.computeAverage(samples: highs)
-            let averageNormal: Double = Math.computeAverage(samples: normal)
-            let averageLow: Double = Math.computeAverage(samples: lows)
+            let averageHigh: Double = ceil(Math.computeAverage(samples: highs))
+            let averageNormal: Double = ceil(Math.computeAverage(samples: normal))
+            let averageLow: Double = ceil(Math.computeAverage(samples: lows))
             
             infos += "\nAvg/High: " + String(describing: averageHigh.roundTo(places: 2)) + " \nAvg/Normal: " + String(describing: averageNormal.roundTo(places: 2)) + " \nAvg/Low: " + String(describing: averageLow.roundTo(places: 2))
             
