@@ -58,11 +58,11 @@ class DexcomBridge: EventDispatcher{
                     }
                     for sample in json! {
                         if let bloodSample = sample as? [String: AnyObject] {
-                            if let value = bloodSample["Value"] as? Double, let date = bloodSample["WT"] as? String, let trend = bloodSample["Trend"] as? Float {
+                            if let value = bloodSample["Value"] as? Double, let date = bloodSample["DT"] as? String, let trend = bloodSample["Trend"] as? Float {
                                 let timeStamp = date.components(separatedBy: "(")[1].components(separatedBy: ")")[0].components(separatedBy: "-")[0]
                                 let interval = TimeInterval(Int(timeStamp)!/1000)
                                 let date = Date(timeIntervalSince1970: interval)
-                                self.bloodSamples.append(BGSample(pValue: Int(value), pTime: date, pTrend: trend))
+                                self.bloodSamples.append(BGSample(pValue: Int(value), pTime: Float(interval), pTrend: trend))
                             }
                         }
                     }
@@ -90,11 +90,11 @@ class DexcomBridge: EventDispatcher{
                     }
                     for sample in json! {
                         if let bloodSample = sample as? [String: AnyObject] {
-                            if let value = bloodSample["Value"] as? Double, let date = bloodSample["WT"] as? String, let trend = bloodSample["Trend"] as? Float {
+                            if let value = bloodSample["Value"] as? Double, let date = bloodSample["DT"] as? String, let trend = bloodSample["Trend"] as? Float {
                                 let timeStamp = date.components(separatedBy: "(")[1].components(separatedBy: ")")[0].components(separatedBy: "-")[0]
                                 let interval = TimeInterval(Int(timeStamp)!/1000)
                                 let date = Date(timeIntervalSince1970: interval)
-                                self.bloodSamples.append(BGSample(pValue: Int(value), pTime: date, pTrend: trend))
+                                self.bloodSamples.append(BGSample(pValue: Int(value), pTime: Float(interval), pTrend: trend))
                             }
                         }
                     }
