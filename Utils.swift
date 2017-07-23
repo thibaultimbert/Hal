@@ -17,7 +17,7 @@ class Utils {
         dayTimePeriodFormatter.locale = Locale(identifier: "en_US_POSIX")
         let calendar = Calendar.current
         let comp = calendar.dateComponents([.day, .month, .year, .hour, .minute, .second], from: dayTimePeriodFormatter.date(from: dayTimePeriodFormatter.string(from: date))!)
-        print ( dayTimePeriodFormatter.string(from: date))
+        //print ( dayTimePeriodFormatter.string(from: date))
         return comp
     }
 }

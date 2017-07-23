@@ -13,15 +13,8 @@ import Charts
 
 class ViewController: UIViewController {
     
-    @IBOutlet weak var average: UILabel!
-    @IBOutlet weak var a1c: UILabel!
-    @IBOutlet weak var sd: UILabel!
     @IBOutlet weak var myLabel: UILabel!
-    @IBOutlet weak var highs: UILabel!
-    @IBOutlet weak var normal: UILabel!
-    @IBOutlet weak var lows: UILabel!
-    @IBOutlet weak var currentBG: UILabel!
-    @IBOutlet weak var distribution: UILabel!
+    @IBOutlet weak var details: UILabel!
     @IBOutlet weak var myChart: LineChartView!
     
     public var hkManager: HKManager!
@@ -48,16 +41,17 @@ class ViewController: UIViewController {
         let bodyFont = UIFont(name: ".SFUIText-Semibold", size :16)
         
         myLabel.font = font
-        average.font = bodyFont
-        a1c.font = bodyFont
-        sd.font = bodyFont
-        highs.font = bodyFont
-        distribution.font = bodyFont
-        normal.font = bodyFont
-        lows.font = bodyFont
-        currentBG.font = bodyFont
+        details.font = bodyFont
         
-        average.text = "Initializing..."
+        /*
+        details.layer.shadowColor = UIColor.black.cgColor
+        details.layer.shadowOffset = CGSize(width: 2.0, height: 2.0)
+        details.layer.shadowOpacity = 1.0
+        details.layer.shadowRadius = 1.0
+        details.layer.backgroundColor = UIColor.clear.cgColor
+        */
+        
+        details.text = "Initializing..."
     
         // Do any additional setup after loading the view, typically from a nib.
         // initialize the Dexcom bridge
@@ -74,13 +68,16 @@ class ViewController: UIViewController {
             // reference the result (Array of BGSample)
             let results = self.dxBridge.bloodSamples
             
-            // display results
-            self.sd.text =  "Variation: " + String (round(Math.computeSD(samples: results)))
-            self.average.text = "Average: " + String (round(Math.computeAverage(samples: results))) + " mg/dL"
-            self.a1c.text =  "A1C: " + String(round(Math.A1C(samples: results)))
+            var infos: String = ""
+            
             var comp = Utils.getDate(unixdate: Int(results[0].time), timezone: "PST")
             let date = String (describing: comp.hour!) + ":" + String (describing: comp.minute!) + ":" + String (describing: comp.second!)
-            self.currentBG.text = date + " " + String (describing: results[0].value) + " mg/DL " + String (results[0].trend)
+            infos += date + " " + String (describing: results[0].value) + " mg/DL"
+            
+            // display results
+            infos +=  "\nVariation: " + String (round(Math.computeSD(samples: results)))
+            infos += "\nAverage: " + String (round(Math.computeAverage(samples: results))) + " mg/dL"
+            infos +=  "\nA1C: " + String(round(Math.A1C(samples: results)))
             
             var lineDataEntry: [ChartDataEntry] = [ChartDataEntry]()
             let data: [BGSample] = self.dxBridge.bloodSamples.reversed()
@@ -94,16 +91,41 @@ class ViewController: UIViewController {
                 i += 1
             }
             
-           // self.myChart.animate(xAxisDuration: 2.0, yAxisDuration: 2.0, easing: easeInSine)
+            var circleColors: [UIColor] = []
+            let color = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+            circleColors.append(color)
             let chartDataSet = LineChartDataSet(values: lineDataEntry, label: "Time")
+            
+            chartDataSet.setCircleColor(UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0))
+            chartDataSet.drawValuesEnabled = false
+            chartDataSet.circleRadius = 2.0
+            self.myChart.xAxis.drawGridLinesEnabled = false
+            self.myChart.rightAxis.drawGridLinesEnabled = false
+            self.myChart.leftAxis.drawGridLinesEnabled = false
+            self.myChart.leftAxis.drawLabelsEnabled = false
+            self.myChart.leftAxis.drawLabelsEnabled = false
+            self.myChart.leftAxis.enabled = false
+            self.myChart.rightAxis.drawAxisLineEnabled = false
+            self.myChart.legend.enabled = false
+            self.myChart.chartDescription?.enabled = false
+            
+            let gradientColors = [UIColor.red.cgColor, UIColor.clear.cgColor, UIColor.clear.cgColor] as CFArray
+            let colorLocations: [CGFloat] = [1.0, 0.6, 0.0]
+            guard let gradient = CGGradient.init(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: gradientColors, locations: colorLocations) else { print ("gradient error"); return }
+            chartDataSet.fill = Fill.fillWithLinearGradient(gradient, angle: 90.0)
+            chartDataSet.drawFilledEnabled = true
+            
             let chartData = LineChartData()
-            chartDataSet.colors = ChartColorTemplates.colorful()
+            //chartDataSet.colors = ChartColorTemplates.colorful()
             chartData.addDataSet(chartDataSet)
             self.myChart.xAxis.labelPosition = .bottom
+            self.myChart.xAxis.labelTextColor = UIColor.white
+            self.myChart.rightAxis.labelTextColor = UIColor.white
             self.myChart.data = chartData
             self.myChart.animate(xAxisDuration: 2.0, yAxisDuration: 2.0, easingOption: .easeInBounce)
-            let ll = ChartLimitLine(limit: 150.0, label: "High")
-            let bl = ChartLimitLine(limit: 70, label: "Low")
+            let ll = ChartLimitLine(limit: 150.0)
+            ll.lineColor = UIColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.2)
+            let bl = ChartLimitLine(limit: 70)
             self.myChart.rightAxis.addLimitLine(ll)
             self.myChart.rightAxis.addLimitLine(bl)
 
@@ -116,17 +138,20 @@ class ViewController: UIViewController {
             let averageNormal: Double = Math.computeAverage(samples: normal)
             let averageLow: Double = Math.computeAverage(samples: lows)
             
-            self.distribution.text = "Avg/High: " + String(describing: averageHigh.roundTo(places: 2)) + " \nAvg/Normal: " + String(describing: averageNormal.roundTo(places: 2)) + " \nAvg/Low: " + String(describing: averageLow.roundTo(places: 2))
+            infos += "\nAvg/High: " + String(describing: averageHigh.roundTo(places: 2)) + " \nAvg/Normal: " + String(describing: averageNormal.roundTo(places: 2)) + " \nAvg/Low: " + String(describing: averageLow.roundTo(places: 2))
             
             // percentages
             let highsPercentage : Double = Double (highs.count) / Double (results.count)
             let normalRangePercentage : Double = Double (normal.count) / Double (results.count)
             let lowsPercentage : Double = Double (lows.count) / Double(results.count)
 
-            self.highs.text = "Highs: " + String ( highsPercentage.roundTo(places: 2) * 100 ) + "%"
-            self.normal.text = "Normal: " + String ( normalRangePercentage.roundTo(places: 2) * 100 ) + "%"
-            self.lows.text = "Lows: " + String ( lowsPercentage.roundTo(places: 2) * 100 ) + "%"
-
+            infos += "\nHighs: " + String ( highsPercentage.roundTo(places: 2) * 100 ) + "%"
+            infos += "\nNormal: " + String ( normalRangePercentage.roundTo(places: 2) * 100 ) + "%"
+            infos += "\nLows: " + String ( lowsPercentage.roundTo(places: 2) * 100 ) + "%"
+            
+            print ( infos )
+            
+            self.details.text = infos
         })
         
         // wait for Dexcom data

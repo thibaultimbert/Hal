@@ -41,7 +41,7 @@ class DexcomBridge: EventDispatcher{
     }
     
     public func getGlucoseValues (token: String) {
-        let url = "https://share1.dexcom.com/ShareWebServices/Services/Publisher/ReadPublisherLatestGlucoseValues?sessionId="+token+"&minutes=1440&maxCount=188"
+        let url = "https://share1.dexcom.com/ShareWebServices/Services/Publisher/ReadPublisherLatestGlucoseValues?sessionId="+token+"&minutes=1440&maxCount=39"
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
