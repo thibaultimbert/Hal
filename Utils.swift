@@ -9,16 +9,16 @@
 import Foundation
 
 class Utils {
-    public static func getDate(unixdate: Int, timezone: String) -> DateComponents {
+    public static func getDate(unixdate: Int) -> (Date, DateComponents, String) {
         let date = Date(timeIntervalSince1970: TimeInterval(unixdate))
         let dayTimePeriodFormatter = DateFormatter()
-        dayTimePeriodFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm:ss a"
-        dayTimePeriodFormatter.timeZone = NSTimeZone(name: timezone) as TimeZone!
-        dayTimePeriodFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dayTimePeriodFormatter.dateFormat = "hh:mm:ss a"
+        dayTimePeriodFormatter.timeZone = TimeZone.current
+        dayTimePeriodFormatter.locale = Locale.current
         let calendar = Calendar.current
-        let comp = calendar.dateComponents([.day, .month, .year, .hour, .minute, .second], from: dayTimePeriodFormatter.date(from: dayTimePeriodFormatter.string(from: date))!)
-        //print ( dayTimePeriodFormatter.string(from: date))
-        return comp
+        let components = calendar.dateComponents([.day, .month, .year, .hour, .minute, .second], from: dayTimePeriodFormatter.date(from: dayTimePeriodFormatter.string(from: date))!)
+        let dateString = dayTimePeriodFormatter.string(from: date)
+        return (date, components, dateString)
     }
     
     public static func getCurrentLocalDate()-> Date {

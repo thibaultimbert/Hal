@@ -1,0 +1,75 @@
+//
+//  SubLineChartView.swift
+//  Hal
+//
+//  Created by Thibault Imbert on 7/24/17.
+//  Copyright © 2017 Thibault Imbert. All rights reserved.
+//
+
+import Foundation
+import Charts
+
+class ChartManager {
+    
+    private let chart: LineChartView
+    private let samples: [BGSample]
+    
+    init (lineChart: LineChartView, data: [BGSample]){
+        
+        chart = lineChart
+        samples = data.reversed()
+        
+        var lineDataEntry: [ChartDataEntry] = [ChartDataEntry]()
+        
+        var i: Double = 0
+        for sample in data {
+            let sugarLevel = ChartDataEntry(x: i, y: Double(sample.value))
+            lineDataEntry.append (sugarLevel)
+            i += 1
+        }
+        
+        var circleColors: [UIColor] = []
+        let color = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        circleColors.append(color)
+        let chartDataSet = LineChartDataSet(values: lineDataEntry, label: "Time")
+        
+        var xAxisDate = Utils.getCurrentLocalDate()
+        xAxisDate.addTimeInterval(TimeInterval(-3600))
+        
+        _ = Calendar.current
+        
+        chartDataSet.setCircleColor(UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0))
+        chartDataSet.drawValuesEnabled = false
+        chartDataSet.circleRadius = 2.0
+        
+        chart.xAxis.drawGridLinesEnabled = false
+        chart.rightAxis.drawGridLinesEnabled = false
+        chart.leftAxis.drawGridLinesEnabled = false
+        chart.leftAxis.drawLabelsEnabled = false
+        chart.leftAxis.drawLabelsEnabled = false
+        chart.leftAxis.enabled = false
+        chart.rightAxis.drawAxisLineEnabled = false
+        chart.xAxis.enabled = false
+        chart.legend.enabled = false
+        chart.chartDescription?.enabled = false
+        
+        let gradientColors = [UIColor.red.cgColor, UIColor.clear.cgColor, UIColor.clear.cgColor] as CFArray
+        let colorLocations: [CGFloat] = [1.0, 0.6, 0.0]
+        guard let gradient = CGGradient.init(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: gradientColors, locations: colorLocations) else { print ("gradient error"); return }
+        chartDataSet.fill = Fill.fillWithLinearGradient(gradient, angle: 90.0)
+        chartDataSet.drawFilledEnabled = true
+        
+        let chartData = LineChartData()
+        chartData.addDataSet(chartDataSet)
+        chart.xAxis.labelPosition = .bottom
+        chart.xAxis.labelTextColor = UIColor.white
+        chart.rightAxis.labelTextColor = UIColor.white
+        chart.data = chartData
+        chart.animate(xAxisDuration: 2.0, yAxisDuration: 2.0, easingOption: .easeInBounce)
+        let ll = ChartLimitLine(limit: 150.0)
+        ll.lineColor = UIColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.2)
+        let bl = ChartLimitLine(limit: 70)
+        chart.rightAxis.addLimitLine(ll)
+        chart.rightAxis.addLimitLine(bl)
+    }
+}

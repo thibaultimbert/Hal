@@ -43,14 +43,6 @@ class ViewController: UIViewController {
         myLabel.font = font
         details.font = bodyFont
         
-        /*
-        details.layer.shadowColor = UIColor.black.cgColor
-        details.layer.shadowOffset = CGSize(width: 2.0, height: 2.0)
-        details.layer.shadowOpacity = 1.0
-        details.layer.shadowRadius = 1.0
-        details.layer.backgroundColor = UIColor.clear.cgColor
-        */
-        
         details.text = "Initializing..."
     
         // Do any additional setup after loading the view, typically from a nib.
@@ -70,78 +62,16 @@ class ViewController: UIViewController {
             
             var infos: String = ""
             
-            var comp = Utils.getDate(unixdate: Int(results[0].time), timezone: "PST")
-            let date = String (describing: comp.hour!) + ":" + String (describing: comp.minute!) + ":" + String (describing: comp.second!)
-            infos += date + " " + String (describing: results[0].value) + " mg/DL"
+            let (_, _, sampleDate) = Utils.getDate(unixdate: Int(results[0].time))
+            infos += sampleDate + " " + String (describing: results[0].value) + " mg/DL " + results[0].trend
             
             // display results
             infos +=  "\nVariation: " + String (round(Math.computeSD(samples: results)))
             infos += "\nAverage: " + String (round(Math.computeAverage(samples: results))) + " mg/dL"
             infos +=  "\nA1C: " + String(round(Math.A1C(samples: results)))
             
-            var lineDataEntry: [ChartDataEntry] = [ChartDataEntry]()
-            let data: [BGSample] = self.dxBridge.bloodSamples.reversed()
+            _ = ChartManager(lineChart: self.myChart, data: self.dxBridge.bloodSamples)
             
-            var i: Double = 0
-            for sample in data {
-                let comp = Utils.getDate(unixdate: Int(sample.time), timezone: "PST")
-                print ( comp.hour!, comp.minute!, comp.second! )
-                let sugarLevel = ChartDataEntry(x: i, y: Double(sample.value))
-                lineDataEntry.append (sugarLevel)
-                i += 1
-            }
-            
-            var circleColors: [UIColor] = []
-            let color = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-            circleColors.append(color)
-            let chartDataSet = LineChartDataSet(values: lineDataEntry, label: "Time")
-            
-            var xAxisDate = Utils.getCurrentLocalDate()
-            xAxisDate.addTimeInterval(TimeInterval(-3600))
-            
-            let calChart = Calendar.current
-            
-            var compChart: DateComponents
-            for index in 1...3 {
-                xAxisDate.addTimeInterval(TimeInterval(-3600))
-                compChart = calChart.dateComponents([.hour], from: xAxisDate)
-                //print (compChart.hour)
-            }
-            
-            chartDataSet.setCircleColor(UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0))
-            chartDataSet.drawValuesEnabled = false
-            chartDataSet.circleRadius = 2.0
-            self.myChart.xAxis.drawGridLinesEnabled = false
-            self.myChart.rightAxis.drawGridLinesEnabled = false
-            self.myChart.leftAxis.drawGridLinesEnabled = false
-            self.myChart.leftAxis.drawLabelsEnabled = false
-            self.myChart.leftAxis.drawLabelsEnabled = false
-            self.myChart.leftAxis.enabled = false
-            self.myChart.rightAxis.drawAxisLineEnabled = false
-            self.myChart.xAxis.enabled = false
-            self.myChart.legend.enabled = false
-            self.myChart.chartDescription?.enabled = false
-            
-            let gradientColors = [UIColor.red.cgColor, UIColor.clear.cgColor, UIColor.clear.cgColor] as CFArray
-            let colorLocations: [CGFloat] = [1.0, 0.6, 0.0]
-            guard let gradient = CGGradient.init(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: gradientColors, locations: colorLocations) else { print ("gradient error"); return }
-            chartDataSet.fill = Fill.fillWithLinearGradient(gradient, angle: 90.0)
-            chartDataSet.drawFilledEnabled = true
-            
-            let chartData = LineChartData()
-            //chartDataSet.colors = ChartColorTemplates.colorful()
-            chartData.addDataSet(chartDataSet)
-            self.myChart.xAxis.labelPosition = .bottom
-            self.myChart.xAxis.labelTextColor = UIColor.white
-            self.myChart.rightAxis.labelTextColor = UIColor.white
-            self.myChart.data = chartData
-            self.myChart.animate(xAxisDuration: 2.0, yAxisDuration: 2.0, easingOption: .easeInBounce)
-            let ll = ChartLimitLine(limit: 150.0)
-            ll.lineColor = UIColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.2)
-            let bl = ChartLimitLine(limit: 70)
-            self.myChart.rightAxis.addLimitLine(ll)
-            self.myChart.rightAxis.addLimitLine(bl)
-
             // calculate distribution
             let highs: [BGSample] = Math.computeHighBG(samples: results)
             let lows: [BGSample] = Math.computeLowBG(samples: results)
@@ -161,8 +91,6 @@ class ViewController: UIViewController {
             infos += "\nHighs: " + String ( highsPercentage.roundTo(places: 2) * 100 ) + "%"
             infos += "\nNormal: " + String ( normalRangePercentage.roundTo(places: 2) * 100 ) + "%"
             infos += "\nLows: " + String ( lowsPercentage.roundTo(places: 2) * 100 ) + "%"
-            
-            print ( infos )
             
             self.details.text = infos
         })

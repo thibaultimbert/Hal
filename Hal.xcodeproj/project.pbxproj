@@ -10,6 +10,7 @@
 		042701281F1EB7D000133257 /* DexcomBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042701271F1EB7D000133257 /* DexcomBridge.swift */; };
 		0427012A1F1EC85200133257 /* BGSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042701291F1EC85200133257 /* BGSample.swift */; };
 		042FD2E61F2498AC00A6DF49 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042FD2E51F2498AB00A6DF49 /* Utils.swift */; };
+		042FD2EA1F2696AD00A6DF49 /* ChartManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042FD2E91F2696AD00A6DF49 /* ChartManager.swift */; };
 		04471C9E1F181AB900F1023A /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04471C9D1F181AB900F1023A /* UserNotifications.framework */; };
 		04471CA01F18982200F1023A /* HKManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04471C9F1F18982200F1023A /* HKManager.swift */; };
 		04471CA21F1898DD00F1023A /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04471CA11F1898DD00F1023A /* Math.swift */; };
@@ -130,6 +131,7 @@
 		042701271F1EB7D000133257 /* DexcomBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexcomBridge.swift; sourceTree = "<group>"; };
 		042701291F1EC85200133257 /* BGSample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BGSample.swift; sourceTree = "<group>"; };
 		042FD2E51F2498AB00A6DF49 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utils.swift; path = ../Utils.swift; sourceTree = "<group>"; };
+		042FD2E91F2696AD00A6DF49 /* ChartManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartManager.swift; sourceTree = "<group>"; };
 		04471C9D1F181AB900F1023A /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		04471C9F1F18982200F1023A /* HKManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HKManager.swift; sourceTree = "<group>"; };
 		04471CA11F1898DD00F1023A /* Math.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
@@ -213,6 +215,14 @@
 			name = Utils;
 			sourceTree = "<group>";
 		};
+		042FD2EB1F269AD100A6DF49 /* Chart */ = {
+			isa = PBXGroup;
+			children = (
+				042FD2E91F2696AD00A6DF49 /* ChartManager.swift */,
+			);
+			name = Chart;
+			sourceTree = "<group>";
+		};
 		044CEDD51F169E4E005CBD0E = {
 			isa = PBXGroup;
 			children = (
@@ -243,6 +253,7 @@
 			isa = PBXGroup;
 			children = (
 				044CEE3D1F16D076005CBD0E /* Beacon.entitlements */,
+				042FD2EB1F269AD100A6DF49 /* Chart */,
 				046D86EE1F2237EA000BC423 /* Events */,
 				046D86ED1F2237E1000BC423 /* Remote */,
 				046D86EF1F2237FA000BC423 /* GlucoseSample */,
@@ -611,6 +622,7 @@
 				044CEDEA1F169E4E005CBD0E /* Beacon.xcdatamodeld in Sources */,
 				042701281F1EB7D000133257 /* DexcomBridge.swift in Sources */,
 				0427012A1F1EC85200133257 /* BGSample.swift in Sources */,
+				042FD2EA1F2696AD00A6DF49 /* ChartManager.swift in Sources */,
 				044CEDE41F169E4E005CBD0E /* ViewController.swift in Sources */,
 				044CEDE21F169E4E005CBD0E /* AppDelegate.swift in Sources */,
 				04471CA21F1898DD00F1023A /* Math.swift in Sources */,

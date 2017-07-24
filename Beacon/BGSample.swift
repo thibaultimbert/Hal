@@ -11,17 +11,13 @@ import Foundation
 class BGSample: EventDispatcher{
     
     public var value: Int = 0
-    public let time: Float
-    public var trend: Float = 0.0
-    private var trends: [Float] = []
+    public let time: Int
+    public var trend: String
+    public var trends: [String] = ["", "\u{2197}", "\u{2192}", "\u{2198}", "\u{2192}", "\u{2913}", "\u{2912}", "\u{2912}"]
     
-    init (pValue: Int, pTime: Float, pTrend: Float){
+    init (pValue: Int, pTime: Int, pTrend: Int){
         value = pValue
         time = pTime
-        //trend = pTrend
-    }
-    
-    private func setTrend (pTrend: Float) -> String{
-        return ""
+        trend = trends[pTrend]
     }
 }

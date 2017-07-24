@@ -41,7 +41,7 @@ class DexcomBridge: EventDispatcher{
     }
     
     public func getGlucoseValues (token: String) {
-        let url = "https://share1.dexcom.com/ShareWebServices/Services/Publisher/ReadPublisherLatestGlucoseValues?sessionId="+token+"&minutes=1440&maxCount=39"
+        let url = "https://share1.dexcom.com/ShareWebServices/Services/Publisher/ReadPublisherLatestGlucoseValues?sessionId="+token+"&minutes=1440&maxCount=144"
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -58,11 +58,10 @@ class DexcomBridge: EventDispatcher{
                     }
                     for sample in json! {
                         if let bloodSample = sample as? [String: AnyObject] {
-                            if let value = bloodSample["Value"] as? Double, let date = bloodSample["ST"] as? String, let trend = bloodSample["Trend"] as? Float {
+                            if let value = bloodSample["Value"] as? Double, let date = bloodSample["DT"] as? String, let trend = bloodSample["Trend"] as? Float {
                                 let timeStamp = date.components(separatedBy: "(")[1].components(separatedBy: ")")[0].components(separatedBy: "-")[0]
-                                let interval = TimeInterval(Int(timeStamp)!/1000)
-                                let date = Date(timeIntervalSince1970: interval)
-                                self.bloodSamples.append(BGSample(pValue: Int(value), pTime: Float(interval), pTrend: trend))
+                                let convertedTime: Int = Int(timeStamp)!/1000
+                                self.bloodSamples.append(BGSample(pValue: Int(value), pTime: convertedTime, pTrend: Int(trend)))
                             }
                         }
                     }
@@ -73,7 +72,7 @@ class DexcomBridge: EventDispatcher{
     }
     
     public func getGlucoseValues2 (token: String, completion: @escaping (UIBackgroundFetchResult) -> Void) {
-        let url = "https://share1.dexcom.com/ShareWebServices/Services/Publisher/ReadPublisherLatestGlucoseValues?sessionId="+token+"&minutes=1440&maxCount=39"
+        let url = "https://share1.dexcom.com/ShareWebServices/Services/Publisher/ReadPublisherLatestGlucoseValues?sessionId="+token+"&minutes=1440&maxCount=144"
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -90,11 +89,10 @@ class DexcomBridge: EventDispatcher{
                     }
                     for sample in json! {
                         if let bloodSample = sample as? [String: AnyObject] {
-                            if let value = bloodSample["Value"] as? Double, let date = bloodSample["ST"] as? String, let trend = bloodSample["Trend"] as? Float {
+                            if let value = bloodSample["Value"] as? Double, let date = bloodSample["DT"] as? String, let trend = bloodSample["Trend"] as? Float {
                                 let timeStamp = date.components(separatedBy: "(")[1].components(separatedBy: ")")[0].components(separatedBy: "-")[0]
-                                let interval = TimeInterval(Int(timeStamp)!/1000)
-                                let date = Date(timeIntervalSince1970: interval)
-                                self.bloodSamples.append(BGSample(pValue: Int(value), pTime: Float(interval), pTrend: trend))
+                                let convertedTime: Int = Int(timeStamp)!/1000
+                                self.bloodSamples.append(BGSample(pValue: Int(value), pTime: convertedTime, pTrend: Int(trend)))
                             }
                         }
                     }

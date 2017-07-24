@@ -42,19 +42,16 @@ class Math {
     }
     
     static func computeHighBG (samples: [BGSample]) -> [BGSample] {
-        
         let highBG: Double = 150.0
         return samples.filter { Double($0.value) > highBG }
     }
     
     static func computeLowBG (samples: [BGSample]) -> [BGSample] {
-       
         let lowBG: Double = 80
         return samples.filter { Double($0.value) < lowBG }
     }
     
     static func computeNormalRangeBG (samples: [BGSample]) -> [BGSample] {
-        
         let lowBG: Double = 80
         let highBG: Double = 150.0
         return samples.filter { Double($0.value) > lowBG && Double($0.value) < highBG }
