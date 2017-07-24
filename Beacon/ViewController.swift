@@ -28,15 +28,24 @@ class ViewController: UIViewController {
         
         gradientLayer.frame = self.view.bounds
         
-        let color1 = UIColor(red: 0.32, green: 0.49, blue: 0.54, alpha: 1.0).cgColor as CGColor
-        let color2 = UIColor(red: 0.48, green: 0.65, blue: 0.68, alpha: 1.0).cgColor as CGColor
-        let color3 = UIColor(red: 0.63, green: 0.77, blue: 0.74, alpha: 1.0).cgColor as CGColor
-        let color4 = UIColor(red: 0.5, green: 0.78, blue: 0.79, alpha: 1.0).cgColor as CGColor
+        let color1 = UIColor(red: 0.32, green: 0.49, blue: 0.54, alpha: 0.1).cgColor as CGColor
+        let color2 = UIColor(red: 0.48, green: 0.65, blue: 0.68, alpha: 0.1).cgColor as CGColor
+        let color3 = UIColor(red: 0.63, green: 0.77, blue: 0.74, alpha: 0.1).cgColor as CGColor
+        let color4 = UIColor(red: 0.5, green: 0.78, blue: 0.79, alpha: 0.3).cgColor as CGColor
         let color5 = UIColor(red: 0.39, green: 0.64, blue: 0.69, alpha: 1.0).cgColor as CGColor
         gradientLayer.colors = [color1, color2, color3, color4, color5]
         
         gradientLayer.locations = [0.0, 0.12, 0.25, 0.5, 1.0]
-        self.view.layer.insertSublayer(gradientLayer, at:0)
+        
+        let filePath = Bundle.main.path(forResource: "rob", ofType: "jpg")
+        let jpg = NSData(contentsOfFile: filePath!)
+        
+        let image:UIImage = UIImage(contentsOfFile: filePath!)!
+        let imageLayer:CALayer = CALayer()
+        imageLayer.contents = image.cgImage
+        imageLayer.frame = CGRect(x: 0, y: 0, width: 2001, height: 1334)
+        self.view.layer.insertSublayer(imageLayer, at: 0)
+        self.view.layer.insertSublayer(gradientLayer, at: 1)
         
         // font setup
         let font = UIFont(name: ".SFUIText-Semibold", size :14)
@@ -72,6 +81,7 @@ class ViewController: UIViewController {
             var infos: String = ""
             
             // display results
+            infos += "Summary for the last 24 hours:"
             infos +=  "\nVariation: " + String (round(Math.computeSD(samples: results)))
             infos += "\nAverage: " + String (round(Math.computeAverage(samples: results))) + " mg/dL"
             infos +=  "\nA1C: " + String(round(Math.A1C(samples: results)))
