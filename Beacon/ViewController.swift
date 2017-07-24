@@ -15,6 +15,8 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var myLabel: UILabel!
     @IBOutlet weak var details: UILabel!
+    @IBOutlet weak var today: UILabel!
+    @IBOutlet weak var current: UILabel!
     @IBOutlet weak var myChart: LineChartView!
     
     public var hkManager: HKManager!
@@ -39,10 +41,14 @@ class ViewController: UIViewController {
         // font setup
         let font = UIFont(name: ".SFUIText-Semibold", size :14)
         let bodyFont = UIFont(name: ".SFUIText-Semibold", size :16)
+        let headerFont = UIFont(name: ".SFUIText-Semibold", size :28)
         
         myLabel.font = font
         details.font = bodyFont
+        current.font = headerFont
         
+        let (_, _, todayString) = Utils.getDate(unixdate: Int(Date().timeIntervalSince1970), format: "MM-dd-yyyy")
+        today.text = "Today\nMonday "+todayString
         details.text = "Initializing..."
     
         // Do any additional setup after loading the view, typically from a nib.
@@ -60,17 +66,17 @@ class ViewController: UIViewController {
             // reference the result (Array of BGSample)
             let results = self.dxBridge.bloodSamples
             
-            var infos: String = ""
-            
             let (_, _, sampleDate) = Utils.getDate(unixdate: Int(results[0].time))
-            infos += sampleDate + " " + String (describing: results[0].value) + " mg/DL " + results[0].trend
+            self.current.text = sampleDate + "\n" + String (describing: results[0].value) + " mg/DL " + results[0].trend
+            
+            var infos: String = ""
             
             // display results
             infos +=  "\nVariation: " + String (round(Math.computeSD(samples: results)))
             infos += "\nAverage: " + String (round(Math.computeAverage(samples: results))) + " mg/dL"
             infos +=  "\nA1C: " + String(round(Math.A1C(samples: results)))
             
-            _ = ChartManager(lineChart: self.myChart, data: self.dxBridge.bloodSamples)
+            _ = ChartManager(lineChart: self.myChart, data: results)
             
             // calculate distribution
             let highs: [BGSample] = Math.computeHighBG(samples: results)

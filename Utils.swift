@@ -9,10 +9,10 @@
 import Foundation
 
 class Utils {
-    public static func getDate(unixdate: Int) -> (Date, DateComponents, String) {
+    public static func getDate(unixdate: Int, format: String = "hh:mm:ss a") -> (Date, DateComponents, String) {
         let date = Date(timeIntervalSince1970: TimeInterval(unixdate))
         let dayTimePeriodFormatter = DateFormatter()
-        dayTimePeriodFormatter.dateFormat = "hh:mm:ss a"
+        dayTimePeriodFormatter.dateFormat = format
         dayTimePeriodFormatter.timeZone = TimeZone.current
         dayTimePeriodFormatter.locale = Locale.current
         let calendar = Calendar.current

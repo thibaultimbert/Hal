@@ -22,7 +22,7 @@ class ChartManager {
         var lineDataEntry: [ChartDataEntry] = [ChartDataEntry]()
         
         var i: Double = 0
-        for sample in data {
+        for sample in samples {
             let sugarLevel = ChartDataEntry(x: i, y: Double(sample.value))
             lineDataEntry.append (sugarLevel)
             i += 1
@@ -52,9 +52,10 @@ class ChartManager {
         chart.xAxis.enabled = false
         chart.legend.enabled = false
         chart.chartDescription?.enabled = false
+        chart.rightAxis.axisMinimum = 40
         
         let gradientColors = [UIColor.red.cgColor, UIColor.clear.cgColor, UIColor.clear.cgColor] as CFArray
-        let colorLocations: [CGFloat] = [1.0, 0.6, 0.0]
+        let colorLocations: [CGFloat] = [1.0, 0.57, 0.0]
         guard let gradient = CGGradient.init(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: gradientColors, locations: colorLocations) else { print ("gradient error"); return }
         chartDataSet.fill = Fill.fillWithLinearGradient(gradient, angle: 90.0)
         chartDataSet.drawFilledEnabled = true
@@ -67,8 +68,9 @@ class ChartManager {
         chart.data = chartData
         chart.animate(xAxisDuration: 2.0, yAxisDuration: 2.0, easingOption: .easeInBounce)
         let ll = ChartLimitLine(limit: 150.0)
-        ll.lineColor = UIColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.2)
+        ll.lineColor = UIColor(red: 246/255, green: 188/255, blue: 11/255, alpha: 1.0)
         let bl = ChartLimitLine(limit: 70)
+        bl.lineColor = UIColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 1.0)
         chart.rightAxis.addLimitLine(ll)
         chart.rightAxis.addLimitLine(bl)
     }
