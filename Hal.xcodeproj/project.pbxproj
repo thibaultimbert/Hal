@@ -225,6 +225,14 @@
 			name = Chart;
 			sourceTree = "<group>";
 		};
+		042FD2EE1F27F80E00A6DF49 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				042FD2EC1F26ABAE00A6DF49 /* rob.jpg */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
 		044CEDD51F169E4E005CBD0E = {
 			isa = PBXGroup;
 			children = (
@@ -259,11 +267,11 @@
 				046D86EE1F2237EA000BC423 /* Events */,
 				046D86ED1F2237E1000BC423 /* Remote */,
 				046D86EF1F2237FA000BC423 /* GlucoseSample */,
+				042FD2EE1F27F80E00A6DF49 /* Images */,
 				046D86F01F22380B000BC423 /* Math */,
 				042FD2E81F2498FE00A6DF49 /* Utils */,
 				044CEDE11F169E4E005CBD0E /* AppDelegate.swift */,
 				044CEDE31F169E4E005CBD0E /* ViewController.swift */,
-				042FD2EC1F26ABAE00A6DF49 /* rob.jpg */,
 				044CEDE51F169E4E005CBD0E /* Main.storyboard */,
 				044CEDEB1F169E4E005CBD0E /* Assets.xcassets */,
 				044CEDED1F169E4E005CBD0E /* LaunchScreen.storyboard */,

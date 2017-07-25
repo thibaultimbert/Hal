@@ -14,9 +14,10 @@ import Charts
 class ViewController: UIViewController {
     
     @IBOutlet weak var myLabel: UILabel!
-    @IBOutlet weak var details: UILabel!
     @IBOutlet weak var today: UILabel!
+    @IBOutlet weak var detailsLeft: UILabel!
     @IBOutlet weak var current: UILabel!
+    @IBOutlet weak var news: UILabel!
     @IBOutlet weak var myChart: LineChartView!
     
     public var hkManager: HKManager!
@@ -49,16 +50,20 @@ class ViewController: UIViewController {
         
         // font setup
         let font = UIFont(name: ".SFUIText-Semibold", size :14)
-        let bodyFont = UIFont(name: ".SFUIText-Semibold", size :16)
+        let bodyFont = UIFont(name: ".SFUIText-Semibold", size :14)
         let headerFont = UIFont(name: ".SFUIText-Semibold", size :28)
+        let newsFont = UIFont(name: ".SF-Pro-Display-Thin", size :18)
         
         myLabel.font = font
-        details.font = bodyFont
+        detailsLeft.font = bodyFont
+        news.font = newsFont
         current.font = headerFont
         
         let (_, _, todayString) = Utils.getDate(unixdate: Int(Date().timeIntervalSince1970), format: "EEEE, MMMM, dd, yyyy")
         today.text = "Today\n"+todayString
-        details.text = "Initializing..."
+        news.text = "You are doing great! An increase of 53% in normal levels and dropped your A1C by 0.8%!"
+        
+        detailsLeft.text = "Initializing..."
     
         // Do any additional setup after loading the view, typically from a nib.
         // initialize the Dexcom bridge
@@ -78,13 +83,12 @@ class ViewController: UIViewController {
             let (_, _, sampleDate) = Utils.getDate(unixdate: Int(results[0].time))
             self.current.text = sampleDate + "\n" + String (describing: results[0].value) + " mg/DL " + results[0].trend
             
-            var infos: String = ""
+            var infosLeft: String = ""
             
             // display results
-            infos += "Summary for the last 24 hours:"
-            infos +=  "\nVariation: " + String (round(Math.computeSD(samples: results)))
-            infos += "\nAverage: " + String (round(Math.computeAverage(samples: results))) + " mg/dL"
-            infos +=  "\nA1C: " + String(round(Math.A1C(samples: results)))
+            infosLeft +=  "\nA1C: " + String(round(Math.A1C(samples: results)))
+            infosLeft +=  "\nVariation: " + String (round(Math.computeSD(samples: results)))
+            infosLeft += "\nAverage: " + String (round(Math.computeAverage(samples: results))) + " mg/dL"
             
             _ = ChartManager(lineChart: self.myChart, data: results)
             
@@ -97,7 +101,7 @@ class ViewController: UIViewController {
             let averageNormal: Double = ceil(Math.computeAverage(samples: normal))
             let averageLow: Double = ceil(Math.computeAverage(samples: lows))
             
-            infos += "\nAvg/High: " + String(describing: averageHigh.roundTo(places: 2)) + " \nAvg/Normal: " + String(describing: averageNormal.roundTo(places: 2)) + " \nAvg/Low: " + String(describing: averageLow.roundTo(places: 2))
+            infosLeft += "\nAvg/High: " + String(describing: averageHigh.roundTo(places: 2)) + " \nAvg/Normal: " + String(describing: averageNormal.roundTo(places: 2)) + " \nAvg/Low: " + String(describing: averageLow.roundTo(places: 2))
             
             // percentages
             let highsPercentage : Double = Double (highs.count) / Double (results.count)
@@ -105,17 +109,16 @@ class ViewController: UIViewController {
             let lowsPercentage : Double = Double (lows.count) / Double(results.count)
             
             let highRatio: Double = (24.0 * highsPercentage).roundTo(places: 2)
-            infos += "\nHighs: " + String ( highsPercentage.roundTo(places: 2) * 100 ) + "%"
-            infos += " - Total of " + String(describing: highRatio) + " hours"
+            infosLeft += "\nHighs: " + String ( highsPercentage.roundTo(places: 2) * 100 ) + "%"
+            infosLeft += " "+String(describing: highRatio) + " hours total"
             let normalRatio: Double = (24.0 * normalRangePercentage).roundTo(places: 2)
-            infos += "\nNormal: " + String ( normalRangePercentage.roundTo(places: 2) * 100 ) + "%"
-            infos += " - Total of " + String(describing: normalRatio) + " hours"
+            infosLeft += "\nNormal: " + String ( normalRangePercentage.roundTo(places: 2) * 100 ) + "%"
+            infosLeft += " "+String(describing: normalRatio) + " hours total"
             let lowRatio: Double = (24.0 * lowsPercentage).roundTo(places: 2)
-            infos += "\nLows: " + String ( lowsPercentage.roundTo(places: 2) * 100 ) + "%"
-            infos += " - Total of " + String(describing: lowRatio) + " hours"
+            infosLeft += "\nLows: " + String ( lowsPercentage.roundTo(places: 2) * 100 ) + "%"
+            infosLeft += " "+String(describing: lowRatio) + " hours total"
             
-            
-            self.details.text = infos
+            self.detailsLeft.text = infosLeft
         })
         
         // wait for Dexcom data

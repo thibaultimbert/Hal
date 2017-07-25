@@ -15,7 +15,6 @@ class Utils {
         dayTimePeriodFormatter.dateStyle = .medium
         dayTimePeriodFormatter.timeStyle = .medium
         dayTimePeriodFormatter.dateFormat = format
-        print (dayTimePeriodFormatter.timeZone)
         let calendar = Calendar.current
         let components = calendar.dateComponents([.day, .month, .year, .hour, .minute, .second], from: date)
         let dateString = dayTimePeriodFormatter.string(from: date)
