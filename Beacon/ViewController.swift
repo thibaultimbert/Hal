@@ -56,8 +56,8 @@ class ViewController: UIViewController {
         details.font = bodyFont
         current.font = headerFont
         
-        let (_, _, todayString) = Utils.getDate(unixdate: Int(Date().timeIntervalSince1970), format: "MM-dd-yyyy")
-        today.text = "Today\nMonday "+todayString
+        let (_, _, todayString) = Utils.getDate(unixdate: Int(Date().timeIntervalSince1970), format: "EEEE, MMMM, dd, yyyy")
+        today.text = "Today\n"+todayString
         details.text = "Initializing..."
     
         // Do any additional setup after loading the view, typically from a nib.
@@ -103,10 +103,17 @@ class ViewController: UIViewController {
             let highsPercentage : Double = Double (highs.count) / Double (results.count)
             let normalRangePercentage : Double = Double (normal.count) / Double (results.count)
             let lowsPercentage : Double = Double (lows.count) / Double(results.count)
-
+            
+            let highRatio: Double = (24.0 * highsPercentage).roundTo(places: 2)
             infos += "\nHighs: " + String ( highsPercentage.roundTo(places: 2) * 100 ) + "%"
+            infos += " - Total of " + String(describing: highRatio) + " hours"
+            let normalRatio: Double = (24.0 * normalRangePercentage).roundTo(places: 2)
             infos += "\nNormal: " + String ( normalRangePercentage.roundTo(places: 2) * 100 ) + "%"
+            infos += " - Total of " + String(describing: normalRatio) + " hours"
+            let lowRatio: Double = (24.0 * lowsPercentage).roundTo(places: 2)
             infos += "\nLows: " + String ( lowsPercentage.roundTo(places: 2) * 100 ) + "%"
+            infos += " - Total of " + String(describing: lowRatio) + " hours"
+            
             
             self.details.text = infos
         })

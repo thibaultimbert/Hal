@@ -12,11 +12,12 @@ class Utils {
     public static func getDate(unixdate: Int, format: String = "hh:mm:ss a") -> (Date, DateComponents, String) {
         let date = Date(timeIntervalSince1970: TimeInterval(unixdate))
         let dayTimePeriodFormatter = DateFormatter()
+        dayTimePeriodFormatter.dateStyle = .medium
+        dayTimePeriodFormatter.timeStyle = .medium
         dayTimePeriodFormatter.dateFormat = format
-        dayTimePeriodFormatter.timeZone = TimeZone.current
-        dayTimePeriodFormatter.locale = Locale.current
+        print (dayTimePeriodFormatter.timeZone)
         let calendar = Calendar.current
-        let components = calendar.dateComponents([.day, .month, .year, .hour, .minute, .second], from: dayTimePeriodFormatter.date(from: dayTimePeriodFormatter.string(from: date))!)
+        let components = calendar.dateComponents([.day, .month, .year, .hour, .minute, .second], from: date)
         let dateString = dayTimePeriodFormatter.string(from: date)
         return (date, components, dateString)
     }
