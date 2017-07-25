@@ -73,5 +73,7 @@ class ChartManager {
         bl.lineColor = UIColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 1.0)
         chart.rightAxis.addLimitLine(ll)
         chart.rightAxis.addLimitLine(bl)
+        chart.setVisibleXRangeMaximum(36)
+        chart.moveViewToX(252)
     }
 }
