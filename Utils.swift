@@ -16,8 +16,8 @@ class Utils {
         dayTimePeriodFormatter.timeStyle = .medium
         dayTimePeriodFormatter.dateFormat = format
         let calendar = Calendar.current
-        let components = calendar.dateComponents([.day, .month, .year, .hour, .minute, .second], from: date)
         let dateString = dayTimePeriodFormatter.string(from: date)
+        let components = calendar.dateComponents([.day, .month, .year, .hour, .minute, .second], from: dayTimePeriodFormatter.date(from: dateString)!)
         return (date, components, dateString)
     }
     

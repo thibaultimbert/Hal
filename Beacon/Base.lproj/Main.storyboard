@@ -22,7 +22,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HbY-f2-xeG" customClass="LineChartView" customModule="Charts">
-                                <rect key="frame" x="18" y="392" width="341" height="255"/>
+                                <rect key="frame" x="18" y="373" width="341" height="255"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -54,12 +54,21 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3oI-Tn-Rgv">
+                                <rect key="frame" x="165" y="634" width="61" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="24 hours"/>
+                                <connections>
+                                    <action selector="fullTime:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GAZ-Hw-4aq"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.039775862749067525" green="0.0087312171772184477" blue="0.10255424222797926" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </view>
                     <connections>
                         <outlet property="current" destination="g5V-ak-N4U" id="Tor-2v-Eiu"/>
                         <outlet property="detailsLeft" destination="luD-E4-aPR" id="Gvo-Dn-Ybg"/>
+                        <outlet property="fulltime" destination="3oI-Tn-Rgv" id="eb3-Ck-eT1"/>
                         <outlet property="myChart" destination="HbY-f2-xeG" id="L6f-EV-ZDV"/>
                         <outlet property="myLabel" destination="wM5-WV-y5v" id="7Io-1x-r05"/>
                         <outlet property="news" destination="Zx0-wx-dg8" id="nUu-Yh-wk9"/>

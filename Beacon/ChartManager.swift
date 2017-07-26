@@ -13,6 +13,8 @@ class ChartManager {
     
     private let chart: LineChartView
     private let samples: [BGSample]
+    private var hours: [String] = []
+    private var chartData: LineChartData!
     
     init (lineChart: LineChartView, data: [BGSample]){
         
@@ -21,20 +23,19 @@ class ChartManager {
         
         var lineDataEntry: [ChartDataEntry] = [ChartDataEntry]()
         
-        var i: Double = 0
+        var i: Int = 0
         for sample in samples {
-            let sugarLevel = ChartDataEntry(x: i, y: Double(sample.value))
+            let sugarLevel = ChartDataEntry(x: Double(i), y: Double(sample.value))
+            let (_, _, hour) = Utils.getDate(unixdate: sample.time, format: "hh:mm a")
             lineDataEntry.append (sugarLevel)
-            i += 1
+            hours.append(hour)
+            i = i + 1
         }
         
         var circleColors: [UIColor] = []
         let color = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         circleColors.append(color)
         let chartDataSet = LineChartDataSet(values: lineDataEntry, label: "Time")
-        
-        var xAxisDate = Utils.getCurrentLocalDate()
-        xAxisDate.addTimeInterval(TimeInterval(-3600))
         
         _ = Calendar.current
         
@@ -46,10 +47,10 @@ class ChartManager {
         chart.rightAxis.drawGridLinesEnabled = false
         chart.leftAxis.drawGridLinesEnabled = false
         chart.leftAxis.drawLabelsEnabled = false
-        chart.leftAxis.drawLabelsEnabled = false
+        //chart.leftAxis.drawLabelsEnabled = false
         chart.leftAxis.enabled = false
         chart.rightAxis.drawAxisLineEnabled = false
-        chart.xAxis.enabled = false
+        //chart.xAxis.enabled = false
         chart.legend.enabled = false
         chart.chartDescription?.enabled = false
         chart.rightAxis.axisMinimum = 40
@@ -60,7 +61,7 @@ class ChartManager {
         chartDataSet.fill = Fill.fillWithLinearGradient(gradient, angle: 90.0)
         chartDataSet.drawFilledEnabled = true
         
-        let chartData = LineChartData()
+        chartData = LineChartData()
         chartData.addDataSet(chartDataSet)
         chart.xAxis.labelPosition = .bottom
         chart.xAxis.labelTextColor = UIColor.white
@@ -73,7 +74,14 @@ class ChartManager {
         bl.lineColor = UIColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 1.0)
         chart.rightAxis.addLimitLine(ll)
         chart.rightAxis.addLimitLine(bl)
-        chart.setVisibleXRangeMaximum(36)
-        chart.moveViewToX(252)
+        let xScale: CGFloat = 288 / 38
+        chart.zoom(scaleX: xScale, scaleY: 0.0, x: 0.0, y: 0.0)
+        chart.moveViewToX(288 - 38)
+        chart.xAxis.valueFormatter = IndexAxisValueFormatter(values:hours)
+        chart.xAxis.granularity = 1
+    }
+    
+    public func fulltimeView(){
+        chart.zoom(scaleX: 0, scaleY: 0, x: 0, y: 0)
     }
 }

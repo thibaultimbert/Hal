@@ -18,11 +18,13 @@ class ViewController: UIViewController {
     @IBOutlet weak var detailsLeft: UILabel!
     @IBOutlet weak var current: UILabel!
     @IBOutlet weak var news: UILabel!
+    @IBOutlet weak var fulltime: UIButton!
     @IBOutlet weak var myChart: LineChartView!
     
     public var hkManager: HKManager!
     public var dxBridge: DexcomBridge!
     private var gradientLayer = CAGradientLayer()
+    private var chartManager: ChartManager!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,7 +92,7 @@ class ViewController: UIViewController {
             infosLeft +=  "\nVariation: " + String (round(Math.computeSD(samples: results)))
             infosLeft += "\nAverage: " + String (round(Math.computeAverage(samples: results))) + " mg/dL"
             
-            _ = ChartManager(lineChart: self.myChart, data: results)
+            self.chartManager = ChartManager(lineChart: self.myChart, data: results)
             
             // calculate distribution
             let highs: [BGSample] = Math.computeHighBG(samples: results)
@@ -127,6 +129,10 @@ class ViewController: UIViewController {
         
         // login to dexcom apis
         dxBridge.login()
+    }
+    
+    @IBAction func fullTime(_ sender: Any) {
+        chartManager.fulltimeView()
     }
 
     override func didReceiveMemoryWarning() {
