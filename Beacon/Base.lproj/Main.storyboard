@@ -22,7 +22,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HbY-f2-xeG" customClass="LineChartView" customModule="Charts">
-                                <rect key="frame" x="18" y="373" width="341" height="255"/>
+                                <rect key="frame" x="18" y="368" width="341" height="255"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -41,25 +41,38 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zx0-wx-dg8" userLabel="News">
-                                <rect key="frame" x="24" y="171" width="327" height="63"/>
+                                <rect key="frame" x="24" y="169" width="327" height="63"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="luD-E4-aPR" userLabel="DetailsLeft">
-                                <rect key="frame" x="24" y="204" width="327" height="233"/>
+                                <rect key="frame" x="24" y="190" width="327" height="233"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3oI-Tn-Rgv">
-                                <rect key="frame" x="165" y="634" width="61" height="30"/>
+                                <rect key="frame" x="210" y="629" width="61" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="24 hours"/>
+                                <state key="normal" title="24 hours">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
                                 <connections>
                                     <action selector="fullTime:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GAZ-Hw-4aq"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KEu-yn-E84">
+                                <rect key="frame" x="106" y="629" width="86" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Last 3 hours">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
+                                <connections>
+                                    <action selector="fullTime:" destination="BYZ-38-t0r" eventType="touchUpInside" id="khu-YO-oXF"/>
+                                    <action selector="last3Hours:" destination="BYZ-38-t0r" eventType="touchUpInside" id="82T-Xs-Uqs"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -72,6 +85,7 @@
                         <outlet property="myChart" destination="HbY-f2-xeG" id="L6f-EV-ZDV"/>
                         <outlet property="myLabel" destination="wM5-WV-y5v" id="7Io-1x-r05"/>
                         <outlet property="news" destination="Zx0-wx-dg8" id="nUu-Yh-wk9"/>
+                        <outlet property="recent" destination="KEu-yn-E84" id="7iL-5B-nxS"/>
                         <outlet property="today" destination="wM5-WV-y5v" id="UOs-pg-gD2"/>
                     </connections>
                 </viewController>

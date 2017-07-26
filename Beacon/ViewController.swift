@@ -19,6 +19,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var current: UILabel!
     @IBOutlet weak var news: UILabel!
     @IBOutlet weak var fulltime: UIButton!
+    @IBOutlet weak var recent: UIButton!
     @IBOutlet weak var myChart: LineChartView!
     
     public var hkManager: HKManager!
@@ -52,7 +53,7 @@ class ViewController: UIViewController {
         
         // font setup
         let font = UIFont(name: ".SFUIText-Semibold", size :14)
-        let bodyFont = UIFont(name: ".SFUIText-Semibold", size :14)
+        let bodyFont = UIFont(name: ".SFUIText-Semibold", size :11)
         let headerFont = UIFont(name: ".SFUIText-Semibold", size :28)
         let newsFont = UIFont(name: ".SF-Pro-Display-Thin", size :18)
         
@@ -60,6 +61,8 @@ class ViewController: UIViewController {
         detailsLeft.font = bodyFont
         news.font = newsFont
         current.font = headerFont
+        fulltime.titleLabel?.font = bodyFont
+        recent.titleLabel?.font = bodyFont
         
         let (_, _, todayString) = Utils.getDate(unixdate: Int(Date().timeIntervalSince1970), format: "EEEE, MMMM, dd, yyyy")
         today.text = "Today\n"+todayString
@@ -135,6 +138,10 @@ class ViewController: UIViewController {
         chartManager.fulltimeView()
     }
 
+    @IBAction func last3Hours(_ sender: Any) {
+        chartManager.recentView()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

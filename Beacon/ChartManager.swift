@@ -74,14 +74,18 @@ class ChartManager {
         bl.lineColor = UIColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 1.0)
         chart.rightAxis.addLimitLine(ll)
         chart.rightAxis.addLimitLine(bl)
-        let xScale: CGFloat = 288 / 38
-        chart.zoom(scaleX: xScale, scaleY: 0.0, x: 0.0, y: 0.0)
-        chart.moveViewToX(288 - 38)
         chart.xAxis.valueFormatter = IndexAxisValueFormatter(values:hours)
         chart.xAxis.granularity = 1
+        recentView()
     }
     
     public func fulltimeView(){
         chart.zoom(scaleX: 0, scaleY: 0, x: 0, y: 0)
+    }
+    
+    public func recentView(){
+        let xScale: CGFloat = 288 / 38
+        chart.zoom(scaleX: xScale, scaleY: 0.0, x: 0.0, y: 0.0)
+        chart.moveViewToX(288 - 38)
     }
 }
