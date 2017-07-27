@@ -142,6 +142,7 @@ enum EventType: String
     case authorized
     case bloodSamples
     case loggedIn
+    case selection
 }
 
 // Wrapper to make T dispatch a change event

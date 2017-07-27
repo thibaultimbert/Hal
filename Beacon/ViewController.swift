@@ -79,6 +79,14 @@ class ViewController: UIViewController {
             // get blood glucose levels from Dexcom
             self.dxBridge.getGlucoseValues(token: DexcomBridge.TOKEN)
         })
+        
+        let onSelection = EventHandler(function: {
+            (event: Event) in
+            // get blood glucose levels from Dexcom
+            let (_, _, sampleDate) = Utils.getDate(unixdate: Int(self.chartManager.selectedSample.time))
+            self.current.text = sampleDate + "\n" + String (describing: self.chartManager.selectedSample.value) + " mg/DL " + self.chartManager.selectedSample.trend
+        })
+        
         let DXBloodSamples = EventHandler(function: {
             (event: Event) in
             
@@ -96,6 +104,7 @@ class ViewController: UIViewController {
             infosLeft += "\nAverage: " + String (round(Math.computeAverage(samples: results))) + " mg/dL"
             
             self.chartManager = ChartManager(lineChart: self.myChart, data: results)
+            self.chartManager.addEventListener(type: EventType.selection, handler: onSelection)
             
             // calculate distribution
             let highs: [BGSample] = Math.computeHighBG(samples: results)

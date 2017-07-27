@@ -9,12 +9,13 @@
 import Foundation
 import Charts
 
-class ChartManager {
+class ChartManager: EventDispatcher, ChartViewDelegate {
     
     private let chart: LineChartView
     private let samples: [BGSample]
     private var hours: [String] = []
     private var chartData: LineChartData!
+    public var selectedSample: BGSample!
     
     init (lineChart: LineChartView, data: [BGSample]){
         
@@ -77,6 +78,13 @@ class ChartManager {
         chart.xAxis.valueFormatter = IndexAxisValueFormatter(values:hours)
         chart.xAxis.granularity = 1
         recentView()
+        chart.delegate = self as ChartViewDelegate
+    }
+    
+    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+        let pos = Int(entry.x)
+        selectedSample = samples[pos]
+        self.dispatchEvent(event: Event(type: EventType.selection, target: self))
     }
     
     public func fulltimeView(){

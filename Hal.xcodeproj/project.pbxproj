@@ -12,7 +12,6 @@
 		042FD2E61F2498AC00A6DF49 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042FD2E51F2498AB00A6DF49 /* Utils.swift */; };
 		042FD2EA1F2696AD00A6DF49 /* ChartManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042FD2E91F2696AD00A6DF49 /* ChartManager.swift */; };
 		042FD2ED1F26ABAE00A6DF49 /* rob.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 042FD2EC1F26ABAE00A6DF49 /* rob.jpg */; };
-		043701F51F294745001EF6E7 /* LineChartFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043701F41F294745001EF6E7 /* LineChartFormatter.swift */; };
 		04471C9E1F181AB900F1023A /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04471C9D1F181AB900F1023A /* UserNotifications.framework */; };
 		04471CA01F18982200F1023A /* HKManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04471C9F1F18982200F1023A /* HKManager.swift */; };
 		04471CA21F1898DD00F1023A /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04471CA11F1898DD00F1023A /* Math.swift */; };
@@ -135,7 +134,6 @@
 		042FD2E51F2498AB00A6DF49 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utils.swift; path = ../Utils.swift; sourceTree = "<group>"; };
 		042FD2E91F2696AD00A6DF49 /* ChartManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartManager.swift; sourceTree = "<group>"; };
 		042FD2EC1F26ABAE00A6DF49 /* rob.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = rob.jpg; sourceTree = "<group>"; };
-		043701F41F294745001EF6E7 /* LineChartFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineChartFormatter.swift; sourceTree = "<group>"; };
 		04471C9D1F181AB900F1023A /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		04471C9F1F18982200F1023A /* HKManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HKManager.swift; sourceTree = "<group>"; };
 		04471CA11F1898DD00F1023A /* Math.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
@@ -223,7 +221,6 @@
 			isa = PBXGroup;
 			children = (
 				042FD2E91F2696AD00A6DF49 /* ChartManager.swift */,
-				043701F41F294745001EF6E7 /* LineChartFormatter.swift */,
 			);
 			name = Chart;
 			sourceTree = "<group>";
@@ -633,7 +630,6 @@
 			files = (
 				04471CA01F18982200F1023A /* HKManager.swift in Sources */,
 				04471CA41F18A29000F1023A /* EventDispatcher.swift in Sources */,
-				043701F51F294745001EF6E7 /* LineChartFormatter.swift in Sources */,
 				042FD2E61F2498AC00A6DF49 /* Utils.swift in Sources */,
 				044CEDEA1F169E4E005CBD0E /* Beacon.xcdatamodeld in Sources */,
 				042701281F1EB7D000133257 /* DexcomBridge.swift in Sources */,
