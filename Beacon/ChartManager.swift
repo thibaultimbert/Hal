@@ -16,11 +16,15 @@ class ChartManager: EventDispatcher, ChartViewDelegate {
     private var chartData: LineChartData!
     public var selectedSample: BGSample!
     public var position: Int!
-    public let samples: [BGSample]
+    public var samples: [BGSample]!
     
-    init (lineChart: LineChartView, data: [BGSample]){
+    init (lineChart: LineChartView){
         
         chart = lineChart
+    }
+    
+    public func setData(data: [BGSample]){
+        
         samples = data.reversed()
         
         var lineDataEntry: [ChartDataEntry] = [ChartDataEntry]()
@@ -49,10 +53,8 @@ class ChartManager: EventDispatcher, ChartViewDelegate {
         chart.rightAxis.drawGridLinesEnabled = false
         chart.leftAxis.drawGridLinesEnabled = false
         chart.leftAxis.drawLabelsEnabled = false
-        //chart.leftAxis.drawLabelsEnabled = false
         chart.leftAxis.enabled = false
         chart.rightAxis.drawAxisLineEnabled = false
-        //chart.xAxis.enabled = false
         chart.legend.enabled = false
         chart.chartDescription?.enabled = false
         chart.rightAxis.axisMinimum = 40
@@ -82,7 +84,7 @@ class ChartManager: EventDispatcher, ChartViewDelegate {
         chart.delegate = self as ChartViewDelegate
     }
     
-    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+    internal func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
         position = Int(entry.x)
         selectedSample = samples[position]
         self.dispatchEvent(event: Event(type: EventType.selection, target: self))
