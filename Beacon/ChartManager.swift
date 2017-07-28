@@ -12,10 +12,11 @@ import Charts
 class ChartManager: EventDispatcher, ChartViewDelegate {
     
     private let chart: LineChartView
-    private let samples: [BGSample]
     private var hours: [String] = []
     private var chartData: LineChartData!
     public var selectedSample: BGSample!
+    public var position: Int!
+    public let samples: [BGSample]
     
     init (lineChart: LineChartView, data: [BGSample]){
         
@@ -82,8 +83,8 @@ class ChartManager: EventDispatcher, ChartViewDelegate {
     }
     
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
-        let pos = Int(entry.x)
-        selectedSample = samples[pos]
+        position = Int(entry.x)
+        selectedSample = samples[position]
         self.dispatchEvent(event: Event(type: EventType.selection, target: self))
     }
     

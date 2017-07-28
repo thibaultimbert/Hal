@@ -13,7 +13,7 @@ class BGSample: EventDispatcher{
     public var value: Int = 0
     public let time: Int
     public var trend: String
-    public var trends: [String] = ["\u{2913}", "\u{2191}\u{2191}", "\u{2192}", "\u{2198}", "\u{2192}", "\u{2913}", "\u{2912}", "\u{2912}"]
+    public var trends: [String] = ["\u{2913}", "\u{2191}\u{2191}", "\u{2192}", "\u{2197}", "\u{2192}", "\u{2193}\u{2193}", "\u{2912}", "\u{2912}"]
     
     init (pValue: Int, pTime: Int, pTrend: Int){
         value = pValue

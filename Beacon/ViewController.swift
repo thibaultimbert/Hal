@@ -19,6 +19,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var current: UILabel!
     @IBOutlet weak var news: UILabel!
     @IBOutlet weak var fulltime: UIButton!
+    @IBOutlet weak var difference: UILabel!
     @IBOutlet weak var recent: UIButton!
     @IBOutlet weak var myChart: LineChartView!
     
@@ -30,6 +31,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        myChart.noDataText = ""
         gradientLayer.frame = self.view.bounds
         
         let color1 = UIColor(red: 0.32, green: 0.49, blue: 0.54, alpha: 0.1).cgColor as CGColor
@@ -52,20 +54,21 @@ class ViewController: UIViewController {
         self.view.layer.insertSublayer(gradientLayer, at: 1)
         
         // font setup
-        let font = UIFont(name: ".SFUIText-Semibold", size :14)
+        let font = UIFont(name: ".SFUIText-Semibold", size :18)
         let bodyFont = UIFont(name: ".SFUIText-Semibold", size :11)
         let headerFont = UIFont(name: ".SFUIText-Semibold", size :28)
         let newsFont = UIFont(name: ".SF-Pro-Display-Thin", size :18)
         
-        myLabel.font = font
+       // myLabel.font = font
         detailsLeft.font = bodyFont
         news.font = newsFont
         current.font = headerFont
+        difference.font = font
         fulltime.titleLabel?.font = bodyFont
         recent.titleLabel?.font = bodyFont
         
-        let (_, _, todayString) = Utils.getDate(unixdate: Int(Date().timeIntervalSince1970), format: "EEEE, MMMM, dd, yyyy")
-        today.text = "Today\n"+todayString
+        //let (_, _, todayString) = Utils.getDate(unixdate: Int(Date().timeIntervalSince1970), format: "EEEE, MMMM, dd, yyyy")
+        //today.text = "Today\n"+todayString
         news.text = "You are doing great! An increase of 53% in normal levels and dropped your A1C by 0.8%!"
         
         detailsLeft.text = "Initializing..."
@@ -84,6 +87,17 @@ class ViewController: UIViewController {
             (event: Event) in
             // get blood glucose levels from Dexcom
             let (_, _, sampleDate) = Utils.getDate(unixdate: Int(self.chartManager.selectedSample.time))
+            let position: Int = self.chartManager.position
+            if ( position > 0 ) {
+                let delta: Int = self.chartManager.samples[position].value - self.chartManager.samples[position-1].value
+                var difference: String = String (describing: delta)
+                if (delta > 0) {
+                    difference = "+" + difference
+                }
+                self.difference.text = String (describing: difference)
+            } else {
+                self.difference.text = ""
+            }
             self.current.text = sampleDate + "\n" + String (describing: self.chartManager.selectedSample.value) + " mg/DL " + self.chartManager.selectedSample.trend
         })
         
@@ -133,7 +147,6 @@ class ViewController: UIViewController {
             infosLeft += " "+String(describing: lowRatio) + " hours total"
             
             self.detailsLeft.text = infosLeft
-            print(infosLeft)
         })
         
         // wait for Dexcom data

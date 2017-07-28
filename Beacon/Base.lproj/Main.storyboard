@@ -26,15 +26,8 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wM5-WV-y5v" userLabel="Time Window">
-                                <rect key="frame" x="16" y="20" width="307" height="42"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g5V-ak-N4U" userLabel="Current">
-                                <rect key="frame" x="24" y="79" width="327" height="86"/>
+                                <rect key="frame" x="24" y="45" width="327" height="86"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -48,7 +41,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="luD-E4-aPR" userLabel="DetailsLeft">
-                                <rect key="frame" x="24" y="190" width="327" height="233"/>
+                                <rect key="frame" x="24" y="185" width="327" height="233"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -75,18 +68,24 @@
                                     <action selector="last3Hours:" destination="BYZ-38-t0r" eventType="touchUpInside" id="82T-Xs-Uqs"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jA0-yz-zTZ" userLabel="Difference">
+                                <rect key="frame" x="140" y="106" width="95" height="64"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.039775862749067525" green="0.0087312171772184477" blue="0.10255424222797926" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </view>
                     <connections>
                         <outlet property="current" destination="g5V-ak-N4U" id="Tor-2v-Eiu"/>
                         <outlet property="detailsLeft" destination="luD-E4-aPR" id="Gvo-Dn-Ybg"/>
+                        <outlet property="difference" destination="jA0-yz-zTZ" id="rB0-9V-07V"/>
                         <outlet property="fulltime" destination="3oI-Tn-Rgv" id="eb3-Ck-eT1"/>
                         <outlet property="myChart" destination="HbY-f2-xeG" id="L6f-EV-ZDV"/>
-                        <outlet property="myLabel" destination="wM5-WV-y5v" id="7Io-1x-r05"/>
                         <outlet property="news" destination="Zx0-wx-dg8" id="nUu-Yh-wk9"/>
                         <outlet property="recent" destination="KEu-yn-E84" id="7iL-5B-nxS"/>
-                        <outlet property="today" destination="wM5-WV-y5v" id="UOs-pg-gD2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
