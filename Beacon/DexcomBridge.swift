@@ -65,8 +65,12 @@ class DexcomBridge: EventDispatcher{
                             }
                         }
                     }
-                    self.dispatchEvent(event: Event(type: EventType.bloodSamples, target: self))
+                    
                 }
+                DispatchQueue.main.async(execute: {
+                    //perform all UI stuff here
+                    self.dispatchEvent(event: Event(type: EventType.bloodSamples, target: self))
+                })
             }
         }).resume()
     }
@@ -97,8 +101,11 @@ class DexcomBridge: EventDispatcher{
                         }
                     }
                     completion(UIBackgroundFetchResult.newData)
-                    self.dispatchEvent(event: Event(type: EventType.bloodSamples, target: self))
                 }
+                DispatchQueue.main.async(execute: {
+                    //perform all UI stuff here
+                    self.dispatchEvent(event: Event(type: EventType.bloodSamples, target: self))
+                })
             }
         }).resume()
     }

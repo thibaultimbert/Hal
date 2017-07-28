@@ -133,6 +133,7 @@ class ViewController: UIViewController {
             infosLeft += " "+String(describing: lowRatio) + " hours total"
             
             self.detailsLeft.text = infosLeft
+            print(infosLeft)
         })
         
         // wait for Dexcom data
