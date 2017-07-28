@@ -17,15 +17,34 @@ class ChartManager: EventDispatcher, ChartViewDelegate {
     public var selectedSample: BGSample!
     public var position: Int!
     public var samples: [BGSample]!
+    private var inited: DarwinBoolean = false
+    private var zoomed: DarwinBoolean = true
     
     init (lineChart: LineChartView){
         
         chart = lineChart
+        chart.delegate = self as ChartViewDelegate
+        
+        chart.xAxis.granularity = 1
+        chart.xAxis.labelPosition = .bottom
+        chart.xAxis.labelTextColor = UIColor.white
+        chart.rightAxis.labelTextColor = UIColor.white
+        
+        chart.xAxis.drawGridLinesEnabled = false
+        chart.rightAxis.drawGridLinesEnabled = false
+        chart.leftAxis.drawGridLinesEnabled = false
+        chart.leftAxis.drawLabelsEnabled = false
+        chart.leftAxis.enabled = false
+        chart.rightAxis.drawAxisLineEnabled = false
+        chart.legend.enabled = false
+        chart.chartDescription?.enabled = false
+        chart.rightAxis.axisMinimum = 40
     }
     
     public func setData(data: [BGSample]){
         
         samples = data.reversed()
+        hours.removeAll()
         
         var lineDataEntry: [ChartDataEntry] = [ChartDataEntry]()
         
@@ -38,9 +57,6 @@ class ChartManager: EventDispatcher, ChartViewDelegate {
             i = i + 1
         }
         
-        var circleColors: [UIColor] = []
-        let color = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        circleColors.append(color)
         let chartDataSet = LineChartDataSet(values: lineDataEntry, label: "Time")
         
         _ = Calendar.current
@@ -49,29 +65,20 @@ class ChartManager: EventDispatcher, ChartViewDelegate {
         chartDataSet.drawValuesEnabled = false
         chartDataSet.circleRadius = 2.0
         
-        chart.xAxis.drawGridLinesEnabled = false
-        chart.rightAxis.drawGridLinesEnabled = false
-        chart.leftAxis.drawGridLinesEnabled = false
-        chart.leftAxis.drawLabelsEnabled = false
-        chart.leftAxis.enabled = false
-        chart.rightAxis.drawAxisLineEnabled = false
-        chart.legend.enabled = false
-        chart.chartDescription?.enabled = false
-        chart.rightAxis.axisMinimum = 40
-        
         let gradientColors = [UIColor.red.cgColor, UIColor.clear.cgColor, UIColor.clear.cgColor] as CFArray
         let colorLocations: [CGFloat] = [1.0, 0.57, 0.0]
         guard let gradient = CGGradient.init(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: gradientColors, locations: colorLocations) else { print ("gradient error"); return }
+        
         chartDataSet.fill = Fill.fillWithLinearGradient(gradient, angle: 90.0)
         chartDataSet.drawFilledEnabled = true
         
         chartData = LineChartData()
         chartData.addDataSet(chartDataSet)
-        chart.xAxis.labelPosition = .bottom
-        chart.xAxis.labelTextColor = UIColor.white
-        chart.rightAxis.labelTextColor = UIColor.white
         chart.data = chartData
-        chart.animate(xAxisDuration: 2.0, yAxisDuration: 2.0, easingOption: .easeInBounce)
+        if ( !inited.boolValue ) {
+            chart.animate(xAxisDuration: 2.0, yAxisDuration: 2.0, easingOption: .easeInBounce)
+            inited = true
+        }
         let ll = ChartLimitLine(limit: 150.0)
         ll.lineColor = UIColor(red: 246/255, green: 188/255, blue: 11/255, alpha: 1.0)
         let bl = ChartLimitLine(limit: 70)
@@ -79,22 +86,26 @@ class ChartManager: EventDispatcher, ChartViewDelegate {
         chart.rightAxis.addLimitLine(ll)
         chart.rightAxis.addLimitLine(bl)
         chart.xAxis.valueFormatter = IndexAxisValueFormatter(values:hours)
-        chart.xAxis.granularity = 1
-        recentView()
-        chart.delegate = self as ChartViewDelegate
+        if ( zoomed.boolValue ) {
+            recentView()
+        } else {
+            fulltimeView()
+        }
     }
     
     internal func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
         position = Int(entry.x)
         selectedSample = samples[position]
-        self.dispatchEvent(event: Event(type: EventType.selection, target: self))
+        dispatchEvent(event: Event(type: EventType.selection, target: self))
     }
     
     public func fulltimeView(){
+        zoomed = false
         chart.zoom(scaleX: 0, scaleY: 0, x: 0, y: 0)
     }
     
     public func recentView(){
+        zoomed = true
         let xScale: CGFloat = 288 / 38
         chart.zoom(scaleX: xScale, scaleY: 0.0, x: 0.0, y: 0.0)
         chart.moveViewToX(288 - 38)

@@ -98,7 +98,7 @@ class ViewController: UIViewController {
         
         if (firstTime).boolValue{
             firstTime = false
-            timer = Timer.scheduledTimer(timeInterval: 360, target: self, selector: #selector(update), userInfo: nil, repeats: true)
+            timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(update), userInfo: nil, repeats: true)
         }
         
         // reference the result (Array of BGSample)
