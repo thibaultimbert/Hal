@@ -37,7 +37,6 @@ class DexcomBridge: EventDispatcher{
                         let parsedToken = string.replacingOccurrences(of: "\"", with: "", options: .literal, range: nil)
                         DexcomBridge.TOKEN = parsedToken
                         self.dispatchEvent(event: Event(type: EventType.loggedIn, target: self))
-                        print("result")
                     } else {
                             print("not a valid UTF-8 sequence")
                     }

@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import Beacon
+@testable import Hal
 
 class BeaconTests: XCTestCase {
     

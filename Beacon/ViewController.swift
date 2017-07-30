@@ -22,7 +22,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var myChart: LineChartView!
     
     public var quotes: [String] = ["Diabetics are naturally sweet.",
-                                   "Shout out to all of us fighting a battle that most people don't understand.",
+                                   "You are Type-One-Der-Ful.",
                                    "Watch out, I am a diabadass.",
                                     "Fall asleep and your pancreas is mine!",
                                     "I am not ill, my pancreas is just lazy."]
@@ -69,7 +69,7 @@ class ViewController: UIViewController {
         // font setup
         let font = UIFont(name: ".SFUIText-Semibold", size :18)
         bodyFont = UIFont(name: ".SFUIText-Semibold", size :11)
-        quoteFont = UIFont(name: ".SFUIText-Semibold", size :28)
+        quoteFont = UIFont(name: ".SFUIText-Semibold", size :20)
         let headerFont = UIFont(name: ".SFUIText-Semibold", size :26)
         let newsFont = UIFont(name: ".SF-Pro-Display-Thin", size :18)
         
@@ -87,15 +87,21 @@ class ViewController: UIViewController {
         chartManager = ChartManager(lineChart: myChart)
         let selectionHandler = EventHandler(function: onSelection)
         chartManager.addEventListener(type: EventType.selection, handler: selectionHandler)
-    
-        // Do any additional setup after loading the view, typically from a nib.
-        // initialize the Dexcom bridge
-        dxBridge = DexcomBridge()
-    
+        
         let DXLoggedIn = EventHandler(function: self.onLoggedIn)
         let DXBloodSamples = EventHandler(function: self.onBloodSamples)
         let authLoginHandler = EventHandler (function: self.authLoginFailed)
         let glucoseIOHandler = EventHandler (function: self.glucoseIOFailed)
+        let hkAuthorizedHandler = EventHandler (function: self.onHKAuthorization)
+        let hkHeartRateHandler = EventHandler (function: self.onHKHeartRate)
+    
+        // Do any additional setup after loading the view, typically from a nib.
+        // initialize the Dexcom bridge
+        dxBridge = DexcomBridge()
+        hkManager = HKManager()
+        hkManager.getHealthKitPermission()
+        hkManager.addEventListener(type: EventType.authorized, handler: hkAuthorizedHandler)
+        hkManager.addEventListener(type: EventType.heartRate, handler: hkHeartRateHandler)
         
         // wait for Dexcom data
         dxBridge.addEventListener(type: .bloodSamples, handler: DXBloodSamples)
@@ -127,6 +133,7 @@ class ViewController: UIViewController {
         var infosLeft: String = ""
         
         // display results
+        infosLeft +=  "\nAvg/BPM: " + String(ceil(Math.computeAverage(samples: hkManager.heartRates)))
         infosLeft +=  "\nA1C: " + String(round(Math.A1C(samples: results)))
         infosLeft +=  "\nGlycemic Variability: " + String (round(Math.computeSD(samples: results)))
         infosLeft += "\nAverage: " + String (round(Math.computeAverage(samples: results))) + " mg/dL"
@@ -186,12 +193,18 @@ class ViewController: UIViewController {
         dxBridge.getGlucoseValues()
     }
     
+    public func onHKHeartRate (event: Event){}
+    
     public func authLoginFailed (event: Event){
         details.text = "Oops, you seem to be offline 😢\nPlease, find some network and try again."
     }
     
     public func glucoseIOFailed (event: Event){
-        details.text = "Couldn't load your latest glucose readings, retrying in 5 minutes."
+        details.text = "Couldn't load your latest glucose readings, retrying now..."
+    }
+    
+    public func onHKAuthorization (event: Event){
+        hkManager.getHeartRate()
     }
     
     public func getRandomQuote() -> String{
@@ -201,6 +214,7 @@ class ViewController: UIViewController {
     
     @objc func update() {
         dxBridge.getGlucoseValues()
+        hkManager.getHeartRate()
     }
     
     @IBAction func fullTime(_ sender: Any) {

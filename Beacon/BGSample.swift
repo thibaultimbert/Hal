@@ -21,3 +21,5 @@ class BGSample: EventDispatcher{
         trend = trends[pTrend]
     }
 }
+
+class HeartRateSample: BGSample {}
