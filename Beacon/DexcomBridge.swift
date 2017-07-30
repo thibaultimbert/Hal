@@ -27,7 +27,10 @@ class DexcomBridge: EventDispatcher{
         dataTask?.cancel()
         dataTask = URLSession.shared.dataTask(with:request) { data, response, error in
             if error != nil {
-                print(error as Any)
+                DispatchQueue.main.async(execute: {
+                    //perform all UI stuff here
+                    self.dispatchEvent(event: Event(type: EventType.authLoginError, target: self))
+                })
             } else {
                 do {
                     if let string = String(data: data!, encoding: .utf8) {
@@ -53,7 +56,10 @@ class DexcomBridge: EventDispatcher{
         dataTask?.cancel()
         dataTask = URLSession.shared.dataTask(with:request) { data, response, error in
             if error != nil {
-                print(error as Any)
+                DispatchQueue.main.async(execute: {
+                    //perform all UI stuff here
+                    self.dispatchEvent(event: Event(type: EventType.glucoseIOError, target: self))
+                })
             } else {
                 do {
                     guard let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [Any] else {

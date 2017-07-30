@@ -18,7 +18,7 @@ class ChartManager: EventDispatcher, ChartViewDelegate {
     public var position: Int!
     public var samples: [BGSample]!
     private var inited: DarwinBoolean = false
-    private var zoomed: DarwinBoolean = true
+    private var zoomed: DarwinBoolean = false
     
     init (lineChart: LineChartView){
         
@@ -86,7 +86,7 @@ class ChartManager: EventDispatcher, ChartViewDelegate {
         chart.rightAxis.addLimitLine(ll)
         chart.rightAxis.addLimitLine(bl)
         chart.xAxis.valueFormatter = IndexAxisValueFormatter(values:hours)
-        if ( zoomed.boolValue ) {
+        if (zoomed.boolValue) {
             recentView()
         } else {
             fulltimeView()

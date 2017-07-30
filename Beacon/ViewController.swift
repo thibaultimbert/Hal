@@ -13,13 +13,19 @@ import Charts
 
 class ViewController: UIViewController {
     
-    @IBOutlet weak var detailsLeft: UILabel!
     @IBOutlet weak var current: UILabel!
     @IBOutlet weak var news: UILabel!
     @IBOutlet weak var fulltime: UIButton!
     @IBOutlet weak var difference: UILabel!
+    @IBOutlet weak var details: UILabel!
     @IBOutlet weak var recent: UIButton!
     @IBOutlet weak var myChart: LineChartView!
+    
+    public var quotes: [String] = ["Diabetics are naturally sweet.",
+                                   "Shout out to all of us fighting a battle that most people don't understand.",
+                                   "Watch out, I am a diabadass.",
+                                    "Fall asleep and your pancreas is mine!",
+                                    "I am not ill, my pancreas is just lazy."]
     
     public var hkManager: HKManager!
     public var dxBridge: DexcomBridge!
@@ -28,6 +34,8 @@ class ViewController: UIViewController {
     private var timer: Timer!
     private var firstTime:DarwinBoolean = true
     private var results: [BGSample]!
+    private var bodyFont: UIFont!
+    private var quoteFont: UIFont!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +43,7 @@ class ViewController: UIViewController {
         myChart.noDataText = ""
         recent.alpha = 0
         fulltime.alpha = 0
+        news.alpha = 0
         
         gradientLayer.frame = self.view.bounds
         
@@ -59,11 +68,12 @@ class ViewController: UIViewController {
         
         // font setup
         let font = UIFont(name: ".SFUIText-Semibold", size :18)
-        let bodyFont = UIFont(name: ".SFUIText-Semibold", size :11)
-        let headerFont = UIFont(name: ".SFUIText-Semibold", size :28)
+        bodyFont = UIFont(name: ".SFUIText-Semibold", size :11)
+        quoteFont = UIFont(name: ".SFUIText-Semibold", size :28)
+        let headerFont = UIFont(name: ".SFUIText-Semibold", size :26)
         let newsFont = UIFont(name: ".SF-Pro-Display-Thin", size :18)
         
-        detailsLeft.font = bodyFont
+        details.font = quoteFont
         news.font = newsFont
         current.font = headerFont
         difference.font = font
@@ -71,8 +81,7 @@ class ViewController: UIViewController {
         recent.titleLabel?.font = bodyFont
         
         news.text = "You are doing great! An increase of 53% in normal levels and dropped your A1C by 0.8%!"
-        
-        detailsLeft.text = "Initializing..."
+        details.text = getRandomQuote()
         
         // charts UI
         chartManager = ChartManager(lineChart: myChart)
@@ -85,10 +94,14 @@ class ViewController: UIViewController {
     
         let DXLoggedIn = EventHandler(function: self.onLoggedIn)
         let DXBloodSamples = EventHandler(function: self.onBloodSamples)
+        let authLoginHandler = EventHandler (function: self.authLoginFailed)
+        let glucoseIOHandler = EventHandler (function: self.glucoseIOFailed)
         
         // wait for Dexcom data
         dxBridge.addEventListener(type: .bloodSamples, handler: DXBloodSamples)
         dxBridge.addEventListener(type: .loggedIn, handler: DXLoggedIn)
+        dxBridge.addEventListener(type: .authLoginError, handler: authLoginHandler)
+        dxBridge.addEventListener(type: .glucoseIOError, handler: glucoseIOHandler)
         
         // login to dexcom apis
         dxBridge.login()
@@ -115,11 +128,13 @@ class ViewController: UIViewController {
         
         // display results
         infosLeft +=  "\nA1C: " + String(round(Math.A1C(samples: results)))
-        infosLeft +=  "\nVariation: " + String (round(Math.computeSD(samples: results)))
+        infosLeft +=  "\nGlycemic Variability: " + String (round(Math.computeSD(samples: results)))
         infosLeft += "\nAverage: " + String (round(Math.computeAverage(samples: results))) + " mg/dL"
         
         recent.alpha = 1
         fulltime.alpha = 1
+        news.alpha = 1
+        details.font = bodyFont
         
         // calculate distribution
         let highs: [BGSample] = Math.computeHighBG(samples: results)
@@ -147,7 +162,7 @@ class ViewController: UIViewController {
         infosLeft += "\nLows: " + String ( lowsPercentage.roundTo(places: 2) * 100 ) + "%"
         infosLeft += " "+String(describing: lowRatio) + " hours total"
         
-        detailsLeft.text = infosLeft
+        details.text = infosLeft
     }
     
     public func onSelection(event: Event){
@@ -169,7 +184,20 @@ class ViewController: UIViewController {
     public func onLoggedIn(event: Event){
         // get blood glucose levels from Dexcom
         dxBridge.getGlucoseValues()
-    } 
+    }
+    
+    public func authLoginFailed (event: Event){
+        details.text = "Oops, you seem to be offline 😢\nPlease, find some network and try again."
+    }
+    
+    public func glucoseIOFailed (event: Event){
+        details.text = "Couldn't load your latest glucose readings, retrying in 5 minutes."
+    }
+    
+    public func getRandomQuote() -> String{
+        let randomIndex = Int(arc4random_uniform(UInt32(quotes.count)))
+        return quotes[randomIndex]
+    }
     
     @objc func update() {
         dxBridge.getGlucoseValues()

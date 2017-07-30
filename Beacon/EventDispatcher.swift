@@ -143,6 +143,8 @@ enum EventType: String
     case bloodSamples
     case loggedIn
     case selection
+    case glucoseIOError
+    case authLoginError
 }
 
 // Wrapper to make T dispatch a change event
