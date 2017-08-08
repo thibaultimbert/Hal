@@ -38,7 +38,9 @@ class ChartManager: EventDispatcher, ChartViewDelegate {
         chart.rightAxis.drawAxisLineEnabled = false
         chart.legend.enabled = false
         chart.chartDescription?.enabled = false
-        chart.rightAxis.axisMinimum = 40
+        //chart.rightAxis.axisMinimum = 40
+        //chart.rightAxis.axisMaximum = 400
+        chart.doubleTapToZoomEnabled = false
     }
     
     public func setData(data: [BGSample]){

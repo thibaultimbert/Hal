@@ -28,10 +28,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+    func application(_ application: UIApplication, performFetchWithCompletionHandler handler: @escaping (UIBackgroundFetchResult) -> Void) {
         if let vc = window?.rootViewController as? ViewController {
-            //vc.dxBridge.getGlucoseValues2(token: DexcomBridge.TOKEN, completion: completionHandler)
-            print ("pulling latest levels...")
+            vc.dxBridge.getGlucoseValues(token: DexcomBridge.TOKEN)
         }
     }
     
