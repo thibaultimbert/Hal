@@ -140,7 +140,61 @@ class ChartManager: EventDispatcher, ChartViewDelegate {
         let a = Math.multiply(a: d2x_dt2, b: dy_dt)
         let b = Math.multiply(a: dx_dt, b: d2y_dt2)
         
-        print ( Math.subtract(a: a, b: b) )
+        let aminusb = Math.subtract(a: a, b: b)
+        
+        let c = Math.multiply(a: dx_dt, b: dx_dt)
+        let d = Math.multiply(a: dy_dt, b: dy_dt)
+        
+        let cplusd = Math.add(a: c, b: d).map ({(value: Double) -> Double in return pow(value, 1.5)})
+        
+        let curvature = Math.divide (a: aminusb, b: cplusd).map ({(value: Double) -> Double in return abs(value)})
+        
+        var tcomponent: [[Double]] = []
+        
+        for i in 0..<d2s_dt2.count {
+            var temp: [Double] = []
+            temp.append (d2s_dt2[i])
+            temp.append (d2s_dt2[i])
+            tcomponent.append(temp)
+        }
+        
+        let c_ds_dt = Math.multiply(a: Math.multiply(a: curvature, b: ds_dt), b: ds_dt)
+        
+        var ncomponent: [[Double]] = []
+        
+        for i in 0..<c_ds_dt.count {
+            var temp: [Double] = []
+            temp.append (c_ds_dt[i])
+            temp.append (c_ds_dt[i])
+            ncomponent.append(temp)
+        }
+        
+        var t_comp_tangent: [[Double]] = []
+        var n_comp_normal: [[Double]] = []
+        var acceleration: [[Double]] = []
+        
+        for i in 0..<tcomponent.count {
+            var temp: [Double] = []
+            temp.append (tcomponent[i][0]*tangent[i][0])
+            temp.append (tcomponent[i][1]*tangent[i][1])
+            t_comp_tangent.append(temp)
+        }
+        
+        for i in 0..<ncomponent.count {
+            var temp: [Double] = []
+            temp.append (ncomponent[i][0]*normal[i][0])
+            temp.append (ncomponent[i][1]*normal[i][1])
+            n_comp_normal.append(temp)
+        }
+        
+        for i in 0..<ncomponent.count {
+            var temp: [Double] = []
+            temp.append (t_comp_tangent[i][0]+n_comp_normal[i][0])
+            temp.append (t_comp_tangent[i][1]+n_comp_normal[i][1])
+            acceleration.append(temp)
+        }
+        
+        print ( acceleration )
         
         let chartDataSet = LineChartDataSet(values: lineDataEntry, label: "Time")
         

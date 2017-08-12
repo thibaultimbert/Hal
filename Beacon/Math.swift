@@ -74,6 +74,10 @@ class Math {
         return zip(a, b).map { $0 + $1 }
     }
     
+    static func divide (a: [Double], b: [Double]) -> [Double] {
+        return zip(a, b).map { $0 / $1 }
+    }
+    
     static func transpose (samples: [Double]) -> [[Double]] {
         var buffer: [[Double]] = []
         for i in samples {
@@ -84,7 +88,7 @@ class Math {
         }
         return buffer;
     }
-    
+
     static func gradient(samples: [Double]) -> [Double] {
         var buffer: [Double] = []
         let end = samples.count-1
