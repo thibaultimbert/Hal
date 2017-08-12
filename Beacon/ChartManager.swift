@@ -59,6 +59,89 @@ class ChartManager: EventDispatcher, ChartViewDelegate {
             i = i + 1
         }
         
+        let fs: Int = 100
+        let f: Int = 4
+        
+        var dx_dt: [Double] = []
+        var dy_dt: [Double] = []
+        var x: Double
+        var y: Double
+        var inc : Double
+        
+        for i in 0..<fs {
+            inc = Double (i)
+            x = Double(i * 5)
+            y = sin(2*Double.pi*Double(Double(f) * (inc/Double(fs))))
+            dx_dt.append(x)
+            dy_dt.append(y)
+        }
+        
+        dx_dt = Math.gradient(samples: dx_dt)
+        dy_dt = Math.gradient(samples: dy_dt)
+        
+        let multipliedDx: [Double] = Math.multiply(a: dx_dt, b: dx_dt)
+        let multipliedDy: [Double] = Math.multiply(a: dy_dt, b: dy_dt)
+        let ds_dt = Math.sqrt ( samples: Math.add ( a: multipliedDx, b: multipliedDy ) )
+        
+        let normalized: [Double] = ds_dt.map ({(value: Double) -> Double in return 1 / value})
+        var t: [[Double]] = Math.transpose(samples: normalized)
+        var tangent: [[Double]] = []
+        var velocity: [[Double]] = []
+        
+        for i in 0..<dx_dt.count {
+            var temp: [Double] = []
+            temp.append (dx_dt[i])
+            temp.append (dy_dt[i])
+            velocity.append(temp)
+        }
+        
+        for i in 0..<t.count {
+            var temp: [Double] = []
+            temp.append (t[i][0]*velocity[i][0])
+            temp.append (t[i][1]*velocity[i][1])
+            tangent.append(temp)
+        }
+        
+        var tangent_x: [Double] = tangent.map ({(value: [Double]) -> Double in return value[0]})
+        var tangent_y: [Double] = tangent.map ({(value: [Double]) -> Double in return value[1]})
+        
+        var deriv_tangent_x: [Double] = Math.gradient(samples: tangent_x)
+        var deriv_tangent_y: [Double] = Math.gradient(samples: tangent_y)
+        
+        var dT_dt: [[Double]] = []
+        
+        for i in 0..<deriv_tangent_x.count {
+            var temp: [Double] = []
+            temp.append (deriv_tangent_x[i])
+            temp.append (deriv_tangent_y[i])
+            dT_dt.append(temp)
+        }
+        
+        let multipliedtx: [Double] = Math.multiply(a: deriv_tangent_x, b: deriv_tangent_x)
+        let multipliedty: [Double] = Math.multiply(a: deriv_tangent_y, b: deriv_tangent_y)
+        let length_dT_dt = Math.sqrt ( samples: Math.add ( a: multipliedtx, b: multipliedty ) )
+        
+        let normalized2: [Double] = length_dT_dt.map ({(value: Double) -> Double in return 1 / value})
+        var n: [[Double]] = Math.transpose(samples: normalized2)
+
+        var normal: [[Double]] = []
+        
+        for i in 0..<n.count {
+            var temp: [Double] = []
+            temp.append (n[i][0]*dT_dt[i][0])
+            temp.append (n[i][1]*dT_dt[i][1])
+            normal.append(temp)
+        }
+        
+        let d2s_dt2 = Math.gradient(samples: ds_dt)
+        let d2x_dt2 = Math.gradient(samples: dx_dt)
+        let d2y_dt2 = Math.gradient(samples: dy_dt)
+        
+        let a = Math.multiply(a: d2x_dt2, b: dy_dt)
+        let b = Math.multiply(a: dx_dt, b: d2y_dt2)
+        
+        print ( Math.subtract(a: a, b: b) )
+        
         let chartDataSet = LineChartDataSet(values: lineDataEntry, label: "Time")
         
         _ = Calendar.current

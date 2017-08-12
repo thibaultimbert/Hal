@@ -8,6 +8,7 @@
 
 import Foundation
 import HealthKit
+import Charts
 
 class Math {
     
@@ -55,6 +56,44 @@ class Math {
         let lowBG: Double = 80
         let highBG: Double = 150.0
         return samples.filter { Double($0.value) > lowBG && Double($0.value) < highBG }
+    }
+    
+    static func sqrt (samples: [Double]) -> [Double] {
+        return samples.map({(value: Double) -> Double in return value.squareRoot()})
+    }
+    
+    static func multiply (a: [Double], b: [Double]) -> [Double] {
+        return zip(a, b).map { $0 * $1 }
+    }
+    
+    static func add (a: [Double], b: [Double]) -> [Double] {
+        return zip(a, b).map { $0 + $1 }
+    }
+    
+    static func subtract (a: [Double], b: [Double]) -> [Double] {
+        return zip(a, b).map { $0 + $1 }
+    }
+    
+    static func transpose (samples: [Double]) -> [[Double]] {
+        var buffer: [[Double]] = []
+        for i in samples {
+            var temp: [Double] = []
+            temp.append(i)
+            temp.append(i)
+            buffer.append(temp)
+        }
+        return buffer;
+    }
+    
+    static func gradient(samples: [Double]) -> [Double] {
+        var buffer: [Double] = []
+        let end = samples.count-1
+        buffer.append((samples[1] - samples[0])/1)
+        for i in 1...end-1 {
+            buffer.append ((samples[i+1] - samples[i-1])/2)
+        }
+        buffer.append((samples[samples.count-1] - samples[samples.count-2])/1)
+        return buffer
     }
 }
 
