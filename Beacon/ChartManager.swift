@@ -60,7 +60,7 @@ class ChartManager: EventDispatcher, ChartViewDelegate {
         }
         
         let fs: Int = 100
-        let f: Int = 4
+        let f = 4
         
         var dx_dt: [Double] = []
         var dy_dt: [Double] = []
@@ -194,7 +194,15 @@ class ChartManager: EventDispatcher, ChartViewDelegate {
             acceleration.append(temp)
         }
         
-        print ( acceleration )
+        var sum: Double = 0
+        
+        for i in 0..<acceleration.count-1 {
+            var current = acceleration[i]
+            var next = acceleration[i+1]
+            sum += abs(next[1] - current[1])
+        }
+        
+        print ((sum/Double(fs))*100)
         
         let chartDataSet = LineChartDataSet(values: lineDataEntry, label: "Time")
         
