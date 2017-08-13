@@ -17,6 +17,7 @@ class ChartManager: EventDispatcher, ChartViewDelegate {
     public var selectedSample: BGSample!
     public var position: Int!
     public var samples: [BGSample]!
+    public var curvature: Double!
     private var inited: DarwinBoolean = false
     private var zoomed: DarwinBoolean = false
     
@@ -64,7 +65,7 @@ class ChartManager: EventDispatcher, ChartViewDelegate {
             i = i + 1
         }
         
-        print ( Math.curvature(x: dx_dt, y: dy_dt) )
+        curvature = Math.curvature(x: dx_dt, y: dy_dt)
         
         let chartDataSet = LineChartDataSet(values: lineDataEntry, label: "Time")
         

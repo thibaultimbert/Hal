@@ -122,6 +122,7 @@ class ViewController: UIViewController {
         infosLeft +=  "\nA1C: " + String(round(Math.A1C(samples: results)))
         infosLeft +=  "\nGlycemic Variability: " + String (round(Math.computeSD(samples: results)))
         infosLeft += "\nAverage: " + String (round(Math.computeAverage(samples: results))) + " mg/dL"
+        infosLeft += "\nAcceleration: " + String (chartManager.curvature.roundTo(places: 2))
         
         recent.alpha = 1
         fulltime.alpha = 1
