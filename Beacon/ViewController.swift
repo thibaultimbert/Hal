@@ -117,11 +117,14 @@ class ViewController: UIViewController {
         // details UI
         var infosLeft: String = ""
         
+        let average: Double = round(Math.computeAverage(samples: results))
+        let maxSD: Double = average / 3
+        
         // display results
         infosLeft +=  "\nAvg/BPM: " + String(ceil(Math.computeAverage(samples: hkManager.heartRates)))
         infosLeft +=  "\nA1C: " + String(round(Math.A1C(samples: results)))
-        infosLeft +=  "\nGlycemic Variability: " + String (round(Math.computeSD(samples: results)))
-        infosLeft += "\nAverage: " + String (round(Math.computeAverage(samples: results))) + " mg/dL"
+        infosLeft +=  "\nStandard Deviation: " + String (round(Math.computeSD(samples: results))) + ", should not be above: " + String(maxSD)
+        infosLeft += "\nAverage: " + String (average) + " mg/dL"
         infosLeft += "\nAcceleration: " + String (chartManager.curvature.roundTo(places: 2))
         
         recent.alpha = 1

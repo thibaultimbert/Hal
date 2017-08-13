@@ -127,8 +127,8 @@ class Math {
             tangent.append(temp)
         }
         
-        var tangent_x: [Double] = tangent.map ({(value: [Double]) -> Double in return value[0]})
-        var tangent_y: [Double] = tangent.map ({(value: [Double]) -> Double in return value[1]})
+        let tangent_x: [Double] = tangent.map ({(value: [Double]) -> Double in return value[0]})
+        let tangent_y: [Double] = tangent.map ({(value: [Double]) -> Double in return value[1]})
         
         var deriv_tangent_x: [Double] = Math.gradient(samples: tangent_x)
         var deriv_tangent_y: [Double] = Math.gradient(samples: tangent_y)

@@ -86,7 +86,7 @@ class ChartManager: EventDispatcher, ChartViewDelegate {
         chartData.addDataSet(chartDataSet)
         chart.data = chartData
         if ( !inited.boolValue ) {
-            chart.animate(xAxisDuration: 2.0, yAxisDuration: 2.0, easingOption: .easeInBounce)
+            chart.animate(xAxisDuration: 2.0, yAxisDuration: 2.0, easingOption: .easeInOutQuart)
             inited = true
         }
         let ll = ChartLimitLine(limit: 150.0)
