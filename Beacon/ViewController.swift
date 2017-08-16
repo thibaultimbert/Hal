@@ -123,7 +123,7 @@ class ViewController: UIViewController {
         // display results
         infosLeft +=  "\nAvg/BPM: " + String(ceil(Math.computeAverage(samples: hkManager.heartRates)))
         infosLeft +=  "\nA1C: " + String(round(Math.A1C(samples: results)))
-        infosLeft +=  "\nStandard Deviation: " + String (round(Math.computeSD(samples: results))) + ", should not be above: " + String(maxSD)
+        infosLeft +=  "\nStandard Deviation: " + String (round(Math.computeSD(samples: results))) + ", should not be above: " + String(maxSD.roundTo(places: 2))
         infosLeft += "\nAverage: " + String (average) + " mg/dL"
         infosLeft += "\nAcceleration: " + String (chartManager.curvature.roundTo(places: 2))
         

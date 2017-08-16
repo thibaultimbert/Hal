@@ -24,13 +24,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
-        
         return true
     }
     
-    func application(_ application: UIApplication, performFetchWithCompletionHandler handler: @escaping (UIBackgroundFetchResult) -> Void) {
+    func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         if let vc = window?.rootViewController as? ViewController {
             vc.dxBridge.getGlucoseValues(token: DexcomBridge.TOKEN)
+            completionHandler(.newData)
         }
     }
     
