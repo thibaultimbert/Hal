@@ -66,16 +66,17 @@ class DexcomBridge: EventDispatcher{
                         return
                     }
                     self.bloodSamples.removeAll()
-                    for sample in json! {
-                        if let bloodSample = sample as? [String: AnyObject] {
-                            if let value = bloodSample["Value"] as? Double, let date = bloodSample["ST"] as? String, let trend = bloodSample["Trend"] as? Float {
-                                let timeStamp = date.components(separatedBy: "(")[1].components(separatedBy: ")")[0].components(separatedBy: "-")[0]
-                                let convertedTime: Int = Int(timeStamp)!/1000
-                                self.bloodSamples.append(BGSample(pValue: Int(value), pTime: convertedTime, pTrend: Int(trend)))
+                    if let data = json {
+                        for sample in data {
+                            if let bloodSample = sample as? [String: AnyObject] {
+                                if let value = bloodSample["Value"] as? Double, let date = bloodSample["ST"] as? String, let trend = bloodSample["Trend"] as? Float {
+                                    let timeStamp = date.components(separatedBy: "(")[1].components(separatedBy: ")")[0].components(separatedBy: "-")[0]
+                                    let convertedTime: Int = Int(timeStamp)!/1000
+                                    self.bloodSamples.append(BGSample(pValue: Int(value), pTime: convertedTime, pTrend: Int(trend)))
+                                }
                             }
                         }
                     }
-                    
                 }
                 DispatchQueue.main.async(execute: {
                     //perform all UI stuff here
