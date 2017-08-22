@@ -96,6 +96,7 @@ class ChartManager: EventDispatcher, ChartViewDelegate {
         chart.rightAxis.addLimitLine(ll)
         chart.rightAxis.addLimitLine(bl)
         chart.xAxis.valueFormatter = IndexAxisValueFormatter(values:hours)
+
         if (zoomed.boolValue) {
             recentView()
         } else {
@@ -115,9 +116,11 @@ class ChartManager: EventDispatcher, ChartViewDelegate {
     }
     
     public func recentView(){
+        if ( zoomed.boolValue == false ) {
+            let xScale: CGFloat = 288 / 38
+            chart.zoom(scaleX: xScale, scaleY: 0.0, x: 0.0, y: 0.0)
+            chart.moveViewToX(288 - 38)
+        }
         zoomed = true
-        let xScale: CGFloat = 288 / 38
-        chart.zoom(scaleX: xScale, scaleY: 0.0, x: 0.0, y: 0.0)
-        chart.moveViewToX(288 - 38)
     }
 }

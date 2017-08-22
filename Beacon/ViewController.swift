@@ -10,6 +10,7 @@ import UIKit
 import HealthKit
 import UserNotifications
 import Charts
+import Lottie
 
 class ViewController: UIViewController {
     
@@ -36,12 +37,34 @@ class ViewController: UIViewController {
     private var results: [BGSample]!
     private var bodyFont: UIFont!
     private var quoteFont: UIFont!
+    private var animationView: LOTAnimationView!
+    private var heartView: LOTAnimationView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        animationView = LOTAnimationView(name: "loader")
+        animationView.tintColor = UIColor.lightGray
+        animationView.frame = CGRect(x: 110, y: 195, width: 150, height: 150)
+        animationView.loopAnimation = true
+        animationView.play{ (finished) in
+            // Do Something
+        }
+        self.view.addSubview(animationView)
+        
+        heartView = LOTAnimationView(name: "heart")
+        heartView.tintColor = UIColor.lightGray
+        heartView.frame = CGRect(x: 125, y: 234, width: 25, height: 15)
+        heartView.loopAnimation = true
+        heartView.alpha = 0
+        heartView.play{ (finished) in
+            // Do Something
+        }
+        self.view.addSubview(heartView)
+        
         // disable dimming
         UIApplication.shared.isIdleTimerDisabled = true
+        
         // reset UI
         myChart.noDataText = ""
         recent.alpha = 0
@@ -54,11 +77,11 @@ class ViewController: UIViewController {
         // font setup
         let font = UIFont(name: ".SFUIText-Semibold", size :18)
         bodyFont = UIFont(name: ".SFUIText-Semibold", size :11)
-        quoteFont = UIFont(name: ".SFUIText-Semibold", size :20)
+        quoteFont = UIFont(name: ".SFUIText-Semibold", size :18)
         let headerFont = UIFont(name: ".SFUIText-Semibold", size :26)
         let newsFont = UIFont(name: ".SF-Pro-Display-Thin", size :18)
         
-        details.font = quoteFont
+        details.font = font
         news.font = newsFont
         current.font = headerFont
         difference.font = font
@@ -102,8 +125,12 @@ class ViewController: UIViewController {
         
         if (firstTime).boolValue{
             firstTime = false
+            heartView.alpha = 1
             timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(update), userInfo: nil, repeats: true)
         }
+        
+        animationView.stop()
+        animationView.removeFromSuperview()
         
         // reference the result (Array of BGSample)
         results = self.dxBridge.bloodSamples

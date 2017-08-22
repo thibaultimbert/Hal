@@ -14,11 +14,15 @@
 		042FD2ED1F26ABAE00A6DF49 /* rob.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 042FD2EC1F26ABAE00A6DF49 /* rob.jpg */; };
 		043701F81F396713001EF6E7 /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043701F71F396713001EF6E7 /* Background.swift */; };
 		043701FB1F4622B9001EF6E7 /* DLLocalNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043701FA1F4622B9001EF6E7 /* DLLocalNotifications.swift */; };
+		0437025D1F4A466E001EF6E7 /* Lottie.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0437025C1F4A466E001EF6E7 /* Lottie.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0437025E1F4A468D001EF6E7 /* Lottie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0437025C1F4A466E001EF6E7 /* Lottie.framework */; };
+		043702641F4A6817001EF6E7 /* preloader.json in Resources */ = {isa = PBXBuildFile; fileRef = 043702631F4A6816001EF6E7 /* preloader.json */; };
+		0437028C1F4BDC97001EF6E7 /* heart.json in Resources */ = {isa = PBXBuildFile; fileRef = 0437028B1F4BDC97001EF6E7 /* heart.json */; };
+		0437028F1F4BDE4B001EF6E7 /* loader.json in Resources */ = {isa = PBXBuildFile; fileRef = 0437028E1F4BDE4B001EF6E7 /* loader.json */; };
 		04471C9E1F181AB900F1023A /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04471C9D1F181AB900F1023A /* UserNotifications.framework */; };
 		04471CA01F18982200F1023A /* HKManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04471C9F1F18982200F1023A /* HKManager.swift */; };
 		04471CA21F1898DD00F1023A /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04471CA11F1898DD00F1023A /* Math.swift */; };
 		04471CA41F18A29000F1023A /* EventDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04471CA31F18A29000F1023A /* EventDispatcher.swift */; };
-		04471CA61F1ABC1D00F1023A /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04471CA51F1ABC1D00F1023A /* UserNotificationsUI.framework */; };
 		044CEDE21F169E4E005CBD0E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044CEDE11F169E4E005CBD0E /* AppDelegate.swift */; };
 		044CEDE41F169E4E005CBD0E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044CEDE31F169E4E005CBD0E /* ViewController.swift */; };
 		044CEDE71F169E4E005CBD0E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 044CEDE51F169E4E005CBD0E /* Main.storyboard */; };
@@ -95,6 +99,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		043702581F49F6CC001EF6E7 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				0437025D1F4A466E001EF6E7 /* Lottie.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		044CEE381F16C32D005CBD0E /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -138,6 +152,12 @@
 		042FD2EC1F26ABAE00A6DF49 /* rob.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = rob.jpg; sourceTree = "<group>"; };
 		043701F71F396713001EF6E7 /* Background.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Background.swift; path = ../Background.swift; sourceTree = "<group>"; };
 		043701FA1F4622B9001EF6E7 /* DLLocalNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DLLocalNotifications.swift; sourceTree = "<group>"; };
+		043702561F49F6BB001EF6E7 /* Lottie.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Lottie.framework; path = ../Phoenix/Carthage/Build/iOS/Lottie.framework; sourceTree = "<group>"; };
+		0437025A1F4A4650001EF6E7 /* Lottie.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Lottie.framework; path = Carthage/Build/iOS/Lottie.framework; sourceTree = "<group>"; };
+		0437025C1F4A466E001EF6E7 /* Lottie.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Lottie.framework; path = Carthage/Build/iOS/Lottie.framework; sourceTree = "<group>"; };
+		043702631F4A6816001EF6E7 /* preloader.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = preloader.json; path = ../../../Downloads/preloader.json; sourceTree = "<group>"; };
+		0437028B1F4BDC97001EF6E7 /* heart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = heart.json; path = ../../../Downloads/heart.json; sourceTree = "<group>"; };
+		0437028E1F4BDE4B001EF6E7 /* loader.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = loader.json; path = ../../../Downloads/loader.json; sourceTree = "<group>"; };
 		04471C9D1F181AB900F1023A /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		04471C9F1F18982200F1023A /* HKManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HKManager.swift; sourceTree = "<group>"; };
 		04471CA11F1898DD00F1023A /* Math.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
@@ -181,7 +201,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				04471CA61F1ABC1D00F1023A /* UserNotificationsUI.framework in Frameworks */,
+				0437025E1F4A468D001EF6E7 /* Lottie.framework in Frameworks */,
 				046D86E41F20FD1D000BC423 /* Charts.framework in Frameworks */,
 				04471C9E1F181AB900F1023A /* UserNotifications.framework in Frameworks */,
 				044CEE481F16E132005CBD0E /* HealthKit.framework in Frameworks */,
@@ -246,9 +266,20 @@
 			name = Notifications;
 			sourceTree = "<group>";
 		};
+		043702651F4A681A001EF6E7 /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				0437028B1F4BDC97001EF6E7 /* heart.json */,
+				0437028E1F4BDE4B001EF6E7 /* loader.json */,
+				043702631F4A6816001EF6E7 /* preloader.json */,
+			);
+			name = Animations;
+			sourceTree = "<group>";
+		};
 		044CEDD51F169E4E005CBD0E = {
 			isa = PBXGroup;
 			children = (
+				0437025C1F4A466E001EF6E7 /* Lottie.framework */,
 				046D86DB1F20FCDB000BC423 /* Charts.xcodeproj */,
 				044CEDE01F169E4E005CBD0E /* Hal */,
 				044CEDF81F169E4F005CBD0E /* BeaconTests */,
@@ -276,6 +307,7 @@
 			isa = PBXGroup;
 			children = (
 				044CEE3D1F16D076005CBD0E /* Beacon.entitlements */,
+				043702651F4A681A001EF6E7 /* Animations */,
 				042FD2EB1F269AD100A6DF49 /* Chart */,
 				046D86EE1F2237EA000BC423 /* Events */,
 				046D86ED1F2237E1000BC423 /* Remote */,
@@ -350,6 +382,8 @@
 		044CEE3E1F16D077005CBD0E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0437025A1F4A4650001EF6E7 /* Lottie.framework */,
+				043702561F49F6BB001EF6E7 /* Lottie.framework */,
 				04471CA51F1ABC1D00F1023A /* UserNotificationsUI.framework */,
 				04471C9D1F181AB900F1023A /* UserNotifications.framework */,
 				044CEE491F16E51D005CBD0E /* HealthKit.framework */,
@@ -412,6 +446,7 @@
 				044CEDDC1F169E4E005CBD0E /* Resources */,
 				044CEE3C1F16C32D005CBD0E /* Embed Watch Content */,
 				046D86E81F20FD1E000BC423 /* Embed Frameworks */,
+				043702581F49F6CC001EF6E7 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -599,6 +634,9 @@
 			files = (
 				044CEDEF1F169E4E005CBD0E /* LaunchScreen.storyboard in Resources */,
 				042FD2ED1F26ABAE00A6DF49 /* rob.jpg in Resources */,
+				0437028F1F4BDE4B001EF6E7 /* loader.json in Resources */,
+				0437028C1F4BDC97001EF6E7 /* heart.json in Resources */,
+				043702641F4A6817001EF6E7 /* preloader.json in Resources */,
 				044CEDEC1F169E4E005CBD0E /* Assets.xcassets in Resources */,
 				044CEDE71F169E4E005CBD0E /* Main.storyboard in Resources */,
 			);
@@ -845,6 +883,10 @@
 				CODE_SIGN_ENTITLEMENTS = Beacon/Beacon.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = KM42YNFQEY;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Beacon/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.beacon-app.scout";
@@ -862,6 +904,10 @@
 				CODE_SIGN_ENTITLEMENTS = Beacon/Beacon.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = KM42YNFQEY;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Beacon/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.beacon-app.scout";

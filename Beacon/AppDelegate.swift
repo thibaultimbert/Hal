@@ -29,8 +29,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let triggerDate = Date().addingTimeInterval(3)
         
-        print (triggerDate)
-        
         let firstNotification = DLNotification(identifier: "firstNotification", alertTitle: "Daily update", alertBody: "Good job, Thibault, your A1C has decreased 17% and your levels have been 9% more stable! 👌", date: triggerDate, repeats: .None)
         
         let scheduler = DLNotificationScheduler()

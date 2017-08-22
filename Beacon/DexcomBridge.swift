@@ -36,7 +36,10 @@ class DexcomBridge: EventDispatcher{
                     if let string = String(data: data!, encoding: .utf8) {
                         let parsedToken = string.replacingOccurrences(of: "\"", with: "", options: .literal, range: nil)
                         DexcomBridge.TOKEN = parsedToken
-                        self.dispatchEvent(event: Event(type: EventType.loggedIn, target: self))
+                        DispatchQueue.main.async(execute: {
+                            //perform all UI stuff here
+                            self.dispatchEvent(event: Event(type: EventType.loggedIn, target: self))
+                        })
                     } else {
                             print("not a valid UTF-8 sequence")
                     }
@@ -47,8 +50,8 @@ class DexcomBridge: EventDispatcher{
     }
     
     public func getGlucoseValues (token: String = DexcomBridge.TOKEN) {
-        let url = "https://share1.dexcom.com/ShareWebServices/Services/Publisher/ReadPublisherLatestGlucoseValues?sessionId="+token+"&minutes=1440&maxCount=288"
-        var request = URLRequest(url: URL(string: url)!)
+        let DATA_URL = "https://share1.dexcom.com/ShareWebServices/Services/Publisher/ReadPublisherLatestGlucoseValues?sessionId="+token+"&minutes=1440&maxCount=288"
+        var request = URLRequest(url: URL(string: DATA_URL)!)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         

@@ -12,14 +12,11 @@ import MapKit
 
 public class DLNotificationScheduler{
     
-    public init () {
-    
-    }
+    public init () {}
     
     public func cancelAlllNotifications () {
         
         UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-        
     }
     
     public func cancelNotification (notification: DLNotification) {
@@ -48,7 +45,6 @@ public class DLNotificationScheduler{
     
     private func convertToNotificationDateComponent (notification: DLNotification, repeatInterval: Repeats   ) -> DateComponents{
         
-        
         var newComponents = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second,], from: notification.fireDate!)
         
         if repeatInterval != .None {
@@ -74,7 +70,6 @@ public class DLNotificationScheduler{
     }
     
     public func scheduleNotification ( notification: DLNotification) -> String? {
-        
         
         if notification.scheduled {
             return nil
@@ -116,7 +111,7 @@ public class DLNotificationScheduler{
             notification.localNotificationRequest = UNNotificationRequest(identifier: notification.identifier!, content: content, trigger: trigger)
             
             let center = UNUserNotificationCenter.current()
-            center.add(notification.localNotificationRequest!, withCompletionHandler: {(error) in print ("completed") } )
+            center.add(notification.localNotificationRequest!, withCompletionHandler: {(error) in print ("Notification scheduled") } )
             notification.scheduled = true
         }
         
@@ -266,7 +261,5 @@ public class DLNotification {
         region?.notifyOnExit = false
         region?.notifyOnEntry = true
         self.region = region
-        
     }
 }
-
