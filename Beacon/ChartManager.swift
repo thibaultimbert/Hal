@@ -39,12 +39,15 @@ class ChartManager: EventDispatcher, ChartViewDelegate {
         chart.rightAxis.drawAxisLineEnabled = false
         chart.legend.enabled = false
         chart.chartDescription?.enabled = false
-        //chart.rightAxis.axisMinimum = 40
-        //chart.rightAxis.axisMaximum = 400
         chart.doubleTapToZoomEnabled = false
     }
     
-    public func setData(data: [BGSample]){
+    public func setData(data: [BGSample]?){
+        
+        // make sure there is data
+        guard let data = data, data.count > 0 else {
+            return
+        }
         
         samples = data.reversed()
         hours.removeAll()

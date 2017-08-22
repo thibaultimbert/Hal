@@ -68,8 +68,8 @@ class DexcomBridge: EventDispatcher{
                         print ("error trying to convert data to JSON")
                         return
                     }
-                    self.bloodSamples.removeAll()
                     if let data = json {
+                        self.bloodSamples.removeAll()
                         for sample in data {
                             if let bloodSample = sample as? [String: AnyObject] {
                                 if let value = bloodSample["Value"] as? Double, let date = bloodSample["ST"] as? String, let trend = bloodSample["Trend"] as? Float {

@@ -126,7 +126,7 @@ class ViewController: UIViewController {
         if (firstTime).boolValue{
             firstTime = false
             heartView.alpha = 1
-            timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(update), userInfo: nil, repeats: true)
+            timer = Timer.scheduledTimer(timeInterval: 240, target: self, selector: #selector(update), userInfo: nil, repeats: true)
         }
         
         animationView.stop()
