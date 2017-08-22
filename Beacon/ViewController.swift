@@ -179,11 +179,12 @@ class ViewController: UIViewController {
     
     public func onLoggedIn(event: Event){
         updateTimer?.invalidate()
-        updateTimer = Timer.scheduledTimer(timeInterval: 240, target: self, selector: #selector(update), userInfo: nil, repeats: true)
+        updateTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(update), userInfo: nil, repeats: true)
         updateTimer?.fire()
     }
     
     public func recover() {
+        updateTimer?.invalidate()
         recoverTimer?.invalidate()
         recoverTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(recoverUpdate), userInfo: nil, repeats: true)
     }
