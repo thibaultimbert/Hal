@@ -44,11 +44,6 @@ class ChartManager: EventDispatcher, ChartViewDelegate {
     
     public func setData(data: [BGSample]?){
         
-        // make sure there is data
-        guard let data = data, data.count > 0 else {
-            return
-        }
-        
         samples = data.reversed()
         hours.removeAll()
         

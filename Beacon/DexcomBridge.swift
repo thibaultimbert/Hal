@@ -79,12 +79,12 @@ class DexcomBridge: EventDispatcher{
                                 }
                             }
                         }
+                        DispatchQueue.main.async(execute: {
+                            //perform all UI stuff here
+                            self.dispatchEvent(event: Event(type: EventType.bloodSamples, target: self))
+                        })
                     }
                 }
-                DispatchQueue.main.async(execute: {
-                    //perform all UI stuff here
-                    self.dispatchEvent(event: Event(type: EventType.bloodSamples, target: self))
-                })
             }
         }
         dataTask?.resume()
