@@ -19,6 +19,7 @@
 		043702641F4A6817001EF6E7 /* preloader.json in Resources */ = {isa = PBXBuildFile; fileRef = 043702631F4A6816001EF6E7 /* preloader.json */; };
 		0437028C1F4BDC97001EF6E7 /* heart.json in Resources */ = {isa = PBXBuildFile; fileRef = 0437028B1F4BDC97001EF6E7 /* heart.json */; };
 		0437028F1F4BDE4B001EF6E7 /* loader.json in Resources */ = {isa = PBXBuildFile; fileRef = 0437028E1F4BDE4B001EF6E7 /* loader.json */; };
+		043702911F4C0547001EF6E7 /* AppIcon.appiconset in Resources */ = {isa = PBXBuildFile; fileRef = 043702901F4C0547001EF6E7 /* AppIcon.appiconset */; };
 		04471C9E1F181AB900F1023A /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04471C9D1F181AB900F1023A /* UserNotifications.framework */; };
 		04471CA01F18982200F1023A /* HKManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04471C9F1F18982200F1023A /* HKManager.swift */; };
 		04471CA21F1898DD00F1023A /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04471CA11F1898DD00F1023A /* Math.swift */; };
@@ -158,6 +159,7 @@
 		043702631F4A6816001EF6E7 /* preloader.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = preloader.json; path = ../../../Downloads/preloader.json; sourceTree = "<group>"; };
 		0437028B1F4BDC97001EF6E7 /* heart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = heart.json; path = ../../../Downloads/heart.json; sourceTree = "<group>"; };
 		0437028E1F4BDE4B001EF6E7 /* loader.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = loader.json; path = ../../../Downloads/loader.json; sourceTree = "<group>"; };
+		043702901F4C0547001EF6E7 /* AppIcon.appiconset */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AppIcon.appiconset; sourceTree = "<group>"; };
 		04471C9D1F181AB900F1023A /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		04471C9F1F18982200F1023A /* HKManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HKManager.swift; sourceTree = "<group>"; };
 		04471CA11F1898DD00F1023A /* Math.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
@@ -319,6 +321,7 @@
 				044CEDE11F169E4E005CBD0E /* AppDelegate.swift */,
 				044CEDE31F169E4E005CBD0E /* ViewController.swift */,
 				044CEDE51F169E4E005CBD0E /* Main.storyboard */,
+				043702901F4C0547001EF6E7 /* AppIcon.appiconset */,
 				044CEDEB1F169E4E005CBD0E /* Assets.xcassets */,
 				044CEDED1F169E4E005CBD0E /* LaunchScreen.storyboard */,
 				044CEDF01F169E4E005CBD0E /* Info.plist */,
@@ -632,6 +635,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				043702911F4C0547001EF6E7 /* AppIcon.appiconset in Resources */,
 				044CEDEF1F169E4E005CBD0E /* LaunchScreen.storyboard in Resources */,
 				042FD2ED1F26ABAE00A6DF49 /* rob.jpg in Resources */,
 				0437028F1F4BDE4B001EF6E7 /* loader.json in Resources */,
