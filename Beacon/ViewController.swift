@@ -32,7 +32,8 @@ class ViewController: UIViewController {
     public var dxBridge: DexcomBridge!
     private var chartManager: ChartManager!
     private var setupBg: Background!
-    private var timer: Timer!
+    private var updateTimer: Timer?
+    private var recoverTimer: Timer?
     private var firstTime:DarwinBoolean = true
     private var results: [BGSample]!
     private var bodyFont: UIFont!
@@ -42,25 +43,6 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        animationView = LOTAnimationView(name: "loader")
-        animationView.tintColor = UIColor.lightGray
-        animationView.frame = CGRect(x: 110, y: 195, width: 150, height: 150)
-        animationView.loopAnimation = true
-        animationView.play{ (finished) in
-            // Do Something
-        }
-        self.view.addSubview(animationView)
-        
-        heartView = LOTAnimationView(name: "heart")
-        heartView.tintColor = UIColor.lightGray
-        heartView.frame = CGRect(x: 125, y: 234, width: 25, height: 15)
-        heartView.loopAnimation = true
-        heartView.alpha = 0
-        heartView.play{ (finished) in
-            // Do Something
-        }
-        self.view.addSubview(heartView)
         
         // disable dimming
         UIApplication.shared.isIdleTimerDisabled = true
@@ -98,7 +80,7 @@ class ViewController: UIViewController {
         
         let DXLoggedIn = EventHandler(function: self.onLoggedIn)
         let DXBloodSamples = EventHandler(function: self.onBloodSamples)
-        let authLoginHandler = EventHandler (function: self.authLoginFailed)
+        let authLoginHandler = EventHandler (function: self.glucoseIOFailed)
         let glucoseIOHandler = EventHandler (function: self.glucoseIOFailed)
         let hkAuthorizedHandler = EventHandler (function: self.onHKAuthorization)
         let hkHeartRateHandler = EventHandler (function: self.onHKHeartRate)
@@ -122,15 +104,6 @@ class ViewController: UIViewController {
     }
     
     public func onBloodSamples(event: Event){
-        
-        if (firstTime).boolValue{
-            firstTime = false
-            heartView.alpha = 1
-            timer = Timer.scheduledTimer(timeInterval: 240, target: self, selector: #selector(update), userInfo: nil, repeats: true)
-        }
-        
-        animationView.stop()
-        animationView.removeFromSuperview()
         
         // reference the result (Array of BGSample)
         results = self.dxBridge.bloodSamples
@@ -205,18 +178,21 @@ class ViewController: UIViewController {
     }
     
     public func onLoggedIn(event: Event){
-        // get blood glucose levels from Dexcom
-        dxBridge.getGlucoseValues()
+        updateTimer?.invalidate()
+        updateTimer = Timer.scheduledTimer(timeInterval: 240, target: self, selector: #selector(update), userInfo: nil, repeats: true)
+        updateTimer?.fire()
+    }
+    
+    public func recover() {
+        recoverTimer?.invalidate()
+        recoverTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(recoverUpdate), userInfo: nil, repeats: true)
     }
     
     public func onHKHeartRate (event: Event){}
     
-    public func authLoginFailed (event: Event){
-        details.text = "Oops, you seem to be offline 😢\nPlease, find some network and try again."
-    }
-    
     public func glucoseIOFailed (event: Event){
-        details.text = "Couldn't load your latest glucose readings, retrying now..."
+        details.text = "Couldn't load your latest glucose readings.\nRetrying in 10 seconds..."
+        recover()
     }
     
     public func onHKAuthorization (event: Event){
@@ -226,6 +202,10 @@ class ViewController: UIViewController {
     public func getRandomQuote() -> String{
         let randomIndex = Int(arc4random_uniform(UInt32(quotes.count)))
         return quotes[randomIndex]
+    }
+    
+    @objc func recoverUpdate() {
+        dxBridge.login()
     }
     
     @objc func update() {

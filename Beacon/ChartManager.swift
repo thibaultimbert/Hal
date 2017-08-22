@@ -42,7 +42,7 @@ class ChartManager: EventDispatcher, ChartViewDelegate {
         chart.doubleTapToZoomEnabled = false
     }
     
-    public func setData(data: [BGSample]?){
+    public func setData(data: [BGSample]){
         
         samples = data.reversed()
         hours.removeAll()
