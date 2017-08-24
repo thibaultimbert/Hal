@@ -206,8 +206,10 @@ class ViewController: UIViewController {
     
     public func recover() {
         updateTimer?.invalidate()
-        recoverTimer?.invalidate()
-        recoverTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(recoverUpdate), userInfo: nil, repeats: true)
+        let when = DispatchTime.now() + 10
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            self.recoverUpdate()
+        }
     }
     
     public func onHKHeartRate (event: Event){}
