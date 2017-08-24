@@ -20,6 +20,8 @@
 		0437028C1F4BDC97001EF6E7 /* heart.json in Resources */ = {isa = PBXBuildFile; fileRef = 0437028B1F4BDC97001EF6E7 /* heart.json */; };
 		0437028F1F4BDE4B001EF6E7 /* loader.json in Resources */ = {isa = PBXBuildFile; fileRef = 0437028E1F4BDE4B001EF6E7 /* loader.json */; };
 		043702911F4C0547001EF6E7 /* AppIcon.appiconset in Resources */ = {isa = PBXBuildFile; fileRef = 043702901F4C0547001EF6E7 /* AppIcon.appiconset */; };
+		043702931F4D41A1001EF6E7 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043702921F4D41A1001EF6E7 /* DetailsViewController.swift */; };
+		043702951F4E49BF001EF6E7 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 043702941F4E49BF001EF6E7 /* CoreData.framework */; };
 		04471C9E1F181AB900F1023A /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04471C9D1F181AB900F1023A /* UserNotifications.framework */; };
 		04471CA01F18982200F1023A /* HKManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04471C9F1F18982200F1023A /* HKManager.swift */; };
 		04471CA21F1898DD00F1023A /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04471CA11F1898DD00F1023A /* Math.swift */; };
@@ -160,6 +162,8 @@
 		0437028B1F4BDC97001EF6E7 /* heart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = heart.json; path = ../../../Downloads/heart.json; sourceTree = "<group>"; };
 		0437028E1F4BDE4B001EF6E7 /* loader.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = loader.json; path = ../../../Downloads/loader.json; sourceTree = "<group>"; };
 		043702901F4C0547001EF6E7 /* AppIcon.appiconset */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AppIcon.appiconset; sourceTree = "<group>"; };
+		043702921F4D41A1001EF6E7 /* DetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
+		043702941F4E49BF001EF6E7 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		04471C9D1F181AB900F1023A /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		04471C9F1F18982200F1023A /* HKManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HKManager.swift; sourceTree = "<group>"; };
 		04471CA11F1898DD00F1023A /* Math.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
@@ -203,6 +207,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				043702951F4E49BF001EF6E7 /* CoreData.framework in Frameworks */,
 				0437025E1F4A468D001EF6E7 /* Lottie.framework in Frameworks */,
 				046D86E41F20FD1D000BC423 /* Charts.framework in Frameworks */,
 				04471C9E1F181AB900F1023A /* UserNotifications.framework in Frameworks */,
@@ -320,6 +325,7 @@
 				042FD2E81F2498FE00A6DF49 /* Utils */,
 				044CEDE11F169E4E005CBD0E /* AppDelegate.swift */,
 				044CEDE31F169E4E005CBD0E /* ViewController.swift */,
+				043702921F4D41A1001EF6E7 /* DetailsViewController.swift */,
 				044CEDE51F169E4E005CBD0E /* Main.storyboard */,
 				043702901F4C0547001EF6E7 /* AppIcon.appiconset */,
 				044CEDEB1F169E4E005CBD0E /* Assets.xcassets */,
@@ -385,6 +391,7 @@
 		044CEE3E1F16D077005CBD0E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				043702941F4E49BF001EF6E7 /* CoreData.framework */,
 				0437025A1F4A4650001EF6E7 /* Lottie.framework */,
 				043702561F49F6BB001EF6E7 /* Lottie.framework */,
 				04471CA51F1ABC1D00F1023A /* UserNotificationsUI.framework */,
@@ -695,6 +702,7 @@
 				044CEDE41F169E4E005CBD0E /* ViewController.swift in Sources */,
 				044CEDE21F169E4E005CBD0E /* AppDelegate.swift in Sources */,
 				043701FB1F4622B9001EF6E7 /* DLLocalNotifications.swift in Sources */,
+				043702931F4D41A1001EF6E7 /* DetailsViewController.swift in Sources */,
 				04471CA21F1898DD00F1023A /* Math.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -22,7 +22,6 @@ class ChartManager: EventDispatcher, ChartViewDelegate {
     private var zoomed: DarwinBoolean = false
     
     init (lineChart: LineChartView){
-        
         chart = lineChart
         chart.delegate = self as ChartViewDelegate
         
@@ -100,6 +99,8 @@ class ChartManager: EventDispatcher, ChartViewDelegate {
         } else {
             fulltimeView()
         }
+        position = Int((lineDataEntry.last?.x)!)
+        selectedSample = samples.last
     }
     
     internal func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {

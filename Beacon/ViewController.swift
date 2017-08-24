@@ -15,10 +15,10 @@ import Lottie
 class ViewController: UIViewController {
     
     @IBOutlet weak var current: UILabel!
-    @IBOutlet weak var news: UILabel!
     @IBOutlet weak var fulltime: UIButton!
     @IBOutlet weak var difference: UILabel!
-    @IBOutlet weak var details: UILabel!
+    @IBOutlet weak var detailsL: UILabel!
+    @IBOutlet weak var news: UILabel!
     @IBOutlet weak var recent: UIButton!
     @IBOutlet weak var myChart: LineChartView!
     
@@ -38,11 +38,17 @@ class ViewController: UIViewController {
     private var results: [BGSample]!
     private var bodyFont: UIFont!
     private var quoteFont: UIFont!
+    private var quoteText: UILabel!
     private var animationView: LOTAnimationView!
     private var heartView: LOTAnimationView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        /*
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+        swipeLeft.direction = UISwipeGestureRecognizerDirection.left
+        self.view.addGestureRecognizer(swipeLeft)*/
         
         // disable dimming
         UIApplication.shared.isIdleTimerDisabled = true
@@ -51,27 +57,30 @@ class ViewController: UIViewController {
         myChart.noDataText = ""
         recent.alpha = 0
         fulltime.alpha = 0
-        news.alpha = 0
         
         // setup background
         setupBg = Background (parent: self)
         
+        quoteText = UILabel()
+        quoteText.font = quoteFont
+        quoteText.text = getRandomQuote()
+        quoteText.center = CGPoint(x: self.view.frame.size.height/2, y: self.view.frame.size.width/2)
+        self.view.addSubview(quoteText)
+        
         // font setup
-        let font = UIFont(name: ".SFUIText-Semibold", size :18)
+        let detailsFont = UIFont(name: ".SFUIText-Semibold", size :12)
         bodyFont = UIFont(name: ".SFUIText-Semibold", size :11)
         quoteFont = UIFont(name: ".SFUIText-Semibold", size :18)
         let headerFont = UIFont(name: ".SFUIText-Semibold", size :26)
         let newsFont = UIFont(name: ".SF-Pro-Display-Thin", size :18)
         
-        details.font = font
-        news.font = newsFont
+        detailsL.font = detailsFont
         current.font = headerFont
-        difference.font = font
+        difference.font = newsFont
         fulltime.titleLabel?.font = bodyFont
         recent.titleLabel?.font = bodyFont
         
-        news.text = "You are doing great! An increase of 53% in normal levels and dropped your A1C by 0.8%!"
-        details.text = getRandomQuote()
+        news.text = "Congrats, your A1C has decreased by 7% in the past 24 hours."
         
         // charts UI
         chartManager = ChartManager(lineChart: myChart)
@@ -110,6 +119,7 @@ class ViewController: UIViewController {
         
         // update charts UI
         chartManager.setData(data: results)
+        self.onSelection(event: nil)
         
         let (_, _, sampleDate) = Utils.getDate(unixdate: Int(results[0].time))
         current.text = sampleDate + "\n" + String (describing: results[0].value) + " mg/DL " + results[0].trend
@@ -121,16 +131,15 @@ class ViewController: UIViewController {
         let maxSD: Double = average / 3
         
         // display results
-        infosLeft +=  "\nAvg/BPM: " + String(ceil(Math.computeAverage(samples: hkManager.heartRates)))
         infosLeft +=  "\nA1C: " + String(round(Math.A1C(samples: results)))
-        infosLeft +=  "\nStandard Deviation: " + String (round(Math.computeSD(samples: results))) + ", should not be above: " + String(maxSD.roundTo(places: 2))
+        //infosLeft +=  "\nStandard Deviation: " + String (round(Math.computeSD(samples: results))) + ", should not be above: " + String(maxSD.roundTo(places: 2))
         infosLeft += "\nAverage: " + String (average) + " mg/dL"
         infosLeft += "\nAcceleration: " + String (chartManager.curvature.roundTo(places: 2))
+        infosLeft +=  "\nBPM: " + String(ceil(Math.computeAverage(samples: hkManager.heartRates)))
         
         recent.alpha = 1
         fulltime.alpha = 1
         news.alpha = 1
-        details.font = bodyFont
         
         // calculate distribution
         let highs: [BGSample] = Math.computeHighBG(samples: results)
@@ -141,7 +150,7 @@ class ViewController: UIViewController {
         let averageNormal: Double = ceil(Math.computeAverage(samples: normal))
         let averageLow: Double = ceil(Math.computeAverage(samples: lows))
         
-        infosLeft += "\nAvg/High: " + String(describing: averageHigh.roundTo(places: 2)) + " \nAvg/Normal: " + String(describing: averageNormal.roundTo(places: 2)) + " \nAvg/Low: " + String(describing: averageLow.roundTo(places: 2))
+        infosLeft += "\nAvg/High: " + String(describing: averageHigh.roundTo(places: 2)) + " mg/dL \nAvg/Normal: " + String(describing: averageNormal.roundTo(places: 2)) + " mg/dL \nAvg/Low: " + String(describing: averageLow.roundTo(places: 2)) + " mg/dL"
         
         // percentages
         let highsPercentage : Double = Double (highs.count) / Double (results.count)
@@ -150,18 +159,18 @@ class ViewController: UIViewController {
         
         let highRatio: Double = (24.0 * highsPercentage).roundTo(places: 2)
         infosLeft += "\nHighs: " + String ( highsPercentage.roundTo(places: 2) * 100 ) + "%"
-        infosLeft += " "+String(describing: highRatio) + " hours total"
+       // infosRight += " "+String(describing: highRatio) + " hours total"
         let normalRatio: Double = (24.0 * normalRangePercentage).roundTo(places: 2)
         infosLeft += "\nNormal: " + String ( normalRangePercentage.roundTo(places: 2) * 100 ) + "%"
-        infosLeft += " "+String(describing: normalRatio) + " hours total"
+        //infosRight += " "+String(describing: normalRatio) + " hours total"
         let lowRatio: Double = (24.0 * lowsPercentage).roundTo(places: 2)
         infosLeft += "\nLows: " + String ( lowsPercentage.roundTo(places: 2) * 100 ) + "%"
-        infosLeft += " "+String(describing: lowRatio) + " hours total"
+        //infosRight += " "+String(describing: lowRatio) + " hours total"
         
-        details.text = infosLeft
+        detailsL.text = infosLeft
     }
     
-    public func onSelection(event: Event){
+    public func onSelection(event: Event?){
         let (_, _, sampleDate) = Utils.getDate(unixdate: Int(chartManager.selectedSample.time))
         let position: Int = chartManager.position
         if ( position > 0 ) {
@@ -177,9 +186,21 @@ class ViewController: UIViewController {
         current.text = sampleDate + "\n" + String (describing: chartManager.selectedSample.value) + " mg/DL " + self.chartManager.selectedSample.trend
     }
     
+    func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+            switch swipeGesture.direction {
+            case UISwipeGestureRecognizerDirection.left:
+                //left view controller
+                self.performSegue(withIdentifier: "Details", sender: self)
+            default:
+                break
+            }
+        }
+    }
+    
     public func onLoggedIn(event: Event){
         updateTimer?.invalidate()
-        updateTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(update), userInfo: nil, repeats: true)
+        updateTimer = Timer.scheduledTimer(timeInterval: 240, target: self, selector: #selector(update), userInfo: nil, repeats: true)
         updateTimer?.fire()
     }
     
@@ -192,7 +213,7 @@ class ViewController: UIViewController {
     public func onHKHeartRate (event: Event){}
     
     public func glucoseIOFailed (event: Event){
-        details.text = "Couldn't load your latest glucose readings.\nRetrying in 10 seconds..."
+        detailsL.text = "Couldn't load your latest glucose readings.\nRetrying in 10 seconds..."
         recover()
     }
     
