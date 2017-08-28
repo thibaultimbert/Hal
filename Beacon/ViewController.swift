@@ -11,6 +11,7 @@ import HealthKit
 import UserNotifications
 import Charts
 import Lottie
+import CoreData
 
 class ViewController: UIViewController {
     
@@ -41,9 +42,13 @@ class ViewController: UIViewController {
     private var quoteText: UILabel!
     private var animationView: LOTAnimationView!
     private var heartView: LOTAnimationView!
+    private var managedObjectContext: NSManagedObjectContext!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // initialize coredata
+        managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         
         /*
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
@@ -80,7 +85,9 @@ class ViewController: UIViewController {
         fulltime.titleLabel?.font = bodyFont
         recent.titleLabel?.font = bodyFont
         
-        news.text = "Congrats, your A1C has decreased by 7% in the past 24 hours."
+        // centers launch quote label
+        news.center = CGPoint(x: view.frame.width/2,y: view.frame.height/2);
+        news.text = getRandomQuote()
         
         // charts UI
         chartManager = ChartManager(lineChart: myChart)
@@ -114,8 +121,47 @@ class ViewController: UIViewController {
     
     public func onBloodSamples(event: Event){
         
+        // reposition encouragement label
+        news.center = CGPoint(x: view.frame.width/2,y: -165+view.frame.height/2);
+        news.text = "Congrats, Amy, your A1C has decreased by 7% in the past 24 hours. #goAmy"
+        
+        (UIApplication.shared.delegate as! AppDelegate).deleteSamplesData()
+        
         // reference the result (Array of BGSample)
         results = self.dxBridge.bloodSamples
+        
+        // initiate daily samples records
+        let dailySample = DailySamples(context: managedObjectContext)
+        dailySample.createdAt = Date() as NSDate
+        dailySample.name = "24 hour samples"
+        
+        var samples: [Any] = []
+        
+        // fill the results
+        for result in results {
+            let bgSample = GlucoseSample(context: managedObjectContext)
+            bgSample.time = Int32(result.time)
+            bgSample.value = Int32(result.value)
+            bgSample.trend = result.trend
+            samples.append(bgSample)
+        }
+        
+        let data = NSSet(array: samples)
+        
+        dailySample.samples = data
+        
+        // save in coredata
+        do {
+            try self.managedObjectContext.save()
+            
+        } catch { print ("error while saving data") }
+        
+        let samplesRequest: NSFetchRequest<NSFetchRequestResult> = DailySamples.fetchRequest()
+        
+        do{
+            let samples: [DailySamples] = try managedObjectContext.fetch(samplesRequest) as! [DailySamples]
+            let records = samples[0].samples
+        } catch { print ("error loading data") }
         
         // update charts UI
         chartManager.setData(data: results)
@@ -132,7 +178,7 @@ class ViewController: UIViewController {
         
         // display results
         infosLeft +=  "\nA1C: " + String(round(Math.A1C(samples: results)))
-        //infosLeft +=  "\nStandard Deviation: " + String (round(Math.computeSD(samples: results))) + ", should not be above: " + String(maxSD.roundTo(places: 2))
+        infosLeft +=  "\nStandard Deviation: " + String (round(Math.computeSD(samples: results))) + ", ideal below: " + String(maxSD.roundTo(places: 2))
         infosLeft += "\nAverage: " + String (average) + " mg/dL"
         infosLeft += "\nAcceleration: " + String (chartManager.curvature.roundTo(places: 2))
         infosLeft +=  "\nBPM: " + String(ceil(Math.computeAverage(samples: hkManager.heartRates)))

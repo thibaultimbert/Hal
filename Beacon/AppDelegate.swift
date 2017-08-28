@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import UserNotifications
+import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -134,6 +135,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-
+    
+    // MARK: - Core Data Blog Glucose Samples Deletion support
+    
+    func deleteSamplesData () {
+        let context = persistentContainer.viewContext
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = DailySamples.fetchRequest()
+        do {
+            let samples: [DailySamples] = try context.fetch(fetchRequest) as! [DailySamples]
+            for sample in samples {
+                context.delete(sample)
+                try context.save()
+            }
+        } catch {}
+    }
 }
 
