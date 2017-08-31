@@ -39,6 +39,7 @@ class ChartManager: EventDispatcher, ChartViewDelegate {
         chart.legend.enabled = false
         chart.chartDescription?.enabled = false
         chart.doubleTapToZoomEnabled = false
+        chart.xAxis.axisMinimum = 5.5;
     }
     
     public func setData(data: [BGSample]){
@@ -57,8 +58,8 @@ class ChartManager: EventDispatcher, ChartViewDelegate {
             dx_dt.append(sugarLevel.x)
             dy_dt.append(sugarLevel.y)
             let (_, _, hour) = Utils.getDate(unixdate: sample.time, format: "hh:mm a")
-            lineDataEntry.append (sugarLevel)
             hours.append(hour)
+            lineDataEntry.append (sugarLevel)
             i = i + 1
         }
         

@@ -21,19 +21,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        // iOS 10 support
-        if #available(iOS 10, *) {
-            UNUserNotificationCenter.current().requestAuthorization(options:[.badge, .alert, .sound]){ (granted, error) in }
-            application.registerForRemoteNotifications()
-        }
         
-        let triggerDate = Date().addingTimeInterval(3)
+        let defaults = UserDefaults.standard
         
-        let firstNotification = DLNotification(identifier: "firstNotification", alertTitle: "Daily update", alertBody: "Good job, Thibault, your A1C has decreased 17% and your levels have been 9% more stable! 👌", date: triggerDate, repeats: .None)
+        defaults.removeObject(forKey: "user")
+        defaults.removeObject(forKey: "password")
+
+        let user = defaults.string(forKey: "user")
+        let password = defaults.string(forKey: "password")
+        
+        
+        
+        let mainStoryboardIpad : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let initialViewControlleripad : UIViewController = mainStoryboardIpad.instantiateViewController(withIdentifier: "Login") as UIViewController
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        self.window?.rootViewController = initialViewControlleripad
+        self.window?.makeKeyAndVisible()
+        
+        /*
+         // Override point for customization after application launch.
+         // iOS 10 support
+         if #available(iOS 10, *) {
+         UNUserNotificationCenter.current().requestAuthorization(options:[.badge, .alert, .sound]){ (granted, error) in }
+         application.registerForRemoteNotifications()
+         }
+         
+        let triggerDate = Date().addingTimeInterval(10)
+        
+        let firstNotification = DLNotification(identifier: "firstNotification", alertTitle: "Daily report", alertBody: "Amy, today your A1C decreased by 17%, your levels have been 9% more stable and you reduced your spikes speed by 12%. Well done! 🤜🤛", date: triggerDate, repeats: .None)
         
         let scheduler = DLNotificationScheduler()
-        scheduler.scheduleNotification(notification: firstNotification)
+        scheduler.scheduleNotification(notification: firstNotification)*/
         
         UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
         return true
@@ -41,7 +59,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         if let vc = window?.rootViewController as? ViewController {
-            vc.dxBridge.getGlucoseValues(token: DexcomBridge.TOKEN)
+            //vc.dxBridge.getGlucoseValues(token: DexcomBridge.TOKEN)
             completionHandler(.newData)
         }
     }

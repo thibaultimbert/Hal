@@ -19,12 +19,17 @@
 		0437028C1F4BDC97001EF6E7 /* heart.json in Resources */ = {isa = PBXBuildFile; fileRef = 0437028B1F4BDC97001EF6E7 /* heart.json */; };
 		0437028F1F4BDE4B001EF6E7 /* loader.json in Resources */ = {isa = PBXBuildFile; fileRef = 0437028E1F4BDE4B001EF6E7 /* loader.json */; };
 		043702911F4C0547001EF6E7 /* AppIcon.appiconset in Resources */ = {isa = PBXBuildFile; fileRef = 043702901F4C0547001EF6E7 /* AppIcon.appiconset */; };
-		043702931F4D41A1001EF6E7 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043702921F4D41A1001EF6E7 /* DetailsViewController.swift */; };
+		043702931F4D41A1001EF6E7 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043702921F4D41A1001EF6E7 /* LoginViewController.swift */; };
 		043702951F4E49BF001EF6E7 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 043702941F4E49BF001EF6E7 /* CoreData.framework */; };
 		04471C9E1F181AB900F1023A /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04471C9D1F181AB900F1023A /* UserNotifications.framework */; };
 		04471CA01F18982200F1023A /* HKManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04471C9F1F18982200F1023A /* HKManager.swift */; };
 		04471CA21F1898DD00F1023A /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04471CA11F1898DD00F1023A /* Math.swift */; };
 		04471CA41F18A29000F1023A /* EventDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04471CA31F18A29000F1023A /* EventDispatcher.swift */; };
+		044734F11F54D6DE00C85608 /* bouncing_heart.json in Resources */ = {isa = PBXBuildFile; fileRef = 044734F01F54D6DE00C85608 /* bouncing_heart.json */; };
+		044734F41F553E4100C85608 /* morning.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 044734F31F553E4000C85608 /* morning.jpg */; };
+		044734F61F577EA400C85608 /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044734F51F577EA300C85608 /* Report.swift */; };
+		044734FB1F57DDAA00C85608 /* AnimatedBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044734FA1F57DDAA00C85608 /* AnimatedBackground.swift */; };
+		044734FD1F57E19C00C85608 /* swimmers.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 044734FC1F57DEEE00C85608 /* swimmers.mp4 */; };
 		044CEDE21F169E4E005CBD0E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044CEDE11F169E4E005CBD0E /* AppDelegate.swift */; };
 		044CEDE41F169E4E005CBD0E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044CEDE31F169E4E005CBD0E /* ViewController.swift */; };
 		044CEDE71F169E4E005CBD0E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 044CEDE51F169E4E005CBD0E /* Main.storyboard */; };
@@ -162,13 +167,18 @@
 		0437028B1F4BDC97001EF6E7 /* heart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = heart.json; path = ../../../Downloads/heart.json; sourceTree = "<group>"; };
 		0437028E1F4BDE4B001EF6E7 /* loader.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = loader.json; path = ../../../Downloads/loader.json; sourceTree = "<group>"; };
 		043702901F4C0547001EF6E7 /* AppIcon.appiconset */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AppIcon.appiconset; sourceTree = "<group>"; };
-		043702921F4D41A1001EF6E7 /* DetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
+		043702921F4D41A1001EF6E7 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		043702941F4E49BF001EF6E7 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		04471C9D1F181AB900F1023A /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		04471C9F1F18982200F1023A /* HKManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HKManager.swift; sourceTree = "<group>"; };
 		04471CA11F1898DD00F1023A /* Math.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
 		04471CA31F18A29000F1023A /* EventDispatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDispatcher.swift; sourceTree = "<group>"; };
 		04471CA51F1ABC1D00F1023A /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
+		044734F01F54D6DE00C85608 /* bouncing_heart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = bouncing_heart.json; sourceTree = "<group>"; };
+		044734F31F553E4000C85608 /* morning.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = morning.jpg; sourceTree = "<group>"; };
+		044734F51F577EA300C85608 /* Report.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
+		044734FA1F57DDAA00C85608 /* AnimatedBackground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimatedBackground.swift; sourceTree = "<group>"; };
+		044734FC1F57DEEE00C85608 /* swimmers.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = swimmers.mp4; sourceTree = "<group>"; };
 		044CEDDE1F169E4E005CBD0E /* Hal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		044CEDE11F169E4E005CBD0E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		044CEDE31F169E4E005CBD0E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -261,7 +271,10 @@
 		042FD2EE1F27F80E00A6DF49 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				044734FC1F57DEEE00C85608 /* swimmers.mp4 */,
 				043701F71F396713001EF6E7 /* Background.swift */,
+				044734FA1F57DDAA00C85608 /* AnimatedBackground.swift */,
+				044734F31F553E4000C85608 /* morning.jpg */,
 				045A15371F4EA82400FDEBFC /* night.jpg */,
 				045A152D1F4EA25B00FDEBFC /* tea.jpg */,
 			);
@@ -279,11 +292,20 @@
 		043702651F4A681A001EF6E7 /* Animations */ = {
 			isa = PBXGroup;
 			children = (
+				044734F01F54D6DE00C85608 /* bouncing_heart.json */,
 				0437028B1F4BDC97001EF6E7 /* heart.json */,
 				0437028E1F4BDE4B001EF6E7 /* loader.json */,
 				043702631F4A6816001EF6E7 /* preloader.json */,
 			);
 			name = Animations;
+			sourceTree = "<group>";
+		};
+		044734F71F577EAA00C85608 /* Report */ = {
+			isa = PBXGroup;
+			children = (
+				044734F51F577EA300C85608 /* Report.swift */,
+			);
+			name = Report;
 			sourceTree = "<group>";
 		};
 		044CEDD51F169E4E005CBD0E = {
@@ -324,11 +346,12 @@
 				046D86EF1F2237FA000BC423 /* GlucoseSample */,
 				043701FD1F4622C2001EF6E7 /* Notifications */,
 				042FD2EE1F27F80E00A6DF49 /* Images */,
+				044734F71F577EAA00C85608 /* Report */,
 				046D86F01F22380B000BC423 /* Math */,
 				042FD2E81F2498FE00A6DF49 /* Utils */,
 				044CEDE11F169E4E005CBD0E /* AppDelegate.swift */,
 				044CEDE31F169E4E005CBD0E /* ViewController.swift */,
-				043702921F4D41A1001EF6E7 /* DetailsViewController.swift */,
+				043702921F4D41A1001EF6E7 /* LoginViewController.swift */,
 				044CEDE51F169E4E005CBD0E /* Main.storyboard */,
 				043702901F4C0547001EF6E7 /* AppIcon.appiconset */,
 				044CEDEB1F169E4E005CBD0E /* Assets.xcassets */,
@@ -645,12 +668,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				044734FD1F57E19C00C85608 /* swimmers.mp4 in Resources */,
 				043702911F4C0547001EF6E7 /* AppIcon.appiconset in Resources */,
+				044734F11F54D6DE00C85608 /* bouncing_heart.json in Resources */,
 				044CEDEF1F169E4E005CBD0E /* LaunchScreen.storyboard in Resources */,
 				0437028F1F4BDE4B001EF6E7 /* loader.json in Resources */,
 				0437028C1F4BDC97001EF6E7 /* heart.json in Resources */,
 				043702641F4A6817001EF6E7 /* preloader.json in Resources */,
 				044CEDEC1F169E4E005CBD0E /* Assets.xcassets in Resources */,
+				044734F41F553E4100C85608 /* morning.jpg in Resources */,
 				044CEDE71F169E4E005CBD0E /* Main.storyboard in Resources */,
 				045A15381F4EA82400FDEBFC /* night.jpg in Resources */,
 				045A152E1F4EA25B00FDEBFC /* tea.jpg in Resources */,
@@ -702,11 +728,13 @@
 				044CEDEA1F169E4E005CBD0E /* Beacon.xcdatamodeld in Sources */,
 				042701281F1EB7D000133257 /* DexcomBridge.swift in Sources */,
 				0427012A1F1EC85200133257 /* BGSample.swift in Sources */,
+				044734FB1F57DDAA00C85608 /* AnimatedBackground.swift in Sources */,
 				042FD2EA1F2696AD00A6DF49 /* ChartManager.swift in Sources */,
 				044CEDE41F169E4E005CBD0E /* ViewController.swift in Sources */,
+				044734F61F577EA400C85608 /* Report.swift in Sources */,
 				044CEDE21F169E4E005CBD0E /* AppDelegate.swift in Sources */,
 				043701FB1F4622B9001EF6E7 /* DLLocalNotifications.swift in Sources */,
-				043702931F4D41A1001EF6E7 /* DetailsViewController.swift in Sources */,
+				043702931F4D41A1001EF6E7 /* LoginViewController.swift in Sources */,
 				04471CA21F1898DD00F1023A /* Math.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

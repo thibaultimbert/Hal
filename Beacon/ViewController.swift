@@ -27,6 +27,7 @@ class ViewController: UIViewController {
                                    "You are Type-One-Der-Ful.",
                                    "Watch out, I am a diabadass.",
                                     "Fall asleep and your pancreas is mine!",
+                                    "Remember, someone is thinking about you today.",
                                     "I am not ill, my pancreas is just lazy."]
     
     public var hkManager: HKManager!
@@ -94,7 +95,7 @@ class ViewController: UIViewController {
         let selectionHandler = EventHandler(function: onSelection)
         chartManager.addEventListener(type: EventType.selection, handler: selectionHandler)
         
-        let DXLoggedIn = EventHandler(function: self.onLoggedIn)
+        dxBridge = DexcomBridge.shared()
         let DXBloodSamples = EventHandler(function: self.onBloodSamples)
         let authLoginHandler = EventHandler (function: self.glucoseIOFailed)
         let glucoseIOHandler = EventHandler (function: self.glucoseIOFailed)
@@ -103,7 +104,6 @@ class ViewController: UIViewController {
     
         // Do any additional setup after loading the view, typically from a nib.
         // initialize the Dexcom bridge
-        dxBridge = DexcomBridge()
         hkManager = HKManager()
         hkManager.getHealthKitPermission()
         hkManager.addEventListener(type: EventType.authorized, handler: hkAuthorizedHandler)
@@ -111,24 +111,24 @@ class ViewController: UIViewController {
         
         // wait for Dexcom data
         dxBridge.addEventListener(type: .bloodSamples, handler: DXBloodSamples)
-        dxBridge.addEventListener(type: .loggedIn, handler: DXLoggedIn)
-        dxBridge.addEventListener(type: .authLoginError, handler: authLoginHandler)
         dxBridge.addEventListener(type: .glucoseIOError, handler: glucoseIOHandler)
         
-        // login to dexcom apis
-        dxBridge.login()
+        let when = DispatchTime.now() + 1
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            self.dxBridge.getGlucoseValues()
+        }
     }
     
     public func onBloodSamples(event: Event){
         
         // reposition encouragement label
-        news.center = CGPoint(x: view.frame.width/2,y: -165+view.frame.height/2);
-        news.text = "Congrats, Amy, your A1C has decreased by 7% in the past 24 hours. #goAmy"
+        news.center = CGPoint(x: view.frame.width/2,y: -173+view.frame.height/2);
+        news.text = "Your heart rate has been steady for the past 48 hours, maybe time for a run?"
         
         (UIApplication.shared.delegate as! AppDelegate).deleteSamplesData()
         
         // reference the result (Array of BGSample)
-        results = self.dxBridge.bloodSamples
+        results = dxBridge.bloodSamples
         
         // initiate daily samples records
         let dailySample = DailySamples(context: managedObjectContext)
@@ -174,14 +174,16 @@ class ViewController: UIViewController {
         var infosLeft: String = ""
         
         let average: Double = round(Math.computeAverage(samples: results))
+        let averageHrate: Double = ceil(Math.computeAverage(samples: hkManager.heartRates))
         let maxSD: Double = average / 3
         
         // display results
-        infosLeft +=  "\nA1C: " + String(round(Math.A1C(samples: results)))
+        infosLeft +=  "24-hour report"
+        infosLeft +=  "\n\nA1C: " + String(round(Math.A1C(samples: results)))
+        infosLeft +=  "\nHeart BPM: " + String(round(averageHrate))
         infosLeft +=  "\nStandard Deviation: " + String (round(Math.computeSD(samples: results))) + ", ideal below: " + String(maxSD.roundTo(places: 2))
         infosLeft += "\nAverage: " + String (average) + " mg/dL"
-        infosLeft += "\nAcceleration: " + String (chartManager.curvature.roundTo(places: 2))
-        infosLeft +=  "\nBPM: " + String(ceil(Math.computeAverage(samples: hkManager.heartRates)))
+        infosLeft += "\nAcceleration: " + String (chartManager.curvature.roundTo(places: 2)) + ", ideal close to: 0"
         
         recent.alpha = 1
         fulltime.alpha = 1
@@ -244,12 +246,6 @@ class ViewController: UIViewController {
         }
     }
     
-    public func onLoggedIn(event: Event){
-        updateTimer?.invalidate()
-        updateTimer = Timer.scheduledTimer(timeInterval: 240, target: self, selector: #selector(update), userInfo: nil, repeats: true)
-        updateTimer?.fire()
-    }
-    
     public func recover() {
         updateTimer?.invalidate()
         let when = DispatchTime.now() + 10
@@ -275,7 +271,7 @@ class ViewController: UIViewController {
     }
     
     @objc func recoverUpdate() {
-        dxBridge.login()
+        //dxBridge.login()
     }
     
     @objc func update() {

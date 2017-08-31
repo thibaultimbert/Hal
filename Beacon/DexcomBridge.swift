@@ -17,8 +17,14 @@ class DexcomBridge: EventDispatcher{
     private static var LOGIN_URL: String = "https://share1.dexcom.com/ShareWebServices/Services/General/LoginPublisherAccountByName"
     private var dataTask: URLSessionDataTask?
     
-    public func login() {
-        let dict = ["accountName": "thibaultimbert", "applicationId":"d8665ade-9673-4e27-9ff6-92db4ce13d13","password": "9f9d51bc"] as [String: Any]
+    private static var sharedDXBridge: DexcomBridge = {
+        let dxBridge = DexcomBridge()
+        return dxBridge
+    }()
+    
+    public func login(userName: String, password: String) {
+        let dict = ["accountName": userName, "applicationId":"d8665ade-9673-4e27-9ff6-92db4ce13d13",
+                    "password": password] as [String: Any]
         var request = URLRequest(url: URL(string: DexcomBridge.LOGIN_URL)!)
         request.httpMethod = "POST"
         request.httpBody = try! JSONSerialization.data(withJSONObject: dict, options: [])
@@ -26,24 +32,28 @@ class DexcomBridge: EventDispatcher{
         
         dataTask?.cancel()
         dataTask = URLSession.shared.dataTask(with:request) { data, response, error in
-            if error != nil {
-                DispatchQueue.main.async(execute: {
-                    //perform all UI stuff here
-                    self.dispatchEvent(event: Event(type: EventType.authLoginError, target: self))
-                })
-            } else {
+            let response = String(data: data!, encoding: .utf8)
+            if let data = response?.data(using: String.Encoding.utf8) {
                 do {
-                    if let string = String(data: data!, encoding: .utf8) {
-                        let parsedToken = string.replacingOccurrences(of: "\"", with: "", options: .literal, range: nil)
-                        DexcomBridge.TOKEN = parsedToken
-                        DispatchQueue.main.async(execute: {
-                            //perform all UI stuff here
-                            self.dispatchEvent(event: Event(type: EventType.loggedIn, target: self))
-                        })
-                    } else {
-                            print("not a valid UTF-8 sequence")
+                    if let parseJSON = try JSONSerialization.jsonObject(with: data) as? [String:Any] {
+                        let errorCode = String(describing: parseJSON["Code"]!)
+                        if errorCode == "SSO_AuthenticateAccountNotFound" || errorCode == "SSO_AuthenticatePasswordInvalid" {
+                            DispatchQueue.main.async(execute: {
+                                //perform all UI stuff here
+                                self.dispatchEvent(event: Event(type: EventType.authLoginError, target: self))
+                            })
+                        }
                     }
+                } catch _ as NSError {
+                    let parsedToken = response?.replacingOccurrences(of: "\"", with: "", options: .literal, range: nil)
+                    DexcomBridge.TOKEN = parsedToken!
+                    DispatchQueue.main.async(execute: {
+                        //perform all UI stuff here
+                        self.dispatchEvent(event: Event(type: EventType.loggedIn, target: self))
+                    })
                 }
+            } else if let error = error {
+                print (error.localizedDescription)
             }
         }
         dataTask?.resume()
@@ -88,5 +98,9 @@ class DexcomBridge: EventDispatcher{
             }
         }
         dataTask?.resume()
+    }
+    
+    class func shared() -> DexcomBridge {
+        return sharedDXBridge
     }
 }
