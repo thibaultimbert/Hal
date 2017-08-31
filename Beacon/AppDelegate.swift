@@ -22,16 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        let defaults = UserDefaults.standard
-        
-        defaults.removeObject(forKey: "user")
-        defaults.removeObject(forKey: "password")
-
-        let user = defaults.string(forKey: "user")
-        let password = defaults.string(forKey: "password")
-        
-        
-        
         let mainStoryboardIpad : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let initialViewControlleripad : UIViewController = mainStoryboardIpad.instantiateViewController(withIdentifier: "Login") as UIViewController
         self.window = UIWindow(frame: UIScreen.main.bounds)

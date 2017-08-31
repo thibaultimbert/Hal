@@ -53,6 +53,7 @@
 		045A15381F4EA82400FDEBFC /* night.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 045A15371F4EA82400FDEBFC /* night.jpg */; };
 		046D86E41F20FD1D000BC423 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 046D86E11F20FCDB000BC423 /* Charts.framework */; };
 		046D86E51F20FD1D000BC423 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 046D86E11F20FCDB000BC423 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		04B972341F587F9C00F9512E /* KeychainSwiftDistrib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B972331F587F9C00F9512E /* KeychainSwiftDistrib.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -212,6 +213,7 @@
 		045A152D1F4EA25B00FDEBFC /* tea.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = tea.jpg; sourceTree = "<group>"; };
 		045A15371F4EA82400FDEBFC /* night.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = night.jpg; sourceTree = "<group>"; };
 		046D86DB1F20FCDB000BC423 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = "../../Downloads/Charts-master/Charts.xcodeproj"; sourceTree = "<group>"; };
+		04B972331F587F9C00F9512E /* KeychainSwiftDistrib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainSwiftDistrib.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -346,6 +348,7 @@
 				046D86EF1F2237FA000BC423 /* GlucoseSample */,
 				043701FD1F4622C2001EF6E7 /* Notifications */,
 				042FD2EE1F27F80E00A6DF49 /* Images */,
+				04B972361F587FA200F9512E /* Security */,
 				044734F71F577EAA00C85608 /* Report */,
 				046D86F01F22380B000BC423 /* Math */,
 				042FD2E81F2498FE00A6DF49 /* Utils */,
@@ -468,6 +471,14 @@
 				04471CA11F1898DD00F1023A /* Math.swift */,
 			);
 			name = Math;
+			sourceTree = "<group>";
+		};
+		04B972361F587FA200F9512E /* Security */ = {
+			isa = PBXGroup;
+			children = (
+				04B972331F587F9C00F9512E /* KeychainSwiftDistrib.swift */,
+			);
+			name = Security;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -736,6 +747,7 @@
 				043701FB1F4622B9001EF6E7 /* DLLocalNotifications.swift in Sources */,
 				043702931F4D41A1001EF6E7 /* LoginViewController.swift in Sources */,
 				04471CA21F1898DD00F1023A /* Math.swift in Sources */,
+				04B972341F587F9C00F9512E /* KeychainSwiftDistrib.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

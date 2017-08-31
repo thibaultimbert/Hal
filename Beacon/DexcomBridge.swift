@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import CoreData
 
-class DexcomBridge: EventDispatcher{
+class DexcomBridge: EventDispatcher {
     
     public var bloodSamples: [BGSample] = []
     public static var TOKEN: String = ""
@@ -22,8 +22,8 @@ class DexcomBridge: EventDispatcher{
         return dxBridge
     }()
     
-    public func login(userName: String, password: String) {
-        let dict = ["accountName": userName, "applicationId":"d8665ade-9673-4e27-9ff6-92db4ce13d13",
+    public func login(userName: String, password: String, appID: String = "d8665ade-9673-4e27-9ff6-92db4ce13d13") {
+        let dict = ["accountName": userName, "applicationId": appID,
                     "password": password] as [String: Any]
         var request = URLRequest(url: URL(string: DexcomBridge.LOGIN_URL)!)
         request.httpMethod = "POST"
@@ -39,7 +39,6 @@ class DexcomBridge: EventDispatcher{
                         let errorCode = String(describing: parseJSON["Code"]!)
                         if errorCode == "SSO_AuthenticateAccountNotFound" || errorCode == "SSO_AuthenticatePasswordInvalid" {
                             DispatchQueue.main.async(execute: {
-                                //perform all UI stuff here
                                 self.dispatchEvent(event: Event(type: EventType.authLoginError, target: self))
                             })
                         }
@@ -48,7 +47,6 @@ class DexcomBridge: EventDispatcher{
                     let parsedToken = response?.replacingOccurrences(of: "\"", with: "", options: .literal, range: nil)
                     DexcomBridge.TOKEN = parsedToken!
                     DispatchQueue.main.async(execute: {
-                        //perform all UI stuff here
                         self.dispatchEvent(event: Event(type: EventType.loggedIn, target: self))
                     })
                 }
@@ -69,7 +67,6 @@ class DexcomBridge: EventDispatcher{
         dataTask = URLSession.shared.dataTask(with:request) { data, response, error in
             if error != nil {
                 DispatchQueue.main.async(execute: {
-                    //perform all UI stuff here
                     self.dispatchEvent(event: Event(type: EventType.glucoseIOError, target: self))
                 })
             } else {

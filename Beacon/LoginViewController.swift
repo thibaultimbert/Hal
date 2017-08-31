@@ -9,15 +9,19 @@
 import UIKit
 
 class LoginViewController: UIViewController {
-    
-    @IBOutlet weak var userName: UITextField!
-    @IBOutlet weak var password: UITextField!
+
+    @IBOutlet weak var userNameTf: UITextField!
+    @IBOutlet weak var passwordTf: UITextField!
     public var defaults: UserDefaults!
     public var dxBridge: DexcomBridge!
     private var setupBg: AnimatedBackground!
+    private var keychain:KeychainSwift!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // load the keychain
+        keychain = KeychainSwift()
         
         // background handling
         setupBg = AnimatedBackground (parent: self)
@@ -30,12 +34,13 @@ class LoginViewController: UIViewController {
         dxBridge.addEventListener(type: .authLoginError, handler: authError)
         
         // password management
-        defaults = UserDefaults.standard
-        let userName = defaults.string(forKey: "user")
-        let password = defaults.string(forKey: "password")
+        let userName = keychain.get("user")
+        let password = keychain.get("password")
         
         if userName != nil && password != nil {
-            print ( userName!, password!)
+            dxBridge.login(userName: userName!, password: password!)
+            userNameTf.text = userName
+            passwordTf.text = password
         }
     }
 
@@ -45,12 +50,11 @@ class LoginViewController: UIViewController {
     
     @IBAction func `continue`(_ sender: Any) {
         // test if there is username and password
-        if let userName = userName.text, !userName.isEmpty, let password = password.text, !password.isEmpty
+        if let userName = userNameTf.text, !userName.isEmpty, let password = passwordTf.text, !password.isEmpty
         {
             // save username and password
-            defaults.set(userName, forKey: "user")
-            defaults.set(password, forKey: "password")
-            defaults.synchronize()
+            keychain.set(userName, forKey: "user")
+            keychain.set(password, forKey: "password")
             // attempt login auth
             dxBridge.login(userName: userName, password: password)
         }
