@@ -22,6 +22,7 @@ class DexcomBridge: EventDispatcher {
         return dxBridge
     }()
     
+    // authenticates the user to the dexcom REST APIs
     public func login(userName: String, password: String, appID: String = "d8665ade-9673-4e27-9ff6-92db4ce13d13") {
         let dict = ["accountName": userName, "applicationId": appID,
                     "password": password] as [String: Any]
@@ -57,6 +58,7 @@ class DexcomBridge: EventDispatcher {
         dataTask?.resume()
     }
     
+    // retrieves the user last 24 hours glucose levels
     public func getGlucoseValues (token: String = DexcomBridge.TOKEN) {
         let DATA_URL = "https://share1.dexcom.com/ShareWebServices/Services/Publisher/ReadPublisherLatestGlucoseValues?sessionId="+token+"&minutes=1440&maxCount=288"
         var request = URLRequest(url: URL(string: DATA_URL)!)
@@ -65,34 +67,28 @@ class DexcomBridge: EventDispatcher {
         
         dataTask?.cancel()
         dataTask = URLSession.shared.dataTask(with:request) { data, response, error in
-            if error != nil {
-                DispatchQueue.main.async(execute: {
-                    self.dispatchEvent(event: Event(type: EventType.glucoseIOError, target: self))
-                })
-            } else {
-                do {
-                    guard let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [Any] else {
-                        print ("error trying to convert data to JSON")
-                        return
-                    }
-                    if let data = json {
+                let response = String(data: data!, encoding: .utf8)
+                if let data = response?.data(using: String.Encoding.utf8) {
+                    do {
+                        if let parseJSON = try JSONSerialization.jsonObject(with: data) as? [[String:Any]] {
                         self.bloodSamples.removeAll()
-                        for sample in data {
-                            if let bloodSample = sample as? [String: AnyObject] {
-                                if let value = bloodSample["Value"] as? Double, let date = bloodSample["ST"] as? String, let trend = bloodSample["Trend"] as? Float {
-                                    let timeStamp = date.components(separatedBy: "(")[1].components(separatedBy: ")")[0].components(separatedBy: "-")[0]
-                                    let convertedTime: Int = Int(timeStamp)!/1000
-                                    self.bloodSamples.append(BGSample(pValue: Int(value), pTime: convertedTime, pTrend: Int(trend)))
-                                }
+                        for sample in parseJSON {
+                            if let value = sample["Value"] as? Double, let date = sample["ST"] as? String, let trend = sample["Trend"] as? Float {
+                                let timeStamp = date.components(separatedBy: "(")[1].components(separatedBy: ")")[0].components(separatedBy: "-")[0]
+                                let convertedTime: Int = Int(timeStamp)!/1000
+                                self.bloodSamples.append(BGSample(pValue: Int(value), pTime: convertedTime, pTrend: Int(trend)))
                             }
                         }
                         DispatchQueue.main.async(execute: {
-                            //perform all UI stuff here
                             self.dispatchEvent(event: Event(type: EventType.bloodSamples, target: self))
+                        })
+                        }
+                    } catch _ as NSError {
+                        DispatchQueue.main.async(execute: {
+                            self.dispatchEvent(event: Event(type: EventType.glucoseIOError, target: self))
                         })
                     }
                 }
-            }
         }
         dataTask?.resume()
     }

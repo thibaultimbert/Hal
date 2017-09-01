@@ -274,7 +274,6 @@
 			isa = PBXGroup;
 			children = (
 				043701F71F396713001EF6E7 /* Background.swift */,
-				0474950B1F5919A600841A31 /* sea.mp4 */,
 				044734FA1F57DDAA00C85608 /* AnimatedBackground.swift */,
 				044734F31F553E4000C85608 /* morning.jpg */,
 				045A15371F4EA82400FDEBFC /* night.jpg */,
@@ -342,6 +341,7 @@
 			children = (
 				044CEE3D1F16D076005CBD0E /* Beacon.entitlements */,
 				043702651F4A681A001EF6E7 /* Animations */,
+				0474950D1F592B2600841A31 /* Assets */,
 				042FD2EB1F269AD100A6DF49 /* Chart */,
 				046D86EE1F2237EA000BC423 /* Events */,
 				046D86ED1F2237E1000BC423 /* Remote */,
@@ -471,6 +471,14 @@
 				04471CA11F1898DD00F1023A /* Math.swift */,
 			);
 			name = Math;
+			sourceTree = "<group>";
+		};
+		0474950D1F592B2600841A31 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				0474950B1F5919A600841A31 /* sea.mp4 */,
+			);
+			name = Assets;
 			sourceTree = "<group>";
 		};
 		04B972361F587FA200F9512E /* Security */ = {
