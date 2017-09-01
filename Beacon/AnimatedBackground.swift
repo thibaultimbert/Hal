@@ -21,16 +21,16 @@ class AnimatedBackground {
         
         gradientLayer.frame = parent.view.bounds
         
-        let color1 = UIColor(red: 0, green: 0, blue: 0, alpha: 0.7).cgColor as CGColor
-        let color2 = UIColor(red: 0, green: 0, blue: 0, alpha: 0.7).cgColor as CGColor
-        let color3 = UIColor(red: 0, green: 0, blue: 0, alpha: 0.7).cgColor as CGColor
-        let color4 = UIColor(red: 0, green: 0, blue: 0, alpha: 0.7).cgColor as CGColor
-        let color5 = UIColor(red: 0, green: 0, blue: 0, alpha: 0.7).cgColor as CGColor
+        let color1 = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5).cgColor as CGColor
+        let color2 = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5).cgColor as CGColor
+        let color3 = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5).cgColor as CGColor
+        let color4 = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5).cgColor as CGColor
+        let color5 = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5).cgColor as CGColor
         gradientLayer.colors = [color1, color2, color3, color4, color5]
         
         gradientLayer.locations = [0.0, 0.12, 0.25, 0.5, 1.0]
         
-        let filePath = Bundle.main.url(forResource: "loop", withExtension: "mp4")
+        let filePath = Bundle.main.url(forResource: "sea", withExtension: "mp4")
         
         avPlayer = AVPlayer(url: filePath!)
         avPlayerLayer = AVPlayerLayer(player: avPlayer)

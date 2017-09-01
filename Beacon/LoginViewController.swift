@@ -15,23 +15,39 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var loginLbl: UILabel!
     @IBOutlet weak var passwordLbl: UILabel!
     @IBOutlet weak var errorLbl: UILabel!
+    @IBOutlet weak var taglineLbl: UILabel!
     
     public var defaults: UserDefaults!
     public var dxBridge: DexcomBridge!
     private var setupBg: AnimatedBackground!
     private var keychain:KeychainSwift!
+    private var logo: UIImage!
     private var bodyFont:UIFont!
+    private var titleFont: UIFont!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Hal logo
+        let imageView:UIImageView = UIImageView(image: UIImage(named: "Hal-Logo"))
+        imageView.frame = CGRect(x: 100/2, y: (100*0.87)/2, width: 100, height: 100*0.87)
+        var center: CGPoint = self.view.center
+        center.y -= 200
+        imageView.center = center
+        self.view.addSubview(imageView)
+        
         // font for buttons and labels
         bodyFont = UIFont(name: ".SFUIText-Semibold", size :11)
+        titleFont = UIFont(name: ".SFUIText-Semibold", size :26)
+        taglineLbl.font = titleFont
         userNameTf.font = bodyFont
         passwordTf.font = bodyFont
         loginLbl.font = bodyFont
         passwordLbl.font = bodyFont
         errorLbl.font = bodyFont
+        
+        // 
+        taglineLbl.text = "HAL, your diabetic\ncoach in your pocket."
         
         // load the keychain
         keychain = KeychainSwift()
