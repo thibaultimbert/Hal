@@ -12,13 +12,26 @@ class LoginViewController: UIViewController {
 
     @IBOutlet weak var userNameTf: UITextField!
     @IBOutlet weak var passwordTf: UITextField!
+    @IBOutlet weak var loginLbl: UILabel!
+    @IBOutlet weak var passwordLbl: UILabel!
+    @IBOutlet weak var errorLbl: UILabel!
+    
     public var defaults: UserDefaults!
     public var dxBridge: DexcomBridge!
     private var setupBg: AnimatedBackground!
     private var keychain:KeychainSwift!
+    private var bodyFont:UIFont!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // font for buttons and labels
+        bodyFont = UIFont(name: ".SFUIText-Semibold", size :11)
+        userNameTf.font = bodyFont
+        passwordTf.font = bodyFont
+        loginLbl.font = bodyFont
+        passwordLbl.font = bodyFont
+        errorLbl.font = bodyFont
         
         // load the keychain
         keychain = KeychainSwift()
@@ -38,7 +51,7 @@ class LoginViewController: UIViewController {
         let password = keychain.get("password")
         
         if userName != nil && password != nil {
-            dxBridge.login(userName: userName!, password: password!)
+            //dxBridge.login(userName: userName!, password: password!)
             userNameTf.text = userName
             passwordTf.text = password
         }
@@ -66,7 +79,7 @@ class LoginViewController: UIViewController {
     }
     
     public func onAuthError(event: Event){
-        print ("login problem")
+        errorLbl.text = "Oops, can you double check your username/password?"
     }
 
     /*

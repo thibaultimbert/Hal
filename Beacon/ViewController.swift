@@ -150,7 +150,6 @@ class ViewController: UIViewController {
         
         dailySample.samples = data
         
-        // save in coredata
         do {
             try self.managedObjectContext.save()
             

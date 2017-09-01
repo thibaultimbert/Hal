@@ -30,7 +30,7 @@ class AnimatedBackground {
         
         gradientLayer.locations = [0.0, 0.12, 0.25, 0.5, 1.0]
         
-        let filePath = Bundle.main.url(forResource: "swimmers", withExtension: "mp4")
+        let filePath = Bundle.main.url(forResource: "loop", withExtension: "mp4")
         
         avPlayer = AVPlayer(url: filePath!)
         avPlayerLayer = AVPlayerLayer(player: avPlayer)

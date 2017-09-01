@@ -29,7 +29,6 @@
 		044734F41F553E4100C85608 /* morning.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 044734F31F553E4000C85608 /* morning.jpg */; };
 		044734F61F577EA400C85608 /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044734F51F577EA300C85608 /* Report.swift */; };
 		044734FB1F57DDAA00C85608 /* AnimatedBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044734FA1F57DDAA00C85608 /* AnimatedBackground.swift */; };
-		044734FD1F57E19C00C85608 /* swimmers.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 044734FC1F57DEEE00C85608 /* swimmers.mp4 */; };
 		044CEDE21F169E4E005CBD0E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044CEDE11F169E4E005CBD0E /* AppDelegate.swift */; };
 		044CEDE41F169E4E005CBD0E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044CEDE31F169E4E005CBD0E /* ViewController.swift */; };
 		044CEDE71F169E4E005CBD0E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 044CEDE51F169E4E005CBD0E /* Main.storyboard */; };
@@ -54,6 +53,9 @@
 		046D86E41F20FD1D000BC423 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 046D86E11F20FCDB000BC423 /* Charts.framework */; };
 		046D86E51F20FD1D000BC423 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 046D86E11F20FCDB000BC423 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		04B972341F587F9C00F9512E /* KeychainSwiftDistrib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B972331F587F9C00F9512E /* KeychainSwiftDistrib.swift */; };
+		04B972381F5893F000F9512E /* reaching.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 04B972371F58939E00F9512E /* reaching.mp4 */; };
+		04B9723A1F5894AE00F9512E /* top.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 04B972391F5894A000F9512E /* top.mp4 */; };
+		04B9723C1F58959D00F9512E /* loop.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 04B9723B1F58959000F9512E /* loop.mp4 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -179,7 +181,6 @@
 		044734F31F553E4000C85608 /* morning.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = morning.jpg; sourceTree = "<group>"; };
 		044734F51F577EA300C85608 /* Report.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
 		044734FA1F57DDAA00C85608 /* AnimatedBackground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimatedBackground.swift; sourceTree = "<group>"; };
-		044734FC1F57DEEE00C85608 /* swimmers.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = swimmers.mp4; sourceTree = "<group>"; };
 		044CEDDE1F169E4E005CBD0E /* Hal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		044CEDE11F169E4E005CBD0E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		044CEDE31F169E4E005CBD0E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -214,6 +215,9 @@
 		045A15371F4EA82400FDEBFC /* night.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = night.jpg; sourceTree = "<group>"; };
 		046D86DB1F20FCDB000BC423 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = "../../Downloads/Charts-master/Charts.xcodeproj"; sourceTree = "<group>"; };
 		04B972331F587F9C00F9512E /* KeychainSwiftDistrib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainSwiftDistrib.swift; sourceTree = "<group>"; };
+		04B972371F58939E00F9512E /* reaching.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = reaching.mp4; sourceTree = "<group>"; };
+		04B972391F5894A000F9512E /* top.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = top.mp4; sourceTree = "<group>"; };
+		04B9723B1F58959000F9512E /* loop.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = loop.mp4; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -273,7 +277,9 @@
 		042FD2EE1F27F80E00A6DF49 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				044734FC1F57DEEE00C85608 /* swimmers.mp4 */,
+				04B972371F58939E00F9512E /* reaching.mp4 */,
+				04B9723B1F58959000F9512E /* loop.mp4 */,
+				04B972391F5894A000F9512E /* top.mp4 */,
 				043701F71F396713001EF6E7 /* Background.swift */,
 				044734FA1F57DDAA00C85608 /* AnimatedBackground.swift */,
 				044734F31F553E4000C85608 /* morning.jpg */,
@@ -679,7 +685,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				044734FD1F57E19C00C85608 /* swimmers.mp4 in Resources */,
+				04B9723C1F58959D00F9512E /* loop.mp4 in Resources */,
+				04B9723A1F5894AE00F9512E /* top.mp4 in Resources */,
+				04B972381F5893F000F9512E /* reaching.mp4 in Resources */,
 				043702911F4C0547001EF6E7 /* AppIcon.appiconset in Resources */,
 				044734F11F54D6DE00C85608 /* bouncing_heart.json in Resources */,
 				044CEDEF1F169E4E005CBD0E /* LaunchScreen.storyboard in Resources */,
