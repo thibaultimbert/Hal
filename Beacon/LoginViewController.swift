@@ -26,6 +26,7 @@ class LoginViewController: UIViewController {
     private var titleFont: UIFont!
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         
         // Hal logo
@@ -46,7 +47,7 @@ class LoginViewController: UIViewController {
         passwordLbl.font = bodyFont
         errorLbl.font = bodyFont
         
-        // 
+        // tagline
         taglineLbl.text = "HAL, your diabetic\ncoach in your pocket."
         
         // load the keychain
@@ -67,7 +68,7 @@ class LoginViewController: UIViewController {
         let password = keychain.get("password")
         
         if userName != nil && password != nil {
-            //dxBridge.login(userName: userName!, password: password!)
+            dxBridge.login(userName: userName!, password: password!)
             userNameTf.text = userName
             passwordTf.text = password
         }
