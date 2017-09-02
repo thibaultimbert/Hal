@@ -10,6 +10,8 @@ import UIKit
 import CoreData
 import UserNotifications
 import CoreData
+import Fabric
+import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,37 +24,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
+        Fabric.with([Crashlytics.self])
         UIApplication.shared.statusBarStyle = .lightContent
         
+        // load the login view controller
         let mainStoryboardIpad : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let initialViewControlleripad : UIViewController = mainStoryboardIpad.instantiateViewController(withIdentifier: "Login") as UIViewController
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.rootViewController = initialViewControlleripad
         self.window?.makeKeyAndVisible()
         
-        /*
-         // Override point for customization after application launch.
-         // iOS 10 support
-         if #available(iOS 10, *) {
-         UNUserNotificationCenter.current().requestAuthorization(options:[.badge, .alert, .sound]){ (granted, error) in }
-         application.registerForRemoteNotifications()
+        // Override point for customization after application launch.
+        if #available(iOS 10, *) {
+            UNUserNotificationCenter.current().requestAuthorization(options:[.badge, .alert, .sound]){ (granted, error) in }
+            application.registerForRemoteNotifications()
          }
-         
+        
+        // schedule a notification
         let triggerDate = Date().addingTimeInterval(10)
-        
         let firstNotification = DLNotification(identifier: "firstNotification", alertTitle: "Daily report", alertBody: "Amy, today your A1C decreased by 17%, your levels have been 9% more stable and you reduced your spikes speed by 12%. Well done! 🤜🤛", date: triggerDate, repeats: .None)
-        
         let scheduler = DLNotificationScheduler()
-        scheduler.scheduleNotification(notification: firstNotification)*/
+        scheduler.scheduleNotification(notification: firstNotification)
         
+        // background fetch
         UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
         return true
     }
     
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         if let vc = window?.rootViewController as? ViewController {
-            //vc.dxBridge.getGlucoseValues(token: DexcomBridge.TOKEN)
-            completionHandler(.newData)
+            vc.dxBridge.getGlucoseValues(token: DexcomBridge.TOKEN, completionHandler: completionHandler)
         }
     }
     

@@ -59,11 +59,13 @@ class DexcomBridge: EventDispatcher {
     }
     
     // retrieves the user last 24 hours glucose levels
-    public func getGlucoseValues (token: String = DexcomBridge.TOKEN) {
+    public func getGlucoseValues (token: String = DexcomBridge.TOKEN, completionHandler: ((UIBackgroundFetchResult) -> Void)! = nil) {
         let DATA_URL = "https://share1.dexcom.com/ShareWebServices/Services/Publisher/ReadPublisherLatestGlucoseValues?sessionId="+token+"&minutes=1440&maxCount=288"
         var request = URLRequest(url: URL(string: DATA_URL)!)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        print ( completionHandler )
         
         dataTask?.cancel()
         dataTask = URLSession.shared.dataTask(with:request) { data, response, error in
@@ -78,6 +80,9 @@ class DexcomBridge: EventDispatcher {
                                 let convertedTime: Int = Int(timeStamp)!/1000
                                 self.bloodSamples.append(BGSample(pValue: Int(value), pTime: convertedTime, pTrend: Int(trend)))
                             }
+                        }
+                        if (completionHandler) != nil {
+                            completionHandler(.newData)
                         }
                         DispatchQueue.main.async(execute: {
                             self.dispatchEvent(event: Event(type: EventType.bloodSamples, target: self))

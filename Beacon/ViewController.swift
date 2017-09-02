@@ -51,11 +51,6 @@ class ViewController: UIViewController {
         // initialize coredata
         managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         
-        /*
-        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
-        swipeLeft.direction = UISwipeGestureRecognizerDirection.left
-        self.view.addGestureRecognizer(swipeLeft)*/
-        
         // disable dimming
         UIApplication.shared.isIdleTimerDisabled = true
         
@@ -113,10 +108,9 @@ class ViewController: UIViewController {
         dxBridge.addEventListener(type: .bloodSamples, handler: DXBloodSamples)
         dxBridge.addEventListener(type: .glucoseIOError, handler: glucoseIOHandler)
         
-        let when = DispatchTime.now() + 1
-        DispatchQueue.main.asyncAfter(deadline: when) {
-            self.dxBridge.getGlucoseValues()
-        }
+        // get the glucose data
+        updateTimer = Timer.scheduledTimer(timeInterval: 240, target: self, selector: #selector(update), userInfo: nil, repeats: true)
+        updateTimer?.fire()
     }
     
     public func onBloodSamples(event: Event){
@@ -233,23 +227,11 @@ class ViewController: UIViewController {
         current.text = sampleDate + "\n" + String (describing: chartManager.selectedSample.value) + " mg/DL " + self.chartManager.selectedSample.trend
     }
     
-    func respondToSwipeGesture(gesture: UIGestureRecognizer) {
-        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
-            switch swipeGesture.direction {
-            case UISwipeGestureRecognizerDirection.left:
-                //left view controller
-                self.performSegue(withIdentifier: "Details", sender: self)
-            default:
-                break
-            }
-        }
-    }
-    
     public func recover() {
         updateTimer?.invalidate()
         let when = DispatchTime.now() + 10
         DispatchQueue.main.asyncAfter(deadline: when) {
-            self.recoverUpdate()
+            self.updateTimer?.fire()
         }
     }
     
@@ -268,11 +250,7 @@ class ViewController: UIViewController {
         let randomIndex = Int(arc4random_uniform(UInt32(quotes.count)))
         return quotes[randomIndex]
     }
-    
-    @objc func recoverUpdate() {
-        //dxBridge.login()
-    }
-    
+
     @objc func update() {
         dxBridge.getGlucoseValues()
         hkManager.getHeartRate()

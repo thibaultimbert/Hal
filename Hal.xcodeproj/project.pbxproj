@@ -53,7 +53,13 @@
 		046D86E41F20FD1D000BC423 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 046D86E11F20FCDB000BC423 /* Charts.framework */; };
 		046D86E51F20FD1D000BC423 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 046D86E11F20FCDB000BC423 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0474950C1F5919BC00841A31 /* sea.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 0474950B1F5919A600841A31 /* sea.mp4 */; };
+		047495121F5A6A5A00841A31 /* DailySummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047495111F5A6A5A00841A31 /* DailySummary.swift */; };
 		04B972341F587F9C00F9512E /* KeychainSwiftDistrib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B972331F587F9C00F9512E /* KeychainSwiftDistrib.swift */; };
+		1D337F7D72CDAE0981BF07E7 /* Pods_Hal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 081DA0442CCF7D4B5B5F4116 /* Pods_Hal.framework */; };
+		2B0AA8D9C732954C58FA927E /* Pods_Scout_Watch_App_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CDEACB6BD41319B81901B41 /* Pods_Scout_Watch_App_Extension.framework */; };
+		7C03CECB3914D0E857DFC9AE /* Pods_HalUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6318519DAEE61CA65D8AA72 /* Pods_HalUITests.framework */; };
+		871E80229D9C1DAC60C0A4A8 /* Pods_HalTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBCD4EB9A0D170E8D46E3B90 /* Pods_HalTests.framework */; };
+		CDBBB1DE971C116BC8ABAAB6 /* Pods_Scout_Watch_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A8293F677F3C7D1EBB8B812 /* Pods_Scout_Watch_App.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -213,7 +219,23 @@
 		045A15371F4EA82400FDEBFC /* night.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = night.jpg; sourceTree = "<group>"; };
 		046D86DB1F20FCDB000BC423 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = "../../Downloads/Charts-master/Charts.xcodeproj"; sourceTree = "<group>"; };
 		0474950B1F5919A600841A31 /* sea.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = sea.mp4; sourceTree = "<group>"; };
+		047495111F5A6A5A00841A31 /* DailySummary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailySummary.swift; sourceTree = "<group>"; };
 		04B972331F587F9C00F9512E /* KeychainSwiftDistrib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainSwiftDistrib.swift; sourceTree = "<group>"; };
+		081DA0442CCF7D4B5B5F4116 /* Pods_Hal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0B0220DCFE83DBD87DDE238E /* Pods-Scout Watch App Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Scout Watch App Extension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Scout Watch App Extension/Pods-Scout Watch App Extension.debug.xcconfig"; sourceTree = "<group>"; };
+		10D0467A149BBAA8AD9CDF55 /* Pods-Scout Watch App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Scout Watch App.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Scout Watch App/Pods-Scout Watch App.debug.xcconfig"; sourceTree = "<group>"; };
+		19A73A0CE232E2BC67282383 /* Pods-HalUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HalUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-HalUITests/Pods-HalUITests.release.xcconfig"; sourceTree = "<group>"; };
+		1F342597B202F05D9E067C4D /* Pods-Hal.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hal.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hal/Pods-Hal.release.xcconfig"; sourceTree = "<group>"; };
+		28D1E8677B36D26C03087CFA /* Pods-Hal.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hal.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hal/Pods-Hal.debug.xcconfig"; sourceTree = "<group>"; };
+		3CDEACB6BD41319B81901B41 /* Pods_Scout_Watch_App_Extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Scout_Watch_App_Extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		50298CA87E714A456F205C77 /* Pods-HalTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HalTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HalTests/Pods-HalTests.debug.xcconfig"; sourceTree = "<group>"; };
+		6FB2C393E97F72F22005DB59 /* Pods-HalTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HalTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-HalTests/Pods-HalTests.release.xcconfig"; sourceTree = "<group>"; };
+		8A8293F677F3C7D1EBB8B812 /* Pods_Scout_Watch_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Scout_Watch_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A6318519DAEE61CA65D8AA72 /* Pods_HalUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HalUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B19E3EBCA0411BED15E94C06 /* Pods-Scout Watch App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Scout Watch App.release.xcconfig"; path = "Pods/Target Support Files/Pods-Scout Watch App/Pods-Scout Watch App.release.xcconfig"; sourceTree = "<group>"; };
+		DBCD4EB9A0D170E8D46E3B90 /* Pods_HalTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HalTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E8D96107E784C36A85EE15E4 /* Pods-HalUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HalUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HalUITests/Pods-HalUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		FAD6CF9D9958327A719C5C87 /* Pods-Scout Watch App Extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Scout Watch App Extension.release.xcconfig"; path = "Pods/Target Support Files/Pods-Scout Watch App Extension/Pods-Scout Watch App Extension.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -226,6 +248,7 @@
 				046D86E41F20FD1D000BC423 /* Charts.framework in Frameworks */,
 				04471C9E1F181AB900F1023A /* UserNotifications.framework in Frameworks */,
 				044CEE481F16E132005CBD0E /* HealthKit.framework in Frameworks */,
+				1D337F7D72CDAE0981BF07E7 /* Pods_Hal.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,6 +256,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				871E80229D9C1DAC60C0A4A8 /* Pods_HalTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -240,6 +264,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7C03CECB3914D0E857DFC9AE /* Pods_HalUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,6 +273,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				044CEE4A1F16E51D005CBD0E /* HealthKit.framework in Frameworks */,
+				2B0AA8D9C732954C58FA927E /* Pods_Scout_Watch_App_Extension.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AED174C144ABA7A458157FD9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CDBBB1DE971C116BC8ABAAB6 /* Pods_Scout_Watch_App.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,6 +355,7 @@
 				044CEE241F16C32D005CBD0E /* Scout Watch App Extension */,
 				044CEDDF1F169E4E005CBD0E /* Products */,
 				044CEE3E1F16D077005CBD0E /* Frameworks */,
+				52BB02784DF098C7E3487063 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -354,6 +389,7 @@
 				042FD2E81F2498FE00A6DF49 /* Utils */,
 				044CEDE11F169E4E005CBD0E /* AppDelegate.swift */,
 				044CEDE31F169E4E005CBD0E /* ViewController.swift */,
+				047495111F5A6A5A00841A31 /* DailySummary.swift */,
 				043702921F4D41A1001EF6E7 /* LoginViewController.swift */,
 				044CEDE51F169E4E005CBD0E /* Main.storyboard */,
 				043702901F4C0547001EF6E7 /* AppIcon.appiconset */,
@@ -427,6 +463,11 @@
 				04471C9D1F181AB900F1023A /* UserNotifications.framework */,
 				044CEE491F16E51D005CBD0E /* HealthKit.framework */,
 				044CEE471F16E132005CBD0E /* HealthKit.framework */,
+				081DA0442CCF7D4B5B5F4116 /* Pods_Hal.framework */,
+				DBCD4EB9A0D170E8D46E3B90 /* Pods_HalTests.framework */,
+				A6318519DAEE61CA65D8AA72 /* Pods_HalUITests.framework */,
+				8A8293F677F3C7D1EBB8B812 /* Pods_Scout_Watch_App.framework */,
+				3CDEACB6BD41319B81901B41 /* Pods_Scout_Watch_App_Extension.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -489,6 +530,23 @@
 			name = Security;
 			sourceTree = "<group>";
 		};
+		52BB02784DF098C7E3487063 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				28D1E8677B36D26C03087CFA /* Pods-Hal.debug.xcconfig */,
+				1F342597B202F05D9E067C4D /* Pods-Hal.release.xcconfig */,
+				50298CA87E714A456F205C77 /* Pods-HalTests.debug.xcconfig */,
+				6FB2C393E97F72F22005DB59 /* Pods-HalTests.release.xcconfig */,
+				E8D96107E784C36A85EE15E4 /* Pods-HalUITests.debug.xcconfig */,
+				19A73A0CE232E2BC67282383 /* Pods-HalUITests.release.xcconfig */,
+				10D0467A149BBAA8AD9CDF55 /* Pods-Scout Watch App.debug.xcconfig */,
+				B19E3EBCA0411BED15E94C06 /* Pods-Scout Watch App.release.xcconfig */,
+				0B0220DCFE83DBD87DDE238E /* Pods-Scout Watch App Extension.debug.xcconfig */,
+				FAD6CF9D9958327A719C5C87 /* Pods-Scout Watch App Extension.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -496,12 +554,16 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 044CEE091F169E4F005CBD0E /* Build configuration list for PBXNativeTarget "Hal" */;
 			buildPhases = (
+				D654F491097DD316C6B428BB /* [CP] Check Pods Manifest.lock */,
 				044CEDDA1F169E4E005CBD0E /* Sources */,
 				044CEDDB1F169E4E005CBD0E /* Frameworks */,
 				044CEDDC1F169E4E005CBD0E /* Resources */,
 				044CEE3C1F16C32D005CBD0E /* Embed Watch Content */,
 				046D86E81F20FD1E000BC423 /* Embed Frameworks */,
 				043702581F49F6CC001EF6E7 /* CopyFiles */,
+				DA538583746053ADAB674C27 /* [CP] Embed Pods Frameworks */,
+				D71EB4CC4F9AB14BC8B5709A /* [CP] Copy Pods Resources */,
+				047495151F5A6B9400841A31 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -518,9 +580,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 044CEE0C1F169E4F005CBD0E /* Build configuration list for PBXNativeTarget "HalTests" */;
 			buildPhases = (
+				20BCB8550255B8AFCB38338A /* [CP] Check Pods Manifest.lock */,
 				044CEDF11F169E4E005CBD0E /* Sources */,
 				044CEDF21F169E4E005CBD0E /* Frameworks */,
 				044CEDF31F169E4E005CBD0E /* Resources */,
+				25884AA2B794224ED60C03D6 /* [CP] Embed Pods Frameworks */,
+				5E5B7C10B17F6FF6A5EBE9B4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -536,9 +601,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 044CEE0F1F169E4F005CBD0E /* Build configuration list for PBXNativeTarget "HalUITests" */;
 			buildPhases = (
+				80706D9A544974910C5FFB0C /* [CP] Check Pods Manifest.lock */,
 				044CEDFC1F169E4F005CBD0E /* Sources */,
 				044CEDFD1F169E4F005CBD0E /* Frameworks */,
 				044CEDFE1F169E4F005CBD0E /* Resources */,
+				8BE3570669BA5F13D358D567 /* [CP] Embed Pods Frameworks */,
+				7D3710EA1BED603E9D7BB326 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -554,8 +622,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 044CEE391F16C32D005CBD0E /* Build configuration list for PBXNativeTarget "Scout Watch App" */;
 			buildPhases = (
+				DC1DBF184AFA49E79B42D7B7 /* [CP] Check Pods Manifest.lock */,
 				044CEE121F16C32D005CBD0E /* Resources */,
 				044CEE381F16C32D005CBD0E /* Embed App Extensions */,
+				AED174C144ABA7A458157FD9 /* Frameworks */,
+				21B39D85F9E92276A77D42EB /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -571,9 +642,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 044CEE351F16C32D005CBD0E /* Build configuration list for PBXNativeTarget "Scout Watch App Extension" */;
 			buildPhases = (
+				6BDA887CD8EE932E1BCFAF96 /* [CP] Check Pods Manifest.lock */,
 				044CEE1C1F16C32D005CBD0E /* Sources */,
 				044CEE1D1F16C32D005CBD0E /* Frameworks */,
 				044CEE1E1F16C32D005CBD0E /* Resources */,
+				F67DCBF7C8B70A1CBDA6392F /* [CP] Embed Pods Frameworks */,
+				D9859BA7329C6C332F3AD0EF /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -735,12 +809,259 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		047495151F5A6B9400841A31 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 09fac4b5724dad536ea477628cf09347006f915b b6415a07906a511e15e4a5f18380c311af9dfb3d07b200b4cc915735a7a4d1b5";
+		};
+		20BCB8550255B8AFCB38338A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-HalTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		21B39D85F9E92276A77D42EB /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Scout Watch App/Pods-Scout Watch App-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		25884AA2B794224ED60C03D6 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HalTests/Pods-HalTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5E5B7C10B17F6FF6A5EBE9B4 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HalTests/Pods-HalTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6BDA887CD8EE932E1BCFAF96 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Scout Watch App Extension-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7D3710EA1BED603E9D7BB326 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HalUITests/Pods-HalUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		80706D9A544974910C5FFB0C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-HalUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8BE3570669BA5F13D358D567 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HalUITests/Pods-HalUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D654F491097DD316C6B428BB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Hal-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D71EB4CC4F9AB14BC8B5709A /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Hal/Pods-Hal-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D9859BA7329C6C332F3AD0EF /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Scout Watch App Extension/Pods-Scout Watch App Extension-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DA538583746053ADAB674C27 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Hal/Pods-Hal-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Macaw/Macaw.framework",
+				"${BUILT_PRODUCTS_DIR}/SWXMLHash/SWXMLHash.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Macaw.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SWXMLHash.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Hal/Pods-Hal-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DC1DBF184AFA49E79B42D7B7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Scout Watch App-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F67DCBF7C8B70A1CBDA6392F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Scout Watch App Extension/Pods-Scout Watch App Extension-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		044CEDDA1F169E4E005CBD0E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				043701F81F396713001EF6E7 /* Background.swift in Sources */,
+				047495121F5A6A5A00841A31 /* DailySummary.swift in Sources */,
 				04471CA01F18982200F1023A /* HKManager.swift in Sources */,
 				04471CA41F18A29000F1023A /* EventDispatcher.swift in Sources */,
 				042FD2E61F2498AC00A6DF49 /* Utils.swift in Sources */,
@@ -941,6 +1262,7 @@
 		};
 		044CEE0A1F169E4F005CBD0E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 28D1E8677B36D26C03087CFA /* Pods-Hal.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -962,6 +1284,7 @@
 		};
 		044CEE0B1F169E4F005CBD0E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1F342597B202F05D9E067C4D /* Pods-Hal.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -983,6 +1306,7 @@
 		};
 		044CEE0D1F169E4F005CBD0E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 50298CA87E714A456F205C77 /* Pods-HalTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -997,6 +1321,7 @@
 		};
 		044CEE0E1F169E4F005CBD0E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6FB2C393E97F72F22005DB59 /* Pods-HalTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1011,6 +1336,7 @@
 		};
 		044CEE101F169E4F005CBD0E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E8D96107E784C36A85EE15E4 /* Pods-HalUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = BeaconUITests/Info.plist;
@@ -1024,6 +1350,7 @@
 		};
 		044CEE111F169E4F005CBD0E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 19A73A0CE232E2BC67282383 /* Pods-HalUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = BeaconUITests/Info.plist;
@@ -1037,6 +1364,7 @@
 		};
 		044CEE361F16C32D005CBD0E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0B0220DCFE83DBD87DDE238E /* Pods-Scout Watch App Extension.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_ENTITLEMENTS = "Scout Watch App Extension/Scout Watch App Extension.entitlements";
@@ -1055,6 +1383,7 @@
 		};
 		044CEE371F16C32D005CBD0E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FAD6CF9D9958327A719C5C87 /* Pods-Scout Watch App Extension.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_ENTITLEMENTS = "Scout Watch App Extension/Scout Watch App Extension.entitlements";
@@ -1073,6 +1402,7 @@
 		};
 		044CEE3A1F16C32D005CBD0E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 10D0467A149BBAA8AD9CDF55 /* Pods-Scout Watch App.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1091,6 +1421,7 @@
 		};
 		044CEE3B1F16C32D005CBD0E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B19E3EBCA0411BED15E94C06 /* Pods-Scout Watch App.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
