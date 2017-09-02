@@ -13,8 +13,6 @@
 		042FD2EA1F2696AD00A6DF49 /* ChartManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042FD2E91F2696AD00A6DF49 /* ChartManager.swift */; };
 		043701F81F396713001EF6E7 /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043701F71F396713001EF6E7 /* Background.swift */; };
 		043701FB1F4622B9001EF6E7 /* DLLocalNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043701FA1F4622B9001EF6E7 /* DLLocalNotifications.swift */; };
-		0437025D1F4A466E001EF6E7 /* Lottie.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0437025C1F4A466E001EF6E7 /* Lottie.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		0437025E1F4A468D001EF6E7 /* Lottie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0437025C1F4A466E001EF6E7 /* Lottie.framework */; };
 		043702641F4A6817001EF6E7 /* preloader.json in Resources */ = {isa = PBXBuildFile; fileRef = 043702631F4A6816001EF6E7 /* preloader.json */; };
 		0437028C1F4BDC97001EF6E7 /* heart.json in Resources */ = {isa = PBXBuildFile; fileRef = 0437028B1F4BDC97001EF6E7 /* heart.json */; };
 		0437028F1F4BDE4B001EF6E7 /* loader.json in Resources */ = {isa = PBXBuildFile; fileRef = 0437028E1F4BDE4B001EF6E7 /* loader.json */; };
@@ -50,10 +48,8 @@
 		044CEE4A1F16E51D005CBD0E /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 044CEE491F16E51D005CBD0E /* HealthKit.framework */; };
 		045A152E1F4EA25B00FDEBFC /* tea.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 045A152D1F4EA25B00FDEBFC /* tea.jpg */; };
 		045A15381F4EA82400FDEBFC /* night.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 045A15371F4EA82400FDEBFC /* night.jpg */; };
-		046D86E41F20FD1D000BC423 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 046D86E11F20FCDB000BC423 /* Charts.framework */; };
-		046D86E51F20FD1D000BC423 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 046D86E11F20FCDB000BC423 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0474950C1F5919BC00841A31 /* sea.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 0474950B1F5919A600841A31 /* sea.mp4 */; };
-		047495121F5A6A5A00841A31 /* DailySummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047495111F5A6A5A00841A31 /* DailySummary.swift */; };
+		047495121F5A6A5A00841A31 /* DailySummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047495111F5A6A5A00841A31 /* DailySummaryView.swift */; };
 		04B972341F587F9C00F9512E /* KeychainSwiftDistrib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B972331F587F9C00F9512E /* KeychainSwiftDistrib.swift */; };
 		1D337F7D72CDAE0981BF07E7 /* Pods_Hal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 081DA0442CCF7D4B5B5F4116 /* Pods_Hal.framework */; };
 		2B0AA8D9C732954C58FA927E /* Pods_Scout_Watch_App_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CDEACB6BD41319B81901B41 /* Pods_Scout_Watch_App_Extension.framework */; };
@@ -91,27 +87,6 @@
 			remoteGlobalIDString = 044CEE131F16C32D005CBD0E;
 			remoteInfo = "Scout Watch App";
 		};
-		046D86E01F20FCDB000BC423 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 046D86DB1F20FCDB000BC423 /* Charts.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 06165F241D8110E600722320;
-			remoteInfo = Charts;
-		};
-		046D86E21F20FCDB000BC423 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 046D86DB1F20FCDB000BC423 /* Charts.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 06165F2E1D8110E600722320;
-			remoteInfo = ChartsTests;
-		};
-		046D86E61F20FD1D000BC423 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 046D86DB1F20FCDB000BC423 /* Charts.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 06165F231D8110E600722320;
-			remoteInfo = Charts;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -121,7 +96,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				0437025D1F4A466E001EF6E7 /* Lottie.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -153,7 +127,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				046D86E51F20FD1D000BC423 /* Charts.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -169,7 +142,6 @@
 		043701FA1F4622B9001EF6E7 /* DLLocalNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DLLocalNotifications.swift; sourceTree = "<group>"; };
 		043702561F49F6BB001EF6E7 /* Lottie.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Lottie.framework; path = ../Phoenix/Carthage/Build/iOS/Lottie.framework; sourceTree = "<group>"; };
 		0437025A1F4A4650001EF6E7 /* Lottie.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Lottie.framework; path = Carthage/Build/iOS/Lottie.framework; sourceTree = "<group>"; };
-		0437025C1F4A466E001EF6E7 /* Lottie.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Lottie.framework; path = Carthage/Build/iOS/Lottie.framework; sourceTree = "<group>"; };
 		043702631F4A6816001EF6E7 /* preloader.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = preloader.json; path = ../../../Downloads/preloader.json; sourceTree = "<group>"; };
 		0437028B1F4BDC97001EF6E7 /* heart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = heart.json; path = ../../../Downloads/heart.json; sourceTree = "<group>"; };
 		0437028E1F4BDE4B001EF6E7 /* loader.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = loader.json; path = ../../../Downloads/loader.json; sourceTree = "<group>"; };
@@ -217,9 +189,8 @@
 		044CEE4B1F16E51D005CBD0E /* Scout Watch App Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Scout Watch App Extension.entitlements"; sourceTree = "<group>"; };
 		045A152D1F4EA25B00FDEBFC /* tea.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = tea.jpg; sourceTree = "<group>"; };
 		045A15371F4EA82400FDEBFC /* night.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = night.jpg; sourceTree = "<group>"; };
-		046D86DB1F20FCDB000BC423 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = "../../Downloads/Charts-master/Charts.xcodeproj"; sourceTree = "<group>"; };
 		0474950B1F5919A600841A31 /* sea.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = sea.mp4; sourceTree = "<group>"; };
-		047495111F5A6A5A00841A31 /* DailySummary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailySummary.swift; sourceTree = "<group>"; };
+		047495111F5A6A5A00841A31 /* DailySummaryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailySummaryView.swift; sourceTree = "<group>"; };
 		04B972331F587F9C00F9512E /* KeychainSwiftDistrib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainSwiftDistrib.swift; sourceTree = "<group>"; };
 		081DA0442CCF7D4B5B5F4116 /* Pods_Hal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B0220DCFE83DBD87DDE238E /* Pods-Scout Watch App Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Scout Watch App Extension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Scout Watch App Extension/Pods-Scout Watch App Extension.debug.xcconfig"; sourceTree = "<group>"; };
@@ -244,8 +215,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				043702951F4E49BF001EF6E7 /* CoreData.framework in Frameworks */,
-				0437025E1F4A468D001EF6E7 /* Lottie.framework in Frameworks */,
-				046D86E41F20FD1D000BC423 /* Charts.framework in Frameworks */,
 				04471C9E1F181AB900F1023A /* UserNotifications.framework in Frameworks */,
 				044CEE481F16E132005CBD0E /* HealthKit.framework in Frameworks */,
 				1D337F7D72CDAE0981BF07E7 /* Pods_Hal.framework in Frameworks */,
@@ -346,8 +315,6 @@
 		044CEDD51F169E4E005CBD0E = {
 			isa = PBXGroup;
 			children = (
-				0437025C1F4A466E001EF6E7 /* Lottie.framework */,
-				046D86DB1F20FCDB000BC423 /* Charts.xcodeproj */,
 				044CEDE01F169E4E005CBD0E /* Hal */,
 				044CEDF81F169E4F005CBD0E /* BeaconTests */,
 				044CEE031F169E4F005CBD0E /* BeaconUITests */,
@@ -389,7 +356,7 @@
 				042FD2E81F2498FE00A6DF49 /* Utils */,
 				044CEDE11F169E4E005CBD0E /* AppDelegate.swift */,
 				044CEDE31F169E4E005CBD0E /* ViewController.swift */,
-				047495111F5A6A5A00841A31 /* DailySummary.swift */,
+				047495111F5A6A5A00841A31 /* DailySummaryView.swift */,
 				043702921F4D41A1001EF6E7 /* LoginViewController.swift */,
 				044CEDE51F169E4E005CBD0E /* Main.storyboard */,
 				043702901F4C0547001EF6E7 /* AppIcon.appiconset */,
@@ -470,15 +437,6 @@
 				3CDEACB6BD41319B81901B41 /* Pods_Scout_Watch_App_Extension.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		046D86DC1F20FCDB000BC423 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				046D86E11F20FCDB000BC423 /* Charts.framework */,
-				046D86E31F20FCDB000BC423 /* ChartsTests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		046D86ED1F2237E1000BC423 /* Remote */ = {
@@ -569,7 +527,6 @@
 			);
 			dependencies = (
 				044CEE331F16C32D005CBD0E /* PBXTargetDependency */,
-				046D86E71F20FD1D000BC423 /* PBXTargetDependency */,
 			);
 			name = Hal;
 			productName = Beacon;
@@ -722,12 +679,6 @@
 			mainGroup = 044CEDD51F169E4E005CBD0E;
 			productRefGroup = 044CEDDF1F169E4E005CBD0E /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 046D86DC1F20FCDB000BC423 /* Products */;
-					ProjectRef = 046D86DB1F20FCDB000BC423 /* Charts.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				044CEDDD1F169E4E005CBD0E /* Hal */,
@@ -738,23 +689,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		046D86E11F20FCDB000BC423 /* Charts.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Charts.framework;
-			remoteRef = 046D86E01F20FCDB000BC423 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		046D86E31F20FCDB000BC423 /* ChartsTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = ChartsTests.xctest;
-			remoteRef = 046D86E21F20FCDB000BC423 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		044CEDDC1F169E4E005CBD0E /* Resources */ = {
@@ -1007,13 +941,17 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Hal/Pods-Hal-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
 				"${BUILT_PRODUCTS_DIR}/Macaw/Macaw.framework",
 				"${BUILT_PRODUCTS_DIR}/SWXMLHash/SWXMLHash.framework",
+				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Macaw.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SWXMLHash.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1061,7 +999,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				043701F81F396713001EF6E7 /* Background.swift in Sources */,
-				047495121F5A6A5A00841A31 /* DailySummary.swift in Sources */,
+				047495121F5A6A5A00841A31 /* DailySummaryView.swift in Sources */,
 				04471CA01F18982200F1023A /* HKManager.swift in Sources */,
 				04471CA41F18A29000F1023A /* EventDispatcher.swift in Sources */,
 				042FD2E61F2498AC00A6DF49 /* Utils.swift in Sources */,
@@ -1130,11 +1068,6 @@
 			target = 044CEE131F16C32D005CBD0E /* Scout Watch App */;
 			targetProxy = 044CEE321F16C32D005CBD0E /* PBXContainerItemProxy */;
 		};
-		046D86E71F20FD1D000BC423 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = Charts;
-			targetProxy = 046D86E61F20FD1D000BC423 /* PBXContainerItemProxy */;
-		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -1189,7 +1122,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;

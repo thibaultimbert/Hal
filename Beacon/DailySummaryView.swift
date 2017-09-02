@@ -97,12 +97,23 @@ open class DailySummaryView: MacawView {
         )
     }
     
+    open func stop(){
+        animations.forEach {
+            $0.stop()
+        }
+    }
+    
     open func play() {
         createScene()
         createAnimations()
+        animations.sequence().onComplete {
+            self.completionCallback()
+        }.stop()
         animations.forEach {
             $0.play()
         }
     }
+    
+    open var completionCallback: (() -> ()) = { }
     
 }

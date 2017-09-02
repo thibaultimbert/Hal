@@ -65,13 +65,11 @@ class DexcomBridge: EventDispatcher {
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        print ( completionHandler )
-        
         dataTask?.cancel()
         dataTask = URLSession.shared.dataTask(with:request) { data, response, error in
-                let response = String(data: data!, encoding: .utf8)
-                if let data = response?.data(using: String.Encoding.utf8) {
-                    do {
+                do {
+                    let response = String(data: data!, encoding: .utf8)
+                    if let data = response?.data(using: String.Encoding.utf8) {
                         if let parseJSON = try JSONSerialization.jsonObject(with: data) as? [[String:Any]] {
                         self.bloodSamples.removeAll()
                         for sample in parseJSON {
@@ -88,12 +86,13 @@ class DexcomBridge: EventDispatcher {
                             self.dispatchEvent(event: Event(type: EventType.bloodSamples, target: self))
                         })
                         }
-                    } catch _ as NSError {
-                        DispatchQueue.main.async(execute: {
-                            self.dispatchEvent(event: Event(type: EventType.glucoseIOError, target: self))
-                        })
                     }
-                }
+                } catch _ as NSError {
+                   print("IO_ERROR")
+                    DispatchQueue.main.async(execute: {
+                            self.dispatchEvent(event: Event(type: EventType.glucoseIOError, target: self))
+                })
+            }
         }
         dataTask?.resume()
     }

@@ -19,6 +19,7 @@ class LoginViewController: UIViewController {
     
     public var defaults: UserDefaults!
     public var dxBridge: DexcomBridge!
+    private var loggedIn: EventHandler!
     private var setupBg: AnimatedBackground!
     private var keychain:KeychainSwift!
     private var logo: UIImage!
@@ -58,7 +59,7 @@ class LoginViewController: UIViewController {
         
         // auth login
         dxBridge = DexcomBridge.shared()
-        let loggedIn = EventHandler(function: self.onLoggedIn)
+        loggedIn = EventHandler(function: self.onLoggedIn)
         let authError = EventHandler(function: self.onAuthError)
         dxBridge.addEventListener(type: .loggedIn, handler: loggedIn)
         dxBridge.addEventListener(type: .authLoginError, handler: authError)
@@ -93,6 +94,7 @@ class LoginViewController: UIViewController {
     public func onLoggedIn(event: Event){
         // go to the logged in screen
         self.performSegue(withIdentifier: "Main", sender: self)
+        dxBridge.removeEventListener(type: .loggedIn, handler: loggedIn)
     }
     
     public func onAuthError(event: Event){

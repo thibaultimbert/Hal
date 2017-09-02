@@ -44,9 +44,18 @@ class ViewController: UIViewController {
     private var animationView: LOTAnimationView!
     private var heartView: LOTAnimationView!
     private var managedObjectContext: NSManagedObjectContext!
+    private var dailySummaryView:DailySummaryView!
+    private var keychain: KeychainSwift!
+    private var size: Float = 0
+    private var generator: UIImpactFeedbackGenerator!
+    private var gestureRecognizer: UIGestureRecognizer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        generator = UIImpactFeedbackGenerator(style: .heavy)
+        gestureRecognizer = UITapGestureRecognizer(target: self, action:#selector(handleTap))
+        self.view.addGestureRecognizer(gestureRecognizer)
         
         // initialize coredata
         managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -92,7 +101,7 @@ class ViewController: UIViewController {
         
         dxBridge = DexcomBridge.shared()
         let DXBloodSamples = EventHandler(function: self.onBloodSamples)
-        let authLoginHandler = EventHandler (function: self.glucoseIOFailed)
+        let onLoggedInHandler = EventHandler (function: self.onLoggedIn)
         let glucoseIOHandler = EventHandler (function: self.glucoseIOFailed)
         let hkAuthorizedHandler = EventHandler (function: self.onHKAuthorization)
         let hkHeartRateHandler = EventHandler (function: self.onHKHeartRate)
@@ -107,10 +116,30 @@ class ViewController: UIViewController {
         // wait for Dexcom data
         dxBridge.addEventListener(type: .bloodSamples, handler: DXBloodSamples)
         dxBridge.addEventListener(type: .glucoseIOError, handler: glucoseIOHandler)
+        dxBridge.addEventListener(type: .loggedIn, handler: onLoggedInHandler)
         
         // get the glucose data
-        updateTimer = Timer.scheduledTimer(timeInterval: 240, target: self, selector: #selector(update), userInfo: nil, repeats: true)
+        updateTimer = Timer.scheduledTimer(timeInterval: 180, target: self, selector: #selector(update), userInfo: nil, repeats: true)
         updateTimer?.fire()
+        
+        dailySummaryView = DailySummaryView()
+        self.view.addSubview(dailySummaryView)
+        dailySummaryView.completionCallback = {
+            self.dailySummaryView.stop()
+        }
+        play(withDelay: 1)
+    }
+    
+    @objc func handleTap(sender: UITapGestureRecognizer? = nil) {
+        //print ( sender?. )
+    }
+    
+    private func play(withDelay: TimeInterval) {
+        self.perform(#selector(animateViews), with: .none, afterDelay: withDelay)
+    }
+    
+    open func animateViews() {
+        dailySummaryView.play()
     }
     
     public func onBloodSamples(event: Event){
@@ -119,6 +148,7 @@ class ViewController: UIViewController {
         news.center = CGPoint(x: view.frame.width/2,y: -173+view.frame.height/2);
         news.text = "Your heart rate has been steady for the past 48 hours, maybe time for a run?"
         
+        // clean past data (debug)
         (UIApplication.shared.delegate as! AppDelegate).deleteSamplesData()
         
         // reference the result (Array of BGSample)
@@ -227,19 +257,27 @@ class ViewController: UIViewController {
         current.text = sampleDate + "\n" + String (describing: chartManager.selectedSample.value) + " mg/DL " + self.chartManager.selectedSample.trend
     }
     
-    public func recover() {
+    public func pause(){
         updateTimer?.invalidate()
-        let when = DispatchTime.now() + 10
+    }
+    
+    public func restart() {
+        let when = DispatchTime.now() + 1
         DispatchQueue.main.asyncAfter(deadline: when) {
+            self.updateTimer = Timer.scheduledTimer(timeInterval: 180, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
             self.updateTimer?.fire()
         }
     }
     
     public func onHKHeartRate (event: Event){}
     
+    public func onLoggedIn (event: Event){
+        restart()
+    }
+    
     public func glucoseIOFailed (event: Event){
-        detailsL.text = "Couldn't load your latest glucose readings.\nRetrying in 10 seconds..."
-        recover()
+        pause()
+        dxBridge.login(userName: keychain.get("user")!, password: keychain.get("password")!)
     }
     
     public func onHKAuthorization (event: Event){
@@ -252,6 +290,7 @@ class ViewController: UIViewController {
     }
 
     @objc func update() {
+        print("UPDATE")
         dxBridge.getGlucoseValues()
         hkManager.getHeartRate()
     }
