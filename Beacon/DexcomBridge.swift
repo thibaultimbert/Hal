@@ -68,8 +68,13 @@ class DexcomBridge: EventDispatcher {
         dataTask?.cancel()
         dataTask = URLSession.shared.dataTask(with:request) { data, response, error in
                 do {
-                    let response = String(data: data!, encoding: .utf8)
-                    if let data = response?.data(using: String.Encoding.utf8) {
+                    let parsed: String
+                    if let response = data {
+                        parsed = String(data: response, encoding: .utf8)!
+                    } else {
+                        throw RemoteError.parsingIssue
+                    }
+                    if let data = parsed.data(using: String.Encoding.utf8) {
                         if let parseJSON = try JSONSerialization.jsonObject(with: data) as? [[String:Any]] {
                         self.bloodSamples.removeAll()
                         for sample in parseJSON {
@@ -87,8 +92,8 @@ class DexcomBridge: EventDispatcher {
                         })
                         }
                     }
-                } catch _ as NSError {
-                   print("IO_ERROR")
+                } catch _ as Error {
+                    print("IO_ERROR")
                     DispatchQueue.main.async(execute: {
                             self.dispatchEvent(event: Event(type: EventType.glucoseIOError, target: self))
                 })
@@ -100,4 +105,8 @@ class DexcomBridge: EventDispatcher {
     class func shared() -> DexcomBridge {
         return sharedDXBridge
     }
+}
+
+enum RemoteError: Error {
+    case parsingIssue
 }

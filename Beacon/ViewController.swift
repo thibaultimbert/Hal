@@ -53,6 +53,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // load the keychain
+        keychain = KeychainSwift()
+        
         generator = UIImpactFeedbackGenerator(style: .heavy)
         gestureRecognizer = UITapGestureRecognizer(target: self, action:#selector(handleTap))
         self.view.addGestureRecognizer(gestureRecognizer)
