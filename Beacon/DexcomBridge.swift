@@ -14,7 +14,7 @@ import SwiftyJSON
 class DexcomBridge: EventDispatcher {
     
     public var bloodSamples: [BGSample] = []
-    public static var TOKEN: String = ""
+    public static var TOKEN: String!
     private static var LOGIN_URL: String = "https://share1.dexcom.com/ShareWebServices/Services/General/LoginPublisherAccountByName"
     private var dataTask: URLSessionDataTask?
     

@@ -46,11 +46,12 @@
 		044CEE341F16C32D005CBD0E /* Scout Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 044CEE141F16C32D005CBD0E /* Scout Watch App.app */; };
 		044CEE481F16E132005CBD0E /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 044CEE471F16E132005CBD0E /* HealthKit.framework */; };
 		044CEE4A1F16E51D005CBD0E /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 044CEE491F16E51D005CBD0E /* HealthKit.framework */; };
-		045A152E1F4EA25B00FDEBFC /* tea.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 045A152D1F4EA25B00FDEBFC /* tea.jpg */; };
 		045A15381F4EA82400FDEBFC /* night.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 045A15371F4EA82400FDEBFC /* night.jpg */; };
 		0474950C1F5919BC00841A31 /* sea.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 0474950B1F5919A600841A31 /* sea.mp4 */; };
 		047495121F5A6A5A00841A31 /* DailySummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047495111F5A6A5A00841A31 /* DailySummary.swift */; };
 		04B972341F587F9C00F9512E /* KeychainSwiftDistrib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B972331F587F9C00F9512E /* KeychainSwiftDistrib.swift */; };
+		04DDBA551F5D0BCE00A7D4BC /* noon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 04DDBA541F5D0BCE00A7D4BC /* noon.jpg */; };
+		04DDBA571F5D0C0800A7D4BC /* evening.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 04DDBA561F5D0C0800A7D4BC /* evening.jpg */; };
 		1D337F7D72CDAE0981BF07E7 /* Pods_Hal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 081DA0442CCF7D4B5B5F4116 /* Pods_Hal.framework */; };
 		2B0AA8D9C732954C58FA927E /* Pods_Scout_Watch_App_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CDEACB6BD41319B81901B41 /* Pods_Scout_Watch_App_Extension.framework */; };
 		7C03CECB3914D0E857DFC9AE /* Pods_HalUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6318519DAEE61CA65D8AA72 /* Pods_HalUITests.framework */; };
@@ -187,11 +188,12 @@
 		044CEE471F16E132005CBD0E /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		044CEE491F16E51D005CBD0E /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS3.2.sdk/System/Library/Frameworks/HealthKit.framework; sourceTree = DEVELOPER_DIR; };
 		044CEE4B1F16E51D005CBD0E /* Scout Watch App Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Scout Watch App Extension.entitlements"; sourceTree = "<group>"; };
-		045A152D1F4EA25B00FDEBFC /* tea.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = tea.jpg; sourceTree = "<group>"; };
 		045A15371F4EA82400FDEBFC /* night.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = night.jpg; sourceTree = "<group>"; };
 		0474950B1F5919A600841A31 /* sea.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = sea.mp4; sourceTree = "<group>"; };
 		047495111F5A6A5A00841A31 /* DailySummary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailySummary.swift; sourceTree = "<group>"; };
 		04B972331F587F9C00F9512E /* KeychainSwiftDistrib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainSwiftDistrib.swift; sourceTree = "<group>"; };
+		04DDBA541F5D0BCE00A7D4BC /* noon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = noon.jpg; sourceTree = "<group>"; };
+		04DDBA561F5D0C0800A7D4BC /* evening.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = evening.jpg; sourceTree = "<group>"; };
 		081DA0442CCF7D4B5B5F4116 /* Pods_Hal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B0220DCFE83DBD87DDE238E /* Pods-Scout Watch App Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Scout Watch App Extension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Scout Watch App Extension/Pods-Scout Watch App Extension.debug.xcconfig"; sourceTree = "<group>"; };
 		10D0467A149BBAA8AD9CDF55 /* Pods-Scout Watch App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Scout Watch App.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Scout Watch App/Pods-Scout Watch App.debug.xcconfig"; sourceTree = "<group>"; };
@@ -279,8 +281,9 @@
 				043701F71F396713001EF6E7 /* Background.swift */,
 				044734FA1F57DDAA00C85608 /* AnimatedBackground.swift */,
 				044734F31F553E4000C85608 /* morning.jpg */,
+				04DDBA561F5D0C0800A7D4BC /* evening.jpg */,
+				04DDBA541F5D0BCE00A7D4BC /* noon.jpg */,
 				045A15371F4EA82400FDEBFC /* night.jpg */,
-				045A152D1F4EA25B00FDEBFC /* tea.jpg */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -707,14 +710,15 @@
 				043702911F4C0547001EF6E7 /* AppIcon.appiconset in Resources */,
 				044734F11F54D6DE00C85608 /* bouncing_heart.json in Resources */,
 				044CEDEF1F169E4E005CBD0E /* LaunchScreen.storyboard in Resources */,
+				04DDBA551F5D0BCE00A7D4BC /* noon.jpg in Resources */,
 				0437028F1F4BDE4B001EF6E7 /* loader.json in Resources */,
 				0437028C1F4BDC97001EF6E7 /* heart.json in Resources */,
+				04DDBA571F5D0C0800A7D4BC /* evening.jpg in Resources */,
 				043702641F4A6817001EF6E7 /* preloader.json in Resources */,
 				044CEDEC1F169E4E005CBD0E /* Assets.xcassets in Resources */,
 				044734F41F553E4100C85608 /* morning.jpg in Resources */,
 				044CEDE71F169E4E005CBD0E /* Main.storyboard in Resources */,
 				045A15381F4EA82400FDEBFC /* night.jpg in Resources */,
-				045A152E1F4EA25B00FDEBFC /* tea.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

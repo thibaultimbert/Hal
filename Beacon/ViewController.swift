@@ -144,6 +144,9 @@ class ViewController: UIViewController {
     
     public func onBloodSamples(event: Event){
         
+        // updates background based on current time
+        setupBg.updateBackground()
+        
         // reposition encouragement label
         news.center = CGPoint(x: view.frame.width/2,y: -173+view.frame.height/2);
         news.text = "Your heart rate has been steady for the past 48 hours, maybe time for a run?"

@@ -35,16 +35,31 @@ class Utils {
         now = calendar.date(from: nowComponents)!
         return now as Date
     }
+    
+    public static func getTimeofDay() -> TimeOfDay {
+        let hour = Calendar.current.component(.hour, from: Date())
+        switch hour {
+            case 6..<12 : return TimeOfDay.morning
+            case 12..<17 : return TimeOfDay.noon
+            case 17..<20 : return TimeOfDay.evening
+            default: return TimeOfDay.night
+        }
+    }
 }
 
 extension Double {
     func getDateStringFromUTC() -> String {
         let date = Date(timeIntervalSince1970: self)
-        
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US")
         dateFormatter.dateStyle = .medium
-        
         return dateFormatter.string(from: date)
     }
+}
+
+enum TimeOfDay {
+    case morning
+    case noon
+    case evening
+    case night
 }
