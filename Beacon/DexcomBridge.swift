@@ -35,7 +35,12 @@ class DexcomBridge: EventDispatcher {
         dataTask?.cancel()
         dataTask = URLSession.shared.dataTask(with:request) { data, response, error in
             do {
-                let parsed: String = String(data: data!, encoding: .utf8)!
+                let parsed: String
+                if let response = data {
+                    parsed = String(data: response, encoding: .utf8)!
+                } else {
+                    throw RemoteError.parsingIssue
+                }
                 if let dataFromString = parsed.data(using: .utf8, allowLossyConversion: false) {
                     let json = JSON(data: dataFromString)
                     if json["Code"] == JSON.null {
