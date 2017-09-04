@@ -44,7 +44,7 @@ class ViewController: UIViewController {
     private var animationView: LOTAnimationView!
     private var heartView: LOTAnimationView!
     private var managedObjectContext: NSManagedObjectContext!
-    private var dailySummaryView:DailySummaryView!
+    private var dailySummaryView:DailySummary!
     private var keychain: KeychainSwift!
     private var size: Float = 0
     private var generator: UIImpactFeedbackGenerator!
@@ -125,11 +125,8 @@ class ViewController: UIViewController {
         updateTimer = Timer.scheduledTimer(timeInterval: 180, target: self, selector: #selector(update), userInfo: nil, repeats: true)
         updateTimer?.fire()
         
-        dailySummaryView = DailySummaryView()
+        dailySummaryView = DailySummary()
         self.view.addSubview(dailySummaryView)
-        dailySummaryView.completionCallback = {
-            self.dailySummaryView.stop()
-        }
         play(withDelay: 1)
     }
     

@@ -49,7 +49,7 @@
 		045A152E1F4EA25B00FDEBFC /* tea.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 045A152D1F4EA25B00FDEBFC /* tea.jpg */; };
 		045A15381F4EA82400FDEBFC /* night.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 045A15371F4EA82400FDEBFC /* night.jpg */; };
 		0474950C1F5919BC00841A31 /* sea.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 0474950B1F5919A600841A31 /* sea.mp4 */; };
-		047495121F5A6A5A00841A31 /* DailySummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047495111F5A6A5A00841A31 /* DailySummaryView.swift */; };
+		047495121F5A6A5A00841A31 /* DailySummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047495111F5A6A5A00841A31 /* DailySummary.swift */; };
 		04B972341F587F9C00F9512E /* KeychainSwiftDistrib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B972331F587F9C00F9512E /* KeychainSwiftDistrib.swift */; };
 		1D337F7D72CDAE0981BF07E7 /* Pods_Hal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 081DA0442CCF7D4B5B5F4116 /* Pods_Hal.framework */; };
 		2B0AA8D9C732954C58FA927E /* Pods_Scout_Watch_App_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CDEACB6BD41319B81901B41 /* Pods_Scout_Watch_App_Extension.framework */; };
@@ -190,7 +190,7 @@
 		045A152D1F4EA25B00FDEBFC /* tea.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = tea.jpg; sourceTree = "<group>"; };
 		045A15371F4EA82400FDEBFC /* night.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = night.jpg; sourceTree = "<group>"; };
 		0474950B1F5919A600841A31 /* sea.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = sea.mp4; sourceTree = "<group>"; };
-		047495111F5A6A5A00841A31 /* DailySummaryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailySummaryView.swift; sourceTree = "<group>"; };
+		047495111F5A6A5A00841A31 /* DailySummary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailySummary.swift; sourceTree = "<group>"; };
 		04B972331F587F9C00F9512E /* KeychainSwiftDistrib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainSwiftDistrib.swift; sourceTree = "<group>"; };
 		081DA0442CCF7D4B5B5F4116 /* Pods_Hal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B0220DCFE83DBD87DDE238E /* Pods-Scout Watch App Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Scout Watch App Extension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Scout Watch App Extension/Pods-Scout Watch App Extension.debug.xcconfig"; sourceTree = "<group>"; };
@@ -356,7 +356,7 @@
 				042FD2E81F2498FE00A6DF49 /* Utils */,
 				044CEDE11F169E4E005CBD0E /* AppDelegate.swift */,
 				044CEDE31F169E4E005CBD0E /* ViewController.swift */,
-				047495111F5A6A5A00841A31 /* DailySummaryView.swift */,
+				04F3087C1F5BC9960025EECB /* Components */,
 				043702921F4D41A1001EF6E7 /* LoginViewController.swift */,
 				044CEDE51F169E4E005CBD0E /* Main.storyboard */,
 				043702901F4C0547001EF6E7 /* AppIcon.appiconset */,
@@ -486,6 +486,14 @@
 				04B972331F587F9C00F9512E /* KeychainSwiftDistrib.swift */,
 			);
 			name = Security;
+			sourceTree = "<group>";
+		};
+		04F3087C1F5BC9960025EECB /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				047495111F5A6A5A00841A31 /* DailySummary.swift */,
+			);
+			name = Components;
 			sourceTree = "<group>";
 		};
 		52BB02784DF098C7E3487063 /* Pods */ = {
@@ -941,16 +949,20 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Hal/Pods-Hal-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
 				"${BUILT_PRODUCTS_DIR}/Macaw/Macaw.framework",
 				"${BUILT_PRODUCTS_DIR}/SWXMLHash/SWXMLHash.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Macaw.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SWXMLHash.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -999,7 +1011,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				043701F81F396713001EF6E7 /* Background.swift in Sources */,
-				047495121F5A6A5A00841A31 /* DailySummaryView.swift in Sources */,
+				047495121F5A6A5A00841A31 /* DailySummary.swift in Sources */,
 				04471CA01F18982200F1023A /* HKManager.swift in Sources */,
 				04471CA41F18A29000F1023A /* EventDispatcher.swift in Sources */,
 				042FD2E61F2498AC00A6DF49 /* Utils.swift in Sources */,

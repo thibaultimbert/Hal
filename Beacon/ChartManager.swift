@@ -21,9 +21,13 @@ class ChartManager: EventDispatcher, ChartViewDelegate {
     private var inited: DarwinBoolean = false
     private var zoomed: DarwinBoolean = false
     
+    public static var HIGH_LIMIT:Int = 150
+    public static var LOW_LIMIT:Int = 70
+    
     init (lineChart: LineChartView){
         chart = lineChart
         chart.delegate = self as ChartViewDelegate
+        chart.backgroundColor = .clear
         
         chart.xAxis.granularity = 1
         chart.xAxis.labelPosition = .bottom
@@ -87,9 +91,9 @@ class ChartManager: EventDispatcher, ChartViewDelegate {
             chart.animate(xAxisDuration: 2.0, yAxisDuration: 2.0, easingOption: .easeInOutQuart)
             inited = true
         }
-        let ll = ChartLimitLine(limit: 150.0)
+        let ll = ChartLimitLine(limit: Double(ChartManager.HIGH_LIMIT))
         ll.lineColor = UIColor(red: 246/255, green: 188/255, blue: 11/255, alpha: 1.0)
-        let bl = ChartLimitLine(limit: 70)
+        let bl = ChartLimitLine(limit: Double(ChartManager.LOW_LIMIT))
         bl.lineColor = UIColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 1.0)
         chart.rightAxis.addLimitLine(ll)
         chart.rightAxis.addLimitLine(bl)

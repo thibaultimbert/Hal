@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import CoreData
+import SwiftyJSON
 
 class DexcomBridge: EventDispatcher {
     
@@ -33,26 +34,30 @@ class DexcomBridge: EventDispatcher {
         
         dataTask?.cancel()
         dataTask = URLSession.shared.dataTask(with:request) { data, response, error in
-            let response = String(data: data!, encoding: .utf8)
-            if let data = response?.data(using: String.Encoding.utf8) {
-                do {
-                    if let parseJSON = try JSONSerialization.jsonObject(with: data) as? [String:Any] {
-                        let errorCode = String(describing: parseJSON["Code"]!)
+            do {
+                let parsed: String = String(data: data!, encoding: .utf8)!
+                if let dataFromString = parsed.data(using: .utf8, allowLossyConversion: false) {
+                    let json = JSON(data: dataFromString)
+                    if json["Code"] == JSON.null {
+                        let parsedToken = parsed.replacingOccurrences(of: "\"", with: "", options: .literal, range: nil)
+                        DexcomBridge.TOKEN = parsedToken
+                        DispatchQueue.main.async(execute: {
+                            self.dispatchEvent(event: Event(type: EventType.loggedIn, target: self))
+                        })
+                    } else {
+                        let errorCode = json["Code"].stringValue
                         if errorCode == "SSO_AuthenticateAccountNotFound" || errorCode == "SSO_AuthenticatePasswordInvalid" {
                             DispatchQueue.main.async(execute: {
                                 self.dispatchEvent(event: Event(type: EventType.authLoginError, target: self))
                             })
                         }
                     }
-                } catch _ as NSError {
-                    let parsedToken = response?.replacingOccurrences(of: "\"", with: "", options: .literal, range: nil)
-                    DexcomBridge.TOKEN = parsedToken!
-                    DispatchQueue.main.async(execute: {
-                        self.dispatchEvent(event: Event(type: EventType.loggedIn, target: self))
-                    })
                 }
-            } else if let error = error {
-                print (error.localizedDescription)
+            } catch _ as NSError {
+                print("IO_ERROR")
+                DispatchQueue.main.async(execute: {
+                    self.dispatchEvent(event: Event(type: EventType.glucoseIOError, target: self))
+            })
             }
         }
         dataTask?.resume()
@@ -74,15 +79,16 @@ class DexcomBridge: EventDispatcher {
                     } else {
                         throw RemoteError.parsingIssue
                     }
-                    if let data = parsed.data(using: String.Encoding.utf8) {
-                        if let parseJSON = try JSONSerialization.jsonObject(with: data) as? [[String:Any]] {
+                    if let dataFromString = parsed.data(using: .utf8, allowLossyConversion: false) {
+                        let json = JSON(data: dataFromString)
                         self.bloodSamples.removeAll()
-                        for sample in parseJSON {
-                            if let value = sample["Value"] as? Double, let date = sample["ST"] as? String, let trend = sample["Trend"] as? Float {
-                                let timeStamp = date.components(separatedBy: "(")[1].components(separatedBy: ")")[0].components(separatedBy: "-")[0]
-                                let convertedTime: Int = Int(timeStamp)!/1000
-                                self.bloodSamples.append(BGSample(pValue: Int(value), pTime: convertedTime, pTrend: Int(trend)))
-                            }
+                        for (_,subJson):(String, JSON) in json {
+                            let value = subJson["Value"].int
+                            let date = subJson["ST"].stringValue
+                            let trend = subJson["Trend"].int
+                            let timeStamp = date.components(separatedBy: "(")[1].components(separatedBy: ")")[0].components(separatedBy: "-")[0]
+                            let convertedTime: Int = Int(timeStamp)!/1000
+                            self.bloodSamples.append(BGSample(pValue: value!, pTime: convertedTime, pTrend: trend!))
                         }
                         if (completionHandler) != nil {
                             completionHandler(.newData)
@@ -90,7 +96,6 @@ class DexcomBridge: EventDispatcher {
                         DispatchQueue.main.async(execute: {
                             self.dispatchEvent(event: Event(type: EventType.bloodSamples, target: self))
                         })
-                        }
                     }
                 } catch _ as Error {
                     print("IO_ERROR")

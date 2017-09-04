@@ -9,7 +9,7 @@
 import Macaw
 import Foundation
 
-open class DailySummaryView: MacawView {
+open class DailySummary: MacawView {
     
     private var animationGroup = Group()
     
@@ -106,9 +106,6 @@ open class DailySummaryView: MacawView {
     open func play() {
         createScene()
         createAnimations()
-        animations.sequence().onComplete {
-            self.completionCallback()
-        }.stop()
         animations.forEach {
             $0.play()
         }
