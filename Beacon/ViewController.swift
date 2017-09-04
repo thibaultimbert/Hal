@@ -53,6 +53,10 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // handling background and foreground states
+        NotificationCenter.default.addObserver(self, selector: #selector(self.resume), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.pause), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
+        
         // load the keychain
         keychain = KeychainSwift()
         
@@ -261,10 +265,12 @@ class ViewController: UIViewController {
     }
     
     public func pause(){
+        print("DEBUG:: Going in background")
         updateTimer?.invalidate()
     }
     
-    public func restart() {
+    public func resume() {
+        print("DEBUG:: Back in foreground")
         let when = DispatchTime.now() + 1
         DispatchQueue.main.asyncAfter(deadline: when) {
             self.updateTimer = Timer.scheduledTimer(timeInterval: 180, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
@@ -275,7 +281,7 @@ class ViewController: UIViewController {
     public func onHKHeartRate (event: Event){}
     
     public func onLoggedIn (event: Event){
-        restart()
+        resume()
     }
     
     public func glucoseIOFailed (event: Event){
@@ -293,7 +299,7 @@ class ViewController: UIViewController {
     }
 
     @objc func update() {
-        print("UPDATE")
+        print("DEBUG:: Pulling latest data")
         dxBridge.getGlucoseValues()
         hkManager.getHeartRate()
     }

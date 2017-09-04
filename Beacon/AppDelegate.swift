@@ -54,6 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         if let vc = window?.rootViewController as? ViewController {
             vc.dxBridge.getGlucoseValues(token: DexcomBridge.TOKEN, completionHandler: completionHandler)
+            vc.hkManager.getHeartRate()
         }
     }
     
@@ -90,6 +91,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
