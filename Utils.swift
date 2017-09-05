@@ -40,8 +40,8 @@ class Utils {
         let hour = Calendar.current.component(.hour, from: Date())
         switch hour {
             case 6..<12 : return TimeOfDay.morning
-            case 12..<17 : return TimeOfDay.noon
-            case 17..<20 : return TimeOfDay.evening
+            case 12..<18 : return TimeOfDay.noon
+            case 18..<20 : return TimeOfDay.evening
             default: return TimeOfDay.night
         }
     }

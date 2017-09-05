@@ -12,7 +12,6 @@
 		042FD2E61F2498AC00A6DF49 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042FD2E51F2498AB00A6DF49 /* Utils.swift */; };
 		042FD2EA1F2696AD00A6DF49 /* ChartManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042FD2E91F2696AD00A6DF49 /* ChartManager.swift */; };
 		043701F81F396713001EF6E7 /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043701F71F396713001EF6E7 /* Background.swift */; };
-		043701FB1F4622B9001EF6E7 /* DLLocalNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043701FA1F4622B9001EF6E7 /* DLLocalNotifications.swift */; };
 		043702641F4A6817001EF6E7 /* preloader.json in Resources */ = {isa = PBXBuildFile; fileRef = 043702631F4A6816001EF6E7 /* preloader.json */; };
 		0437028C1F4BDC97001EF6E7 /* heart.json in Resources */ = {isa = PBXBuildFile; fileRef = 0437028B1F4BDC97001EF6E7 /* heart.json */; };
 		0437028F1F4BDE4B001EF6E7 /* loader.json in Resources */ = {isa = PBXBuildFile; fileRef = 0437028E1F4BDE4B001EF6E7 /* loader.json */; };
@@ -50,8 +49,8 @@
 		0474950C1F5919BC00841A31 /* sea.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 0474950B1F5919A600841A31 /* sea.mp4 */; };
 		047495121F5A6A5A00841A31 /* DailySummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047495111F5A6A5A00841A31 /* DailySummary.swift */; };
 		04B972341F587F9C00F9512E /* KeychainSwiftDistrib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B972331F587F9C00F9512E /* KeychainSwiftDistrib.swift */; };
-		04DDBA551F5D0BCE00A7D4BC /* noon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 04DDBA541F5D0BCE00A7D4BC /* noon.jpg */; };
 		04DDBA571F5D0C0800A7D4BC /* evening.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 04DDBA561F5D0C0800A7D4BC /* evening.jpg */; };
+		04DDBA5D1F5E1AE000A7D4BC /* noon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 04DDBA5C1F5E1AE000A7D4BC /* noon.jpg */; };
 		1D337F7D72CDAE0981BF07E7 /* Pods_Hal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 081DA0442CCF7D4B5B5F4116 /* Pods_Hal.framework */; };
 		2B0AA8D9C732954C58FA927E /* Pods_Scout_Watch_App_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CDEACB6BD41319B81901B41 /* Pods_Scout_Watch_App_Extension.framework */; };
 		7C03CECB3914D0E857DFC9AE /* Pods_HalUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6318519DAEE61CA65D8AA72 /* Pods_HalUITests.framework */; };
@@ -140,7 +139,6 @@
 		042FD2E51F2498AB00A6DF49 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utils.swift; path = ../Utils.swift; sourceTree = "<group>"; };
 		042FD2E91F2696AD00A6DF49 /* ChartManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartManager.swift; sourceTree = "<group>"; };
 		043701F71F396713001EF6E7 /* Background.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Background.swift; path = ../Background.swift; sourceTree = "<group>"; };
-		043701FA1F4622B9001EF6E7 /* DLLocalNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DLLocalNotifications.swift; sourceTree = "<group>"; };
 		043702561F49F6BB001EF6E7 /* Lottie.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Lottie.framework; path = ../Phoenix/Carthage/Build/iOS/Lottie.framework; sourceTree = "<group>"; };
 		0437025A1F4A4650001EF6E7 /* Lottie.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Lottie.framework; path = Carthage/Build/iOS/Lottie.framework; sourceTree = "<group>"; };
 		043702631F4A6816001EF6E7 /* preloader.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = preloader.json; path = ../../../Downloads/preloader.json; sourceTree = "<group>"; };
@@ -192,8 +190,8 @@
 		0474950B1F5919A600841A31 /* sea.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = sea.mp4; sourceTree = "<group>"; };
 		047495111F5A6A5A00841A31 /* DailySummary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailySummary.swift; sourceTree = "<group>"; };
 		04B972331F587F9C00F9512E /* KeychainSwiftDistrib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainSwiftDistrib.swift; sourceTree = "<group>"; };
-		04DDBA541F5D0BCE00A7D4BC /* noon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = noon.jpg; sourceTree = "<group>"; };
 		04DDBA561F5D0C0800A7D4BC /* evening.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = evening.jpg; sourceTree = "<group>"; };
+		04DDBA5C1F5E1AE000A7D4BC /* noon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = noon.jpg; sourceTree = "<group>"; };
 		081DA0442CCF7D4B5B5F4116 /* Pods_Hal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B0220DCFE83DBD87DDE238E /* Pods-Scout Watch App Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Scout Watch App Extension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Scout Watch App Extension/Pods-Scout Watch App Extension.debug.xcconfig"; sourceTree = "<group>"; };
 		10D0467A149BBAA8AD9CDF55 /* Pods-Scout Watch App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Scout Watch App.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Scout Watch App/Pods-Scout Watch App.debug.xcconfig"; sourceTree = "<group>"; };
@@ -282,7 +280,7 @@
 				044734FA1F57DDAA00C85608 /* AnimatedBackground.swift */,
 				044734F31F553E4000C85608 /* morning.jpg */,
 				04DDBA561F5D0C0800A7D4BC /* evening.jpg */,
-				04DDBA541F5D0BCE00A7D4BC /* noon.jpg */,
+				04DDBA5C1F5E1AE000A7D4BC /* noon.jpg */,
 				045A15371F4EA82400FDEBFC /* night.jpg */,
 			);
 			name = Images;
@@ -291,7 +289,6 @@
 		043701FD1F4622C2001EF6E7 /* Notifications */ = {
 			isa = PBXGroup;
 			children = (
-				043701FA1F4622B9001EF6E7 /* DLLocalNotifications.swift */,
 			);
 			name = Notifications;
 			sourceTree = "<group>";
@@ -348,6 +345,7 @@
 				043702651F4A681A001EF6E7 /* Animations */,
 				0474950D1F592B2600841A31 /* Assets */,
 				042FD2EB1F269AD100A6DF49 /* Chart */,
+				04F3087C1F5BC9960025EECB /* Components */,
 				046D86EE1F2237EA000BC423 /* Events */,
 				046D86ED1F2237E1000BC423 /* Remote */,
 				046D86EF1F2237FA000BC423 /* GlucoseSample */,
@@ -359,7 +357,6 @@
 				042FD2E81F2498FE00A6DF49 /* Utils */,
 				044CEDE11F169E4E005CBD0E /* AppDelegate.swift */,
 				044CEDE31F169E4E005CBD0E /* ViewController.swift */,
-				04F3087C1F5BC9960025EECB /* Components */,
 				043702921F4D41A1001EF6E7 /* LoginViewController.swift */,
 				044CEDE51F169E4E005CBD0E /* Main.storyboard */,
 				043702901F4C0547001EF6E7 /* AppIcon.appiconset */,
@@ -710,12 +707,12 @@
 				043702911F4C0547001EF6E7 /* AppIcon.appiconset in Resources */,
 				044734F11F54D6DE00C85608 /* bouncing_heart.json in Resources */,
 				044CEDEF1F169E4E005CBD0E /* LaunchScreen.storyboard in Resources */,
-				04DDBA551F5D0BCE00A7D4BC /* noon.jpg in Resources */,
 				0437028F1F4BDE4B001EF6E7 /* loader.json in Resources */,
 				0437028C1F4BDC97001EF6E7 /* heart.json in Resources */,
 				04DDBA571F5D0C0800A7D4BC /* evening.jpg in Resources */,
 				043702641F4A6817001EF6E7 /* preloader.json in Resources */,
 				044CEDEC1F169E4E005CBD0E /* Assets.xcassets in Resources */,
+				04DDBA5D1F5E1AE000A7D4BC /* noon.jpg in Resources */,
 				044734F41F553E4100C85608 /* morning.jpg in Resources */,
 				044CEDE71F169E4E005CBD0E /* Main.storyboard in Resources */,
 				045A15381F4EA82400FDEBFC /* night.jpg in Resources */,
@@ -955,7 +952,9 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Hal/Pods-Hal-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
+				"${BUILT_PRODUCTS_DIR}/DLLocalNotifications/DLLocalNotifications.framework",
 				"${BUILT_PRODUCTS_DIR}/Macaw/Macaw.framework",
+				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/ReachabilitySwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SWXMLHash/SWXMLHash.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
@@ -964,7 +963,9 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DLLocalNotifications.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Macaw.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReachabilitySwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SWXMLHash.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
@@ -1027,7 +1028,6 @@
 				044CEDE41F169E4E005CBD0E /* ViewController.swift in Sources */,
 				044734F61F577EA400C85608 /* Report.swift in Sources */,
 				044CEDE21F169E4E005CBD0E /* AppDelegate.swift in Sources */,
-				043701FB1F4622B9001EF6E7 /* DLLocalNotifications.swift in Sources */,
 				043702931F4D41A1001EF6E7 /* LoginViewController.swift in Sources */,
 				04471CA21F1898DD00F1023A /* Math.swift in Sources */,
 				04B972341F587F9C00F9512E /* KeychainSwiftDistrib.swift in Sources */,

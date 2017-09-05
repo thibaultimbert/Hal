@@ -12,6 +12,7 @@ import UserNotifications
 import Charts
 import Lottie
 import CoreData
+import ReachabilitySwift
 
 class ViewController: UIViewController {
     
@@ -45,20 +46,32 @@ class ViewController: UIViewController {
     private var heartView: LOTAnimationView!
     private var managedObjectContext: NSManagedObjectContext!
     private var dailySummaryView:DailySummary!
-    private var keychain: KeychainSwift!
+    private var keyChain: KeychainSwift!
     private var size: Float = 0
     private var generator: UIImpactFeedbackGenerator!
     private var gestureRecognizer: UIGestureRecognizer!
+    private var reachability: Reachability!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // load credentials
+        keyChain = KeychainSwift.shared()
+        
+        // detect connection changes (wifi, cellular, no network)
+        reachability = Reachability()!
+        
+        //declare this inside of viewWillAppear
+        NotificationCenter.default.addObserver(self, selector: #selector(self.reachabilityChanged),name: ReachabilityChangedNotification,object: reachability)
+        do{
+            try reachability.startNotifier()
+        }catch{
+            print("Could not start reachability notifier")
+        }
+        
         // handling background and foreground states
         NotificationCenter.default.addObserver(self, selector: #selector(self.resume), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.pause), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
-        
-        // load the keychain
-        keychain = KeychainSwift()
         
         generator = UIImpactFeedbackGenerator(style: .heavy)
         gestureRecognizer = UITapGestureRecognizer(target: self, action:#selector(handleTap))
@@ -134,6 +147,13 @@ class ViewController: UIViewController {
         play(withDelay: 1)
     }
     
+    @objc private func reachabilityChanged(note: Notification) {
+        let reachability = note.object as! Reachability
+        if !reachability.isReachable {
+            self.pause()
+        } else { self.resume() }
+    }
+    
     @objc func handleTap(sender: UITapGestureRecognizer? = nil) {
         //print ( sender?. )
     }
@@ -147,7 +167,6 @@ class ViewController: UIViewController {
     }
     
     public func onBloodSamples(event: Event){
-        
         // updates background based on current time
         setupBg.updateBackground()
         
@@ -265,12 +284,12 @@ class ViewController: UIViewController {
     }
     
     public func pause(){
-        print("DEBUG:: Going in background")
+        print("DEBUG:: PAUSING")
         updateTimer?.invalidate()
     }
     
     public func resume() {
-        print("DEBUG:: Back in foreground")
+        print("DEBUG:: RESUMING")
         let when = DispatchTime.now() + 1
         DispatchQueue.main.asyncAfter(deadline: when) {
             self.updateTimer = Timer.scheduledTimer(timeInterval: 180, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
@@ -286,7 +305,9 @@ class ViewController: UIViewController {
     
     public func glucoseIOFailed (event: Event){
         pause()
-        dxBridge.login(userName: keychain.get("user")!, password: keychain.get("password")!)
+        let userName = keyChain.get("user")
+        let password = keyChain.get("password")
+        dxBridge.login(userName: userName!, password: password!)
     }
     
     public func onHKAuthorization (event: Event){

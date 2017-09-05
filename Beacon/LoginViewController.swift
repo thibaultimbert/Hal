@@ -52,7 +52,7 @@ class LoginViewController: UIViewController {
         taglineLbl.text = "HAL, your diabetic\ncoach in your pocket."
         
         // load the keychain
-        keychain = KeychainSwift()
+        keychain = KeychainSwift.shared()
         
         // background handling
         setupBg = AnimatedBackground (parent: self)

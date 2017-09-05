@@ -23,6 +23,15 @@ A collection of helper functions for saving text and data in the keychain.
 */
 open class KeychainSwift {
   
+  private static var sharedKeychain: KeychainSwift = {
+    let keyChainInstance = KeychainSwift()
+    return keyChainInstance
+  }()
+    
+  class func shared() -> KeychainSwift {
+        return sharedKeychain
+   }
+    
   var lastQueryParameters: [String: Any]? // Used by the unit tests
   
   /// Contains result code from the last operation. Value is noErr (0) for a successful result.
@@ -443,5 +452,6 @@ public struct KeychainSwiftConstants {
     return value as String
   }
 }
+
 
 

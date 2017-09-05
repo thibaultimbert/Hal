@@ -25,6 +25,7 @@ class DexcomBridge: EventDispatcher {
     
     // authenticates the user to the dexcom REST APIs
     public func login(userName: String, password: String, appID: String = "d8665ade-9673-4e27-9ff6-92db4ce13d13") {
+        
         let dict = ["accountName": userName, "applicationId": appID,
                     "password": password] as [String: Any]
         var request = URLRequest(url: URL(string: DexcomBridge.LOGIN_URL)!)
@@ -39,7 +40,7 @@ class DexcomBridge: EventDispatcher {
                 if let response = data {
                     parsed = String(data: response, encoding: .utf8)!
                 } else {
-                    throw RemoteError.parsingIssue
+                    throw NSError()
                 }
                 if let dataFromString = parsed.data(using: .utf8, allowLossyConversion: false) {
                     let json = JSON(data: dataFromString)
@@ -59,7 +60,6 @@ class DexcomBridge: EventDispatcher {
                     }
                 }
             } catch _ as NSError {
-                print("IO_ERROR")
                 DispatchQueue.main.async(execute: {
                     self.dispatchEvent(event: Event(type: EventType.glucoseIOError, target: self))
             })
@@ -82,18 +82,22 @@ class DexcomBridge: EventDispatcher {
                     if let response = data {
                         parsed = String(data: response, encoding: .utf8)!
                     } else {
-                        throw RemoteError.parsingIssue
+                        throw NSError()
                     }
                     if let dataFromString = parsed.data(using: .utf8, allowLossyConversion: false) {
                         let json = JSON(data: dataFromString)
                         self.bloodSamples.removeAll()
                         for (_,subJson):(String, JSON) in json {
-                            let value = subJson["Value"].int
-                            let date = subJson["ST"].stringValue
-                            let trend = subJson["Trend"].int
-                            let timeStamp = date.components(separatedBy: "(")[1].components(separatedBy: ")")[0].components(separatedBy: "-")[0]
-                            let convertedTime: Int = Int(timeStamp)!/1000
-                            self.bloodSamples.append(BGSample(pValue: value!, pTime: convertedTime, pTrend: trend!))
+                            if subJson["Value"] != JSON.null && subJson["ST"] != JSON.null && subJson["Trend"] != JSON.null {
+                                let value = subJson["Value"].int
+                                let date = subJson["ST"].stringValue
+                                let trend = subJson["Trend"].int
+                                let timeStamp = date.components(separatedBy: "(")[1].components(separatedBy: ")")[0].components(separatedBy: "-")[0]
+                                let convertedTime: Int = Int(timeStamp)!/1000
+                                self.bloodSamples.append(BGSample(pValue: value!, pTime: convertedTime, pTrend: trend!))
+                            } else {
+                                throw NSError()
+                            }
                         }
                         if (completionHandler) != nil {
                             completionHandler(.newData)
@@ -102,8 +106,7 @@ class DexcomBridge: EventDispatcher {
                             self.dispatchEvent(event: Event(type: EventType.bloodSamples, target: self))
                         })
                     }
-                } catch _ as Error {
-                    print("IO_ERROR")
+                } catch _ as NSError {
                     DispatchQueue.main.async(execute: {
                             self.dispatchEvent(event: Event(type: EventType.glucoseIOError, target: self))
                 })
@@ -115,8 +118,4 @@ class DexcomBridge: EventDispatcher {
     class func shared() -> DexcomBridge {
         return sharedDXBridge
     }
-}
-
-enum RemoteError: Error {
-    case parsingIssue
 }

@@ -12,6 +12,7 @@ import UserNotifications
 import CoreData
 import Fabric
 import Crashlytics
+import DLLocalNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -40,11 +41,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             application.registerForRemoteNotifications()
          }
         
-        // schedule a notification
-        let triggerDate = Date().addingTimeInterval(10)
-        let firstNotification = DLNotification(identifier: "firstNotification", alertTitle: "Daily report", alertBody: "Amy, today your A1C decreased by 17%, your levels have been 9% more stable and you reduced your spikes speed by 12%. Well done! 🤜🤛", date: triggerDate, repeats: .None)
-        let scheduler = DLNotificationScheduler()
-        scheduler.scheduleNotification(notification: firstNotification)
+        var date = DateComponents()
+        date.hour = 17
+        date.minute = 44
+        
+        let trigger = UNCalendarNotificationTrigger(dateMatching: date, repeats: true)
+        print(trigger.nextTriggerDate() ?? "nil")
+        
+        let content = UNMutableNotificationContent()
+        content.title = "title"
+        content.body = "body"
+        // make sure you give each request a unique identifier. (nextTriggerDate description)
+        let request = UNNotificationRequest(identifier: String(Date().timeIntervalSince1970), content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request) { error in
+            if let error = error {
+                print(error)
+                return
+            }
+            print("scheduled")
+        }
         
         // background fetch
         UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)

@@ -112,5 +112,4 @@ open class DailySummary: MacawView {
     }
     
     open var completionCallback: (() -> ()) = { }
-    
 }

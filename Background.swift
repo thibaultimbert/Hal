@@ -18,11 +18,11 @@ class Background {
         
         gradientLayer.frame = parent.view.bounds
         
-        let color1 = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6).cgColor as CGColor
-        let color2 = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6).cgColor as CGColor
-        let color3 = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6).cgColor as CGColor
-        let color4 = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6).cgColor as CGColor
-        let color5 = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6).cgColor as CGColor
+        let color1 = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5).cgColor as CGColor
+        let color2 = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5).cgColor as CGColor
+        let color3 = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5).cgColor as CGColor
+        let color4 = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5).cgColor as CGColor
+        let color5 = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5).cgColor as CGColor
         gradientLayer.colors = [color1, color2, color3, color4, color5]
         
         gradientLayer.locations = [0.0, 0.12, 0.25, 0.5, 1.0]
