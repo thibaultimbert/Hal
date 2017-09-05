@@ -46,7 +46,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         date.minute = 44
         
         let trigger = UNCalendarNotificationTrigger(dateMatching: date, repeats: true)
-        print(trigger.nextTriggerDate() ?? "nil")
         
         let content = UNMutableNotificationContent()
         content.title = "title"

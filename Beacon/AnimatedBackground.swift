@@ -32,6 +32,18 @@ class AnimatedBackground {
         
         let filePath = Bundle.main.url(forResource: "sea", withExtension: "mp4")
         
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
+        } catch let error as NSError {
+            print(error)
+        }
+        
+        do {
+            try AVAudioSession.sharedInstance().setActive(true)
+        } catch let error as NSError {
+            print(error)
+        }
+        
         avPlayer = AVPlayer(url: filePath!)
         avPlayerLayer = AVPlayerLayer(player: avPlayer)
         avPlayerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill

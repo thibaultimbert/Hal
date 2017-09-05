@@ -151,7 +151,11 @@ class ViewController: UIViewController {
         let reachability = note.object as! Reachability
         if !reachability.isReachable {
             self.pause()
-        } else { self.resume() }
+            news.text = "Uh, oh. You seem to have lost network, we will be waiting..."
+        } else {
+            self.resume()
+            news.text = "Your heart rate has been steady for the past 48 hours, maybe time for a run?"
+        }
     }
     
     @objc func handleTap(sender: UITapGestureRecognizer? = nil) {
