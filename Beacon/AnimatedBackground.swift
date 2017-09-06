@@ -13,7 +13,7 @@ import UIKit
 class AnimatedBackground {
     
     private var gradientLayer = CAGradientLayer()
-    var avPlayer: AVPlayer!
+    var avPlayer: AVPlayer?
     var avPlayerLayer: AVPlayerLayer!
     var paused: Bool = false
     
@@ -47,23 +47,27 @@ class AnimatedBackground {
         avPlayer = AVPlayer(url: filePath!)
         avPlayerLayer = AVPlayerLayer(player: avPlayer)
         avPlayerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
-        avPlayer.volume = 0
-        avPlayer.actionAtItemEnd = AVPlayerActionAtItemEnd.none
+        avPlayer?.volume = 0
+        avPlayer?.actionAtItemEnd = AVPlayerActionAtItemEnd.none
         
         avPlayerLayer.frame = parent.view.layer.bounds
         parent.view.backgroundColor = UIColor.clear
         parent.view.layer.insertSublayer(avPlayerLayer, at: 0)
         parent.view.layer.insertSublayer(gradientLayer, at: 1)
-        avPlayer.play()
+        avPlayer?.play()
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(playerItemDidReachEnd(notification:)),
                                                name: NSNotification.Name.AVPlayerItemDidPlayToEndTime,
-                                               object: avPlayer.currentItem)
+                                               object: avPlayer?.currentItem)
     }
     
     @objc func playerItemDidReachEnd(notification: NSNotification) {
         let p: AVPlayerItem = notification.object as! AVPlayerItem
         p.seek(to: kCMTimeZero)
+    }
+    
+    public func stop(){
+        avPlayer = nil
     }
 }

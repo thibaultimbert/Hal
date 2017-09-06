@@ -48,6 +48,7 @@
 		045A15381F4EA82400FDEBFC /* night.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 045A15371F4EA82400FDEBFC /* night.jpg */; };
 		0474950C1F5919BC00841A31 /* sea.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 0474950B1F5919A600841A31 /* sea.mp4 */; };
 		047495121F5A6A5A00841A31 /* DailySummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047495111F5A6A5A00841A31 /* DailySummary.swift */; };
+		049692E31F5F9DDD006726DF /* RemoteBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049692E21F5F9DDD006726DF /* RemoteBridge.swift */; };
 		04B972341F587F9C00F9512E /* KeychainSwiftDistrib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B972331F587F9C00F9512E /* KeychainSwiftDistrib.swift */; };
 		04DDBA571F5D0C0800A7D4BC /* evening.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 04DDBA561F5D0C0800A7D4BC /* evening.jpg */; };
 		04DDBA5D1F5E1AE000A7D4BC /* noon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 04DDBA5C1F5E1AE000A7D4BC /* noon.jpg */; };
@@ -189,6 +190,7 @@
 		045A15371F4EA82400FDEBFC /* night.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = night.jpg; sourceTree = "<group>"; };
 		0474950B1F5919A600841A31 /* sea.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = sea.mp4; sourceTree = "<group>"; };
 		047495111F5A6A5A00841A31 /* DailySummary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailySummary.swift; sourceTree = "<group>"; };
+		049692E21F5F9DDD006726DF /* RemoteBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteBridge.swift; sourceTree = "<group>"; };
 		04B972331F587F9C00F9512E /* KeychainSwiftDistrib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainSwiftDistrib.swift; sourceTree = "<group>"; };
 		04DDBA561F5D0C0800A7D4BC /* evening.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = evening.jpg; sourceTree = "<group>"; };
 		04DDBA5C1F5E1AE000A7D4BC /* noon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = noon.jpg; sourceTree = "<group>"; };
@@ -444,6 +446,7 @@
 			children = (
 				04471C9F1F18982200F1023A /* HKManager.swift */,
 				042701271F1EB7D000133257 /* DexcomBridge.swift */,
+				049692E21F5F9DDD006726DF /* RemoteBridge.swift */,
 			);
 			name = Remote;
 			sourceTree = "<group>";
@@ -1020,6 +1023,7 @@
 				04471CA01F18982200F1023A /* HKManager.swift in Sources */,
 				04471CA41F18A29000F1023A /* EventDispatcher.swift in Sources */,
 				042FD2E61F2498AC00A6DF49 /* Utils.swift in Sources */,
+				049692E31F5F9DDD006726DF /* RemoteBridge.swift in Sources */,
 				044CEDEA1F169E4E005CBD0E /* Beacon.xcdatamodeld in Sources */,
 				042701281F1EB7D000133257 /* DexcomBridge.swift in Sources */,
 				0427012A1F1EC85200133257 /* BGSample.swift in Sources */,

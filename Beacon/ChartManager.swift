@@ -14,15 +14,19 @@ class ChartManager: EventDispatcher, ChartViewDelegate {
     private let chart: LineChartView
     private var hours: [String] = []
     private var chartData: LineChartData!
+    private var highColor: UIColor = UIColor(red: 246/255, green: 188/255, blue: 11/255, alpha: 1.0)
+    private var normalColor: UIColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+    private var lowColor: UIColor = UIColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 1.0)
+    private var inited: DarwinBoolean = false
+    private var zoomed: DarwinBoolean = false
+    
+    public static var HIGH_LIMIT:Double = 150
+    public static var LOW_LIMIT:Double = 70
+    
     public var selectedSample: BGSample!
     public var position: Int!
     public var samples: [BGSample]!
     public var curvature: Double!
-    private var inited: DarwinBoolean = false
-    private var zoomed: DarwinBoolean = false
-    
-    public static var HIGH_LIMIT:Int = 150
-    public static var LOW_LIMIT:Int = 70
     
     init (lineChart: LineChartView){
         chart = lineChart
@@ -56,6 +60,8 @@ class ChartManager: EventDispatcher, ChartViewDelegate {
         var dx_dt: [Double] = []
         var dy_dt: [Double] = []
         
+        var circleColors: [NSUIColor] = []
+        
         var i: Int = 0
         for sample in samples {
             let sugarLevel = ChartDataEntry(x: Double(i), y: Double(sample.value))
@@ -64,18 +70,23 @@ class ChartManager: EventDispatcher, ChartViewDelegate {
             let (_, _, hour) = Utils.getDate(unixdate: sample.time, format: "hh:mm a")
             hours.append(hour)
             lineDataEntry.append (sugarLevel)
+            var color: UIColor
+            if (sugarLevel.y > ChartManager.HIGH_LIMIT) {
+                color = highColor
+            } else if ( sugarLevel.y <= ChartManager.HIGH_LIMIT && sugarLevel.y >= ChartManager.LOW_LIMIT) {
+                color = normalColor
+            } else { color = lowColor }
+            circleColors.append(color)
             i = i + 1
         }
         
         curvature = Math.curvature(x: dx_dt, y: dy_dt)
-        
+    
         let chartDataSet = LineChartDataSet(values: lineDataEntry, label: "Time")
-        
-        _ = Calendar.current
-        
-        chartDataSet.setCircleColor(UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0))
+        chartDataSet.colors = circleColors
+        chartDataSet.circleColors = circleColors
         chartDataSet.drawValuesEnabled = false
-        chartDataSet.circleRadius = 2.0
+        chartDataSet.circleRadius = 1.0
         
         let gradientColors = [UIColor.red.cgColor, UIColor.red.cgColor, UIColor.clear.cgColor] as CFArray
         let colorLocations: [CGFloat] = [1.0, 1.0, 0.0]
@@ -92,18 +103,16 @@ class ChartManager: EventDispatcher, ChartViewDelegate {
             inited = true
         }
         let ll = ChartLimitLine(limit: Double(ChartManager.HIGH_LIMIT))
-        ll.lineColor = UIColor(red: 246/255, green: 188/255, blue: 11/255, alpha: 1.0)
+        ll.lineColor = highColor
         let bl = ChartLimitLine(limit: Double(ChartManager.LOW_LIMIT))
-        bl.lineColor = UIColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 1.0)
+        bl.lineColor = lowColor
         chart.rightAxis.addLimitLine(ll)
         chart.rightAxis.addLimitLine(bl)
         chart.xAxis.valueFormatter = IndexAxisValueFormatter(values:hours)
 
         if (zoomed.boolValue) {
             recentView()
-        } else {
-            fulltimeView()
-        }
+        } else { fulltimeView() }
         position = Int((lineDataEntry.last?.x)!)
         selectedSample = samples.last
     }
