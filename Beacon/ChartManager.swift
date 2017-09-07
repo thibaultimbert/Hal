@@ -88,8 +88,8 @@ class ChartManager: EventDispatcher, ChartViewDelegate {
         chartDataSet.drawValuesEnabled = false
         chartDataSet.circleRadius = 1.0
         
-        let gradientColors = [UIColor.red.cgColor, UIColor.red.cgColor, UIColor.clear.cgColor] as CFArray
-        let colorLocations: [CGFloat] = [1.0, 1.0, 0.0]
+        let gradientColors = [UIColor.red.cgColor, UIColor.clear.cgColor] as CFArray
+        let colorLocations: [CGFloat] = [1.0, 0.0]
         guard let gradient = CGGradient.init(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: gradientColors, locations: colorLocations) else { print ("gradient error"); return }
         
         chartDataSet.fill = Fill.fillWithLinearGradient(gradient, angle: 90.0)

@@ -18,7 +18,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var taglineLbl: UILabel!
     
     public var defaults: UserDefaults!
-    public var dxBridge: DexcomBridge!
+    public var dxBridge: RemoteBridge!
     private var loggedIn: EventHandler!
     private var setupBg: AnimatedBackground!
     private var keychain:KeychainSwift!
@@ -58,7 +58,7 @@ class LoginViewController: UIViewController {
         setupBg = AnimatedBackground (parent: self)
         
         // auth login
-        dxBridge = DexcomBridge.shared()
+        dxBridge = RemoteBridge.shared()
         loggedIn = EventHandler(function: self.onLoggedIn)
         let authError = EventHandler(function: self.onAuthError)
         dxBridge.addEventListener(type: .loggedIn, handler: loggedIn)

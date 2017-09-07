@@ -32,7 +32,7 @@ class ViewController: UIViewController {
                                     "I am not ill, my pancreas is just lazy."]
     
     public var hkManager: HKManager!
-    public var dxBridge: DexcomBridge!
+    public var dxBridge: RemoteBridge!
     private var chartManager: ChartManager!
     private var setupBg: Background!
     private var updateTimer: Timer?
@@ -119,7 +119,7 @@ class ViewController: UIViewController {
         let selectionHandler = EventHandler(function: onSelection)
         chartManager.addEventListener(type: EventType.selection, handler: selectionHandler)
         
-        dxBridge = DexcomBridge.shared()
+        dxBridge = RemoteBridge.shared()
         let DXBloodSamples = EventHandler(function: self.onBloodSamples)
         let onLoggedInHandler = EventHandler (function: self.onLoggedIn)
         let glucoseIOHandler = EventHandler (function: self.glucoseIOFailed)
