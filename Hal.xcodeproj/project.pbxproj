@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		042701281F1EB7D000133257 /* DexcomBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042701271F1EB7D000133257 /* DexcomBridge.swift */; };
 		0427012A1F1EC85200133257 /* BGSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042701291F1EC85200133257 /* BGSample.swift */; };
 		042FD2E61F2498AC00A6DF49 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042FD2E51F2498AB00A6DF49 /* Utils.swift */; };
 		042FD2EA1F2696AD00A6DF49 /* ChartManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042FD2E91F2696AD00A6DF49 /* ChartManager.swift */; };
@@ -19,7 +18,7 @@
 		043702931F4D41A1001EF6E7 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043702921F4D41A1001EF6E7 /* LoginViewController.swift */; };
 		043702951F4E49BF001EF6E7 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 043702941F4E49BF001EF6E7 /* CoreData.framework */; };
 		04471C9E1F181AB900F1023A /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04471C9D1F181AB900F1023A /* UserNotifications.framework */; };
-		04471CA01F18982200F1023A /* HKManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04471C9F1F18982200F1023A /* HKManager.swift */; };
+		04471CA01F18982200F1023A /* HealthKitBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04471C9F1F18982200F1023A /* HealthKitBridge.swift */; };
 		04471CA21F1898DD00F1023A /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04471CA11F1898DD00F1023A /* Math.swift */; };
 		04471CA41F18A29000F1023A /* EventDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04471CA31F18A29000F1023A /* EventDispatcher.swift */; };
 		044734F11F54D6DE00C85608 /* bouncing_heart.json in Resources */ = {isa = PBXBuildFile; fileRef = 044734F01F54D6DE00C85608 /* bouncing_heart.json */; };
@@ -135,7 +134,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		042701271F1EB7D000133257 /* DexcomBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexcomBridge.swift; sourceTree = "<group>"; };
 		042701291F1EC85200133257 /* BGSample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BGSample.swift; sourceTree = "<group>"; };
 		042FD2E51F2498AB00A6DF49 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utils.swift; path = ../Utils.swift; sourceTree = "<group>"; };
 		042FD2E91F2696AD00A6DF49 /* ChartManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartManager.swift; sourceTree = "<group>"; };
@@ -149,7 +147,7 @@
 		043702921F4D41A1001EF6E7 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		043702941F4E49BF001EF6E7 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		04471C9D1F181AB900F1023A /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
-		04471C9F1F18982200F1023A /* HKManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HKManager.swift; sourceTree = "<group>"; };
+		04471C9F1F18982200F1023A /* HealthKitBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthKitBridge.swift; sourceTree = "<group>"; };
 		04471CA11F1898DD00F1023A /* Math.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
 		04471CA31F18A29000F1023A /* EventDispatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDispatcher.swift; sourceTree = "<group>"; };
 		04471CA51F1ABC1D00F1023A /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
@@ -444,8 +442,7 @@
 		046D86ED1F2237E1000BC423 /* Remote */ = {
 			isa = PBXGroup;
 			children = (
-				04471C9F1F18982200F1023A /* HKManager.swift */,
-				042701271F1EB7D000133257 /* DexcomBridge.swift */,
+				04471C9F1F18982200F1023A /* HealthKitBridge.swift */,
 				049692E21F5F9DDD006726DF /* RemoteBridge.swift */,
 			);
 			name = Remote;
@@ -1020,12 +1017,11 @@
 			files = (
 				043701F81F396713001EF6E7 /* Background.swift in Sources */,
 				047495121F5A6A5A00841A31 /* DailySummary.swift in Sources */,
-				04471CA01F18982200F1023A /* HKManager.swift in Sources */,
+				04471CA01F18982200F1023A /* HealthKitBridge.swift in Sources */,
 				04471CA41F18A29000F1023A /* EventDispatcher.swift in Sources */,
 				042FD2E61F2498AC00A6DF49 /* Utils.swift in Sources */,
 				049692E31F5F9DDD006726DF /* RemoteBridge.swift in Sources */,
 				044CEDEA1F169E4E005CBD0E /* Beacon.xcdatamodeld in Sources */,
-				042701281F1EB7D000133257 /* DexcomBridge.swift in Sources */,
 				0427012A1F1EC85200133257 /* BGSample.swift in Sources */,
 				044734FB1F57DDAA00C85608 /* AnimatedBackground.swift in Sources */,
 				042FD2EA1F2696AD00A6DF49 /* ChartManager.swift in Sources */,

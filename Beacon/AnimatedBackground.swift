@@ -10,14 +10,16 @@ import Foundation
 import AVFoundation
 import UIKit
 
-class AnimatedBackground {
+class AnimatedBackground
+{
     
     private var gradientLayer = CAGradientLayer()
     var avPlayer: AVPlayer?
     var avPlayerLayer: AVPlayerLayer!
     var paused: Bool = false
     
-    init( parent: UIViewController ){
+    init( parent: UIViewController )
+    {
         
         gradientLayer.frame = parent.view.bounds
         
@@ -32,13 +34,15 @@ class AnimatedBackground {
         
         let filePath = Bundle.main.url(forResource: "sea", withExtension: "mp4")
         
-        do {
+        do
+        {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
         } catch let error as NSError {
             print(error)
         }
         
-        do {
+        do
+        {
             try AVAudioSession.sharedInstance().setActive(true)
         } catch let error as NSError {
             print(error)
@@ -62,12 +66,14 @@ class AnimatedBackground {
                                                object: avPlayer?.currentItem)
     }
     
-    @objc func playerItemDidReachEnd(notification: NSNotification) {
+    @objc func playerItemDidReachEnd(notification: NSNotification)
+    {
         let p: AVPlayerItem = notification.object as! AVPlayerItem
         p.seek(to: kCMTimeZero)
     }
     
-    public func stop(){
+    public func stop()
+    {
         avPlayer = nil
     }
 }

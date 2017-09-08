@@ -9,7 +9,8 @@
 import Foundation
 import HealthKit
 
-class HKManager: EventDispatcher {
+class HealthKitBridge: EventDispatcher
+{
     
     private var isAuthorized: Bool? = false
     private var sampleType: HKQuantityType?
@@ -17,7 +18,14 @@ class HKManager: EventDispatcher {
     public var heartRates: [HeartRateSample] = []
     let healthKitStore:HKHealthStore = HKHealthStore()
     
-    func getHealthKitPermission() {
+    private static var sharedHKManager: HealthKitBridge =
+    {
+        let hkManager = HealthKitBridge()
+        return hkManager
+    }()
+    
+    func getHealthKitPermission()
+    {
         
         // we want blood glucose levels
         let writableTypes: Set<HKSampleType> = [HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.bloodGlucose)!, HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!]
@@ -36,8 +44,10 @@ class HKManager: EventDispatcher {
         }
     }
     
-    func getBloodSamples(fromDay: Int = -1, to: Date = Date()){
-        if isAuthorized! {
+    func getBloodSamples(fromDay: Int = -1, to: Date = Date())
+    {
+        if isAuthorized!
+        {
             
             // Get blood glucose readings
             let now = Date()
@@ -58,13 +68,12 @@ class HKManager: EventDispatcher {
             
             let sampleType = HKSampleType.quantityType(forIdentifier: HKQuantityTypeIdentifier.bloodGlucose)
             
-            //let obsQuery = HKObserverQuery
-            
             // 4. Build samples query
             let sampleQuery = HKSampleQuery(sampleType: sampleType!, predicate: allreadings, limit: limit, sortDescriptors: [sortDescriptor])
             { (sampleQuery, results, error ) -> Void in
                 
-                if error != nil {
+                if error != nil
+                {
                     return;
                 }
                 
@@ -76,13 +85,16 @@ class HKManager: EventDispatcher {
             // 5. Execute the Query
             self.healthKitStore.execute(sampleQuery)
             
-        } else {
+        } else
+        {
             print("Permission denied.")
         }
     }
     
-    func getHeartRate(fromDay: Int = -1, to: Date = Date()){
-        if isAuthorized! {
+    func getHeartRate(fromDay: Int = -1, to: Date = Date())
+    {
+        if isAuthorized!
+        {
             
             // Get blood glucose readings
             let now = Date()
@@ -112,10 +124,11 @@ class HKManager: EventDispatcher {
                 
                 self.heartRates.removeAll()
                 let bpmUnit:HKUnit = HKUnit(from: "count/min")
-                DispatchQueue.main.async(execute: {
-                    //perform all UI stuff here
+                DispatchQueue.main.async(execute:
+                    {
                     let bpmResults: [HKQuantitySample] = (results as? [HKQuantitySample])!
-                    for sample in bpmResults{
+                    for sample in bpmResults
+                    {
                         let value = sample.quantity.doubleValue(for: bpmUnit)
                         self.heartRates.append(HeartRateSample(pValue: Int(value), pTime: Int(sample.startDate.timeIntervalSince1970), pTrend: 0))
                     }
@@ -125,8 +138,14 @@ class HKManager: EventDispatcher {
             // 5. Execute the Query
             self.healthKitStore.execute(sampleQuery)
             
-        } else {
+        } else
+        {
             print("Permission denied.")
         }
+    }
+    
+    class func shared() -> HealthKitBridge
+    {
+        return sharedHKManager
     }
 }

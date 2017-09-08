@@ -14,7 +14,8 @@ import Lottie
 import CoreData
 import ReachabilitySwift
 
-class ViewController: UIViewController {
+class ViewController: UIViewController
+{
     
     @IBOutlet weak var current: UILabel!
     @IBOutlet weak var fulltime: UIButton!
@@ -31,8 +32,8 @@ class ViewController: UIViewController {
                                     "Remember, someone is thinking about you today.",
                                     "I am not ill, my pancreas is just lazy."]
     
-    public var hkManager: HKManager!
-    public var dxBridge: RemoteBridge!
+    public var hkBridge: HealthKitBridge!
+    public var remoteBridge: RemoteBridge!
     private var chartManager: ChartManager!
     private var setupBg: Background!
     private var updateTimer: Timer?
@@ -51,8 +52,9 @@ class ViewController: UIViewController {
     private var generator: UIImpactFeedbackGenerator!
     private var gestureRecognizer: UIGestureRecognizer!
     private var reachability: Reachability!
-    
-    override func viewDidLoad() {
+
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
         
         // load credentials
@@ -65,7 +67,7 @@ class ViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.reachabilityChanged),name: ReachabilityChangedNotification,object: reachability)
         do{
             try reachability.startNotifier()
-        }catch{
+        }catch {
             print("Could not start reachability notifier")
         }
         
@@ -119,7 +121,7 @@ class ViewController: UIViewController {
         let selectionHandler = EventHandler(function: onSelection)
         chartManager.addEventListener(type: EventType.selection, handler: selectionHandler)
         
-        dxBridge = RemoteBridge.shared()
+        remoteBridge = RemoteBridge.shared()
         let DXBloodSamples = EventHandler(function: self.onBloodSamples)
         let onLoggedInHandler = EventHandler (function: self.onLoggedIn)
         let glucoseIOHandler = EventHandler (function: self.glucoseIOFailed)
@@ -128,15 +130,15 @@ class ViewController: UIViewController {
     
         // Do any additional setup after loading the view, typically from a nib.
         // initialize the Dexcom bridge
-        hkManager = HKManager()
-        hkManager.getHealthKitPermission()
-        hkManager.addEventListener(type: EventType.authorized, handler: hkAuthorizedHandler)
-        hkManager.addEventListener(type: EventType.heartRate, handler: hkHeartRateHandler)
+        hkBridge = HealthKitBridge.shared()
+        hkBridge.getHealthKitPermission()
+        hkBridge.addEventListener(type: EventType.authorized, handler: hkAuthorizedHandler)
+        hkBridge.addEventListener(type: EventType.heartRate, handler: hkHeartRateHandler)
         
         // wait for Dexcom data
-        dxBridge.addEventListener(type: .bloodSamples, handler: DXBloodSamples)
-        dxBridge.addEventListener(type: .glucoseIOError, handler: glucoseIOHandler)
-        dxBridge.addEventListener(type: .loggedIn, handler: onLoggedInHandler)
+        remoteBridge.addEventListener(type: .bloodSamples, handler: DXBloodSamples)
+        remoteBridge.addEventListener(type: .glucoseIOError, handler: glucoseIOHandler)
+        remoteBridge.addEventListener(type: .loggedIn, handler: onLoggedInHandler)
         
         // get the glucose data
         updateTimer = Timer.scheduledTimer(timeInterval: 180, target: self, selector: #selector(update), userInfo: nil, repeats: true)
@@ -147,7 +149,8 @@ class ViewController: UIViewController {
         play(withDelay: 1)
     }
     
-    @objc private func reachabilityChanged(note: Notification) {
+    @objc private func reachabilityChanged(note: Notification)
+    {
         let reachability = note.object as! Reachability
         if !reachability.isReachable {
             self.pause()
@@ -158,19 +161,23 @@ class ViewController: UIViewController {
         }
     }
     
-    @objc func handleTap(sender: UITapGestureRecognizer? = nil) {
+    @objc func handleTap(sender: UITapGestureRecognizer? = nil)
+    {
         //print ( sender?. )
     }
     
-    private func play(withDelay: TimeInterval) {
+    private func play(withDelay: TimeInterval)
+    {
         self.perform(#selector(animateViews), with: .none, afterDelay: withDelay)
     }
     
-    open func animateViews() {
+    open func animateViews()
+    {
         dailySummaryView.play()
     }
     
-    public func onBloodSamples(event: Event){
+    public func onBloodSamples(event: Event)
+    {
         // updates background based on current time
         setupBg.updateBackground()
         
@@ -182,7 +189,7 @@ class ViewController: UIViewController {
         (UIApplication.shared.delegate as! AppDelegate).deleteSamplesData()
         
         // reference the result (Array of BGSample)
-        results = dxBridge.bloodSamples
+        results = remoteBridge.bloodSamples
         
         // initiate daily samples records
         let dailySample = DailySamples(context: managedObjectContext)
@@ -227,7 +234,7 @@ class ViewController: UIViewController {
         var infosLeft: String = ""
         
         let average: Double = round(Math.computeAverage(samples: results))
-        let averageHrate: Double = ceil(Math.computeAverage(samples: hkManager.heartRates))
+        let averageHrate: Double = ceil(Math.computeAverage(samples: hkBridge.heartRates))
         let maxSD: Double = average / 3
         
         // display results
@@ -271,7 +278,8 @@ class ViewController: UIViewController {
         detailsL.text = infosLeft
     }
     
-    public func onSelection(event: Event?){
+    public func onSelection(event: Event?)
+    {
         let (_, _, sampleDate) = Utils.getDate(unixdate: Int(chartManager.selectedSample.time))
         let position: Int = chartManager.position
         if ( position > 0 ) {
@@ -287,12 +295,14 @@ class ViewController: UIViewController {
         current.text = sampleDate + "\n" + String (describing: chartManager.selectedSample.value) + " mg/DL " + self.chartManager.selectedSample.trend
     }
     
-    public func pause(){
+    public func pause()
+    {
         print("DEBUG:: PAUSING")
         updateTimer?.invalidate()
     }
     
-    public func resume() {
+    public func resume()
+    {
         print("DEBUG:: RESUMING")
         let when = DispatchTime.now() + 1
         DispatchQueue.main.asyncAfter(deadline: when) {
@@ -303,41 +313,49 @@ class ViewController: UIViewController {
     
     public func onHKHeartRate (event: Event){}
     
-    public func onLoggedIn (event: Event){
+    public func onLoggedIn (event: Event)
+    {
         resume()
     }
     
-    public func glucoseIOFailed (event: Event){
+    public func glucoseIOFailed (event: Event)
+    {
         pause()
         let userName = keyChain.get("user")
         let password = keyChain.get("password")
-        dxBridge.login(userName: userName!, password: password!)
+        remoteBridge.login(userName: userName!, password: password!)
     }
     
-    public func onHKAuthorization (event: Event){
-        hkManager.getHeartRate()
+    public func onHKAuthorization (event: Event)
+    {
+        hkBridge.getHeartRate()
     }
     
-    public func getRandomQuote() -> String{
+    public func getRandomQuote() -> String
+    {
         let randomIndex = Int(arc4random_uniform(UInt32(quotes.count)))
         return quotes[randomIndex]
     }
 
-    @objc func update() {
+    @objc func update()
+    {
         print("DEBUG:: Pulling latest data")
-        dxBridge.getGlucoseValues()
-        hkManager.getHeartRate()
+        remoteBridge.getGlucoseValues()
+        hkBridge.getHeartRate()
     }
     
-    @IBAction func fullTime(_ sender: Any) {
+    @IBAction func fullTime(_ sender: Any)
+    {
         chartManager.fulltimeView()
     }
 
-    @IBAction func last3Hours(_ sender: Any) {
+    @IBAction func last3Hours(_ sender: Any)
+    {
         chartManager.recentView()
     }
     
-    override func didReceiveMemoryWarning() {
+    override func didReceiveMemoryWarning()
+    {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }

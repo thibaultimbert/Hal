@@ -67,8 +67,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         if let vc = window?.rootViewController as? ViewController {
-            vc.dxBridge.getGlucoseValues(token: DexcomBridge.TOKEN, completionHandler: completionHandler)
-            vc.hkManager.getHeartRate()
+            vc.remoteBridge.getGlucoseValues(token: RemoteBridge.TOKEN, completionHandler: completionHandler)
+            vc.hkBridge.getHeartRate()
         }
     }
     

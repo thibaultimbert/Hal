@@ -9,7 +9,8 @@
 import Foundation
 import Charts
 
-class ChartManager: EventDispatcher, ChartViewDelegate {
+class ChartManager: EventDispatcher, ChartViewDelegate
+{
     
     private let chart: LineChartView
     private var hours: [String] = []
@@ -28,7 +29,8 @@ class ChartManager: EventDispatcher, ChartViewDelegate {
     public var samples: [BGSample]!
     public var curvature: Double!
     
-    init (lineChart: LineChartView){
+    init (lineChart: LineChartView)
+    {
         chart = lineChart
         chart.delegate = self as ChartViewDelegate
         chart.backgroundColor = .clear
@@ -50,7 +52,8 @@ class ChartManager: EventDispatcher, ChartViewDelegate {
         chart.xAxis.axisMinimum = 5.5;
     }
     
-    public func setData(data: [BGSample]){
+    public func setData(data: [BGSample])
+    {
         
         samples = data.reversed()
         hours.removeAll()
@@ -98,10 +101,12 @@ class ChartManager: EventDispatcher, ChartViewDelegate {
         chartData = LineChartData()
         chartData.addDataSet(chartDataSet)
         chart.data = chartData
+        
         if ( !inited.boolValue ) {
             chart.animate(xAxisDuration: 2.0, yAxisDuration: 2.0, easingOption: .easeInOutQuart)
             inited = true
         }
+        
         let ll = ChartLimitLine(limit: Double(ChartManager.HIGH_LIMIT))
         ll.lineColor = highColor
         let bl = ChartLimitLine(limit: Double(ChartManager.LOW_LIMIT))
@@ -109,26 +114,32 @@ class ChartManager: EventDispatcher, ChartViewDelegate {
         chart.rightAxis.addLimitLine(ll)
         chart.rightAxis.addLimitLine(bl)
         chart.xAxis.valueFormatter = IndexAxisValueFormatter(values:hours)
-
-        if (zoomed.boolValue) {
+     
+        if (zoomed.boolValue)
+        {
             recentView()
         } else { fulltimeView() }
+        
         position = Int((lineDataEntry.last?.x)!)
         selectedSample = samples.last
+        chart.highlightValue(x: (lineDataEntry.last?.x)!, y: (lineDataEntry.last?.y)!, dataSetIndex: 0)
     }
     
-    internal func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+    internal func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight)
+    {
         position = Int(entry.x)
         selectedSample = samples[position]
         dispatchEvent(event: Event(type: EventType.selection, target: self))
     }
     
-    public func fulltimeView(){
+    public func fulltimeView()
+    {
         zoomed = false
         chart.zoom(scaleX: 0, scaleY: 0, x: 0, y: 0)
     }
     
-    public func recentView(){
+    public func recentView()
+    {
         if ( zoomed.boolValue == false ) {
             let xScale: CGFloat = 288 / 38
             chart.zoom(scaleX: xScale, scaleY: 0.0, x: 0.0, y: 0.0)

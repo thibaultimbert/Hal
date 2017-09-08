@@ -9,7 +9,8 @@
 import Foundation
 
 class Utils {
-    public static func getDate(unixdate: Int, format: String = "h:mm:ss") -> (Date, DateComponents, String) {
+    public static func getDate(unixdate: Int, format: String = "h:mm:ss") -> (Date, DateComponents, String)
+    {
         let date = Date(timeIntervalSince1970: TimeInterval(unixdate))
         let dayTimePeriodFormatter = DateFormatter()
         dayTimePeriodFormatter.dateStyle = .medium
@@ -21,7 +22,8 @@ class Utils {
         return (date, components!, dateString)
     }
     
-    public static func getCurrentLocalDate()-> Date {
+    public static func getCurrentLocalDate()-> Date
+    {
         var now = Date()
         var nowComponents = DateComponents()
         let calendar = Calendar.current
@@ -36,9 +38,11 @@ class Utils {
         return now as Date
     }
     
-    public static func getTimeofDay() -> TimeOfDay {
+    public static func getTimeofDay() -> TimeOfDay
+    {
         let hour = Calendar.current.component(.hour, from: Date())
-        switch hour {
+        switch hour
+        {
             case 6..<12 : return TimeOfDay.morning
             case 12..<18 : return TimeOfDay.noon
             case 18..<20 : return TimeOfDay.evening

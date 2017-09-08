@@ -8,7 +8,8 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController
+{
 
     @IBOutlet weak var userNameTf: UITextField!
     @IBOutlet weak var passwordTf: UITextField!
@@ -26,7 +27,8 @@ class LoginViewController: UIViewController {
     private var bodyFont:UIFont!
     private var titleFont: UIFont!
     
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         
         super.viewDidLoad()
         
@@ -75,11 +77,13 @@ class LoginViewController: UIViewController {
         }
     }
 
-    override func didReceiveMemoryWarning() {
+    override func didReceiveMemoryWarning()
+    {
         super.didReceiveMemoryWarning()
     }
     
-    @IBAction func `continue`(_ sender: Any) {
+    @IBAction func `continue`(_ sender: Any)
+    {
         // test if there is username and password
         if let userName = userNameTf.text, !userName.isEmpty, let password = passwordTf.text, !password.isEmpty
         {
@@ -91,13 +95,15 @@ class LoginViewController: UIViewController {
         }
     }
     
-    public func onLoggedIn(event: Event){
+    public func onLoggedIn(event: Event)
+    {
         // go to the logged in screen
         self.performSegue(withIdentifier: "Main", sender: self)
         dxBridge.removeEventListener(type: .loggedIn, handler: loggedIn)
     }
     
-    public func onAuthError(event: Event){
+    public func onAuthError(event: Event)
+    {
         errorLbl.text = "Oops, can you double check your username/password?"
     }
 

@@ -14,7 +14,8 @@ class Background {
     private var gradientLayer:CAGradientLayer = CAGradientLayer()
     private var imageLayer:CALayer = CALayer()
     
-    init(parent: UIViewController){
+    init(parent: UIViewController)
+    {
         
         gradientLayer.frame = parent.view.bounds
         
@@ -37,7 +38,8 @@ class Background {
         parent.view.layer.insertSublayer(gradientLayer, at: 1)
     }
     
-    private func getBackgroundOfTimeOfTheDay() -> String {
+    private func getBackgroundOfTimeOfTheDay() -> String
+    {
         let timeOfDay: TimeOfDay = Utils.getTimeofDay()
         var fileName: String!
         
