@@ -292,7 +292,14 @@ class ViewController: UIViewController
         } else {
             difference.text = ""
         }
-        current.text = sampleDate + "\n" + String (describing: chartManager.selectedSample.value) + " mg/DL " + self.chartManager.selectedSample.trend
+        
+        if (self.chartManager.selectedSample.trend != "")
+        {
+            current.text = sampleDate + "\n" + String (describing: chartManager.selectedSample.value) + " mg/DL " + self.chartManager.selectedSample.trend
+        } else
+        {
+            current.text = sampleDate + "\n" + String (describing: chartManager.selectedSample.value) + " mg/DL"
+        }
     }
     
     public func pause()
