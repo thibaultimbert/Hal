@@ -16,6 +16,7 @@ class ChartManager: EventDispatcher, ChartViewDelegate
     private var hours: [String] = []
     private var chartData: LineChartData!
     private var highColor: UIColor = UIColor(red: 246/255, green: 188/255, blue: 11/255, alpha: 1.0)
+    private var averageColor: UIColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1.0)
     private var normalColor: UIColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
     private var lowColor: UIColor = UIColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 1.0)
     private var inited: DarwinBoolean = false
@@ -28,6 +29,7 @@ class ChartManager: EventDispatcher, ChartViewDelegate
     public var position: Int!
     public var samples: [BGSample]!
     public var curvature: Double!
+    public var average: Double!
     
     init (lineChart: LineChartView)
     {
@@ -52,9 +54,10 @@ class ChartManager: EventDispatcher, ChartViewDelegate
         chart.xAxis.axisMinimum = 5.5;
     }
     
-    public func setData(data: [BGSample])
+    public func setData(data: [BGSample], average: Double)
     {
         
+        self.average = average
         samples = data.reversed()
         hours.removeAll()
         
@@ -109,10 +112,15 @@ class ChartManager: EventDispatcher, ChartViewDelegate
         
         let ll = ChartLimitLine(limit: Double(ChartManager.HIGH_LIMIT))
         ll.lineColor = highColor
+        let averageLine = ChartLimitLine(limit: average)
+        averageLine.lineColor = averageColor
+        averageLine.lineDashLengths = [0.9]
+        averageLine.lineDashPhase = 0.9
         let bl = ChartLimitLine(limit: Double(ChartManager.LOW_LIMIT))
         bl.lineColor = lowColor
         chart.rightAxis.addLimitLine(ll)
         chart.rightAxis.addLimitLine(bl)
+        chart.rightAxis.addLimitLine(averageLine)
         chart.xAxis.valueFormatter = IndexAxisValueFormatter(values:hours)
      
         if (zoomed.boolValue)

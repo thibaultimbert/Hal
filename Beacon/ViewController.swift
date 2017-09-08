@@ -141,12 +141,17 @@ class ViewController: UIViewController
         remoteBridge.addEventListener(type: .loggedIn, handler: onLoggedInHandler)
         
         // get the glucose data
-        updateTimer = Timer.scheduledTimer(timeInterval: 180, target: self, selector: #selector(update), userInfo: nil, repeats: true)
+        updateTimer = Timer.scheduledTimer(timeInterval: 180, target: self, selector: #selector(update),
+                                           userInfo: nil, repeats: true)
         updateTimer?.fire()
         
-        dailySummaryView = DailySummary()
-        self.view.addSubview(dailySummaryView)
-        play(withDelay: 1)
+        let animationView = LOTAnimationView(name: "hamburger")
+        animationView.contentMode = .scaleAspectFill
+        animationView.frame = CGRect(x: -50, y: -30, width: 150, height: 150)
+        animationView.tintColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
+        animationView.loopAnimation = true
+        self.view.addSubview(animationView)
+        animationView.play()
     }
     
     @objc private func reachabilityChanged(note: Notification)
@@ -223,10 +228,6 @@ class ViewController: UIViewController
             let records = samples[0].samples
         } catch { print ("error loading data") }
         
-        // update charts UI
-        chartManager.setData(data: results)
-        self.onSelection(event: nil)
-        
         let (_, _, sampleDate) = Utils.getDate(unixdate: Int(results[0].time))
         current.text = sampleDate + "\n" + String (describing: results[0].value) + " mg/DL " + results[0].trend
         
@@ -236,6 +237,10 @@ class ViewController: UIViewController
         let average: Double = round(Math.computeAverage(samples: results))
         let averageHrate: Double = ceil(Math.computeAverage(samples: hkBridge.heartRates))
         let maxSD: Double = average / 3
+        
+        // update charts UI
+        chartManager.setData(data: results, average: average)
+        self.onSelection(event: nil)
         
         // display results
         infosLeft +=  "24-hour report"

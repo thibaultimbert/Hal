@@ -74,10 +74,12 @@ class RemoteBridge: EventDispatcher
                             self.bloodSamples.append(BGSample(pValue: value!, pTime: convertedTime, pTrend: trend!))
                         }
                     }
+                    
                     if (completionHandler) != nil
                     {
                         completionHandler(.newData)
                     }
+                    
                     DispatchQueue.main.async(execute:
                         {
                         if ( self.bloodSamples.count > 0 )
