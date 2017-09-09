@@ -25,6 +25,10 @@ class ChartManager: EventDispatcher, ChartViewDelegate
     public static var HIGH_LIMIT:Double = 150
     public static var LOW_LIMIT:Double = 70
     
+    private var lowLimitLine = ChartLimitLine(limit: Double(ChartManager.LOW_LIMIT))
+    private var highLimitLine = ChartLimitLine(limit: Double(ChartManager.HIGH_LIMIT))
+    private var averageLimitLine = ChartLimitLine(limit: Double(0))
+    
     public var selectedSample: BGSample!
     public var position: Int!
     public var samples: [BGSample]!
@@ -36,6 +40,17 @@ class ChartManager: EventDispatcher, ChartViewDelegate
         chart = lineChart
         chart.delegate = self as ChartViewDelegate
         chart.backgroundColor = .clear
+        
+        highLimitLine.lineColor = highColor
+        lowLimitLine.lineColor = lowColor
+        
+        averageLimitLine.lineColor = averageColor
+        averageLimitLine.lineDashLengths = [0.9]
+        averageLimitLine.lineDashPhase = 0.9
+        
+        chart.rightAxis.addLimitLine(lowLimitLine)
+        chart.rightAxis.addLimitLine(highLimitLine)
+        chart.rightAxis.addLimitLine(averageLimitLine)
         
         chart.xAxis.granularity = 1
         chart.xAxis.labelPosition = .bottom
@@ -51,7 +66,7 @@ class ChartManager: EventDispatcher, ChartViewDelegate
         chart.legend.enabled = false
         chart.chartDescription?.enabled = false
         chart.doubleTapToZoomEnabled = false
-        chart.xAxis.axisMinimum = 5.5;
+        chart.xAxis.axisMinimum = 5.5
     }
     
     public func setData(data: [BGSample], average: Double)
@@ -60,6 +75,8 @@ class ChartManager: EventDispatcher, ChartViewDelegate
         self.average = average
         samples = data.reversed()
         hours.removeAll()
+        
+        averageLimitLine.limit = average
         
         var lineDataEntry: [ChartDataEntry] = [ChartDataEntry]()
         
@@ -110,17 +127,6 @@ class ChartManager: EventDispatcher, ChartViewDelegate
             inited = true
         }
         
-        let ll = ChartLimitLine(limit: Double(ChartManager.HIGH_LIMIT))
-        ll.lineColor = highColor
-        let averageLine = ChartLimitLine(limit: average)
-        averageLine.lineColor = averageColor
-        averageLine.lineDashLengths = [0.9]
-        averageLine.lineDashPhase = 0.9
-        let bl = ChartLimitLine(limit: Double(ChartManager.LOW_LIMIT))
-        bl.lineColor = lowColor
-        chart.rightAxis.addLimitLine(ll)
-        chart.rightAxis.addLimitLine(bl)
-        chart.rightAxis.addLimitLine(averageLine)
         chart.xAxis.valueFormatter = IndexAxisValueFormatter(values:hours)
      
         if (zoomed.boolValue)
