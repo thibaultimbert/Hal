@@ -87,11 +87,42 @@
                         <outlet property="news" destination="QRA-BK-Ktx" id="jlX-j9-DZp"/>
                         <outlet property="recent" destination="KEu-yn-E84" id="7iL-5B-nxS"/>
                         <segue destination="3rw-Bs-6gE" kind="show" identifier="Login" id="t53-vp-Xxv"/>
+                        <segue destination="VVT-fO-28e" kind="show" identifier="Settings" id="KhK-cx-Bfg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="909.60000000000002" y="50.824587706146929"/>
+            <point key="canvasLocation" x="993" y="51"/>
+        </scene>
+        <!--Settings Controller-->
+        <scene sceneID="83d-jm-2k5">
+            <objects>
+                <viewController id="VVT-fO-28e" customClass="SettingsController" customModule="Hal" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="WlY-5d-pVG"/>
+                        <viewControllerLayoutGuide type="bottom" id="Dz3-MO-pec"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="UeP-Qp-NAv">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tbx-YH-2U7">
+                                <rect key="frame" x="155" y="291" width="64" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="SettingsToMain" id="0aF-wT-e9k"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mbK-ap-kXV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1820" y="51"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="4Hf-PJ-WVJ">
@@ -175,4 +206,7 @@
             <point key="canvasLocation" x="-39.200000000000003" y="50.824587706146929"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="0aF-wT-e9k"/>
+    </inferredMetricsTieBreakers>
 </document>

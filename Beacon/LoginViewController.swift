@@ -97,9 +97,9 @@ class LoginViewController: UIViewController
     
     public func onLoggedIn(event: Event)
     {
+        dxBridge.removeEventListener(type: .loggedIn, handler: loggedIn)
         // go to the logged in screen
         self.performSegue(withIdentifier: "Main", sender: self)
-        dxBridge.removeEventListener(type: .loggedIn, handler: loggedIn)
     }
     
     public func onAuthError(event: Event)

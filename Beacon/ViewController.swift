@@ -52,6 +52,7 @@ class ViewController: UIViewController
     private var generator: UIImpactFeedbackGenerator!
     private var gestureRecognizer: UIGestureRecognizer!
     private var reachability: Reachability!
+    private var toggle: DarwinBoolean = false
 
     override func viewDidLoad()
     {
@@ -63,7 +64,6 @@ class ViewController: UIViewController
         // detect connection changes (wifi, cellular, no network)
         reachability = Reachability()!
         
-        //declare this inside of viewWillAppear
         NotificationCenter.default.addObserver(self, selector: #selector(self.reachabilityChanged),name: ReachabilityChangedNotification,object: reachability)
         do{
             try reachability.startNotifier()
@@ -74,10 +74,6 @@ class ViewController: UIViewController
         // handling background and foreground states
         NotificationCenter.default.addObserver(self, selector: #selector(self.resume), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.pause), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
-        
-        generator = UIImpactFeedbackGenerator(style: .heavy)
-        gestureRecognizer = UITapGestureRecognizer(target: self, action:#selector(handleTap))
-        self.view.addGestureRecognizer(gestureRecognizer)
         
         // initialize coredata
         managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -140,18 +136,28 @@ class ViewController: UIViewController
         remoteBridge.addEventListener(type: .glucoseIOError, handler: glucoseIOHandler)
         remoteBridge.addEventListener(type: .loggedIn, handler: onLoggedInHandler)
         
-        // get the glucose data
-        updateTimer = Timer.scheduledTimer(timeInterval: 180, target: self, selector: #selector(update),
-                                           userInfo: nil, repeats: true)
-        updateTimer?.fire()
-        
-        let animationView = LOTAnimationView(name: "hamburger")
+        animationView = LOTAnimationView(name: "hamburger")
         animationView.contentMode = .scaleAspectFill
-        animationView.frame = CGRect(x: -50, y: -30, width: 150, height: 150)
-        animationView.tintColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-        animationView.loopAnimation = true
+        animationView.frame = CGRect(x: -40, y: -20, width: 130, height: 130)
+        animationView.isUserInteractionEnabled = true
         self.view.addSubview(animationView)
-        animationView.play()
+        
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(toggleMenu(recognizer:)))
+        animationView.addGestureRecognizer(tapRecognizer)
+    }
+    
+    func toggleMenu(recognizer: UITapGestureRecognizer) {
+        DispatchQueue.main.async(execute:
+        {
+            if ( !self.toggle.boolValue ) {
+                self.animationView.play(fromProgress: 0, toProgress: 0.5, withCompletion: nil)
+                self.toggle = true
+                self.performSegue(withIdentifier: "Settings", sender: self)
+            } else {
+                self.toggle = false
+                self.animationView.play(fromProgress: 0.5, toProgress: 0, withCompletion: nil)
+            }
+        })
     }
     
     @objc private func reachabilityChanged(note: Notification)
@@ -164,21 +170,6 @@ class ViewController: UIViewController
             self.resume()
             news.text = "Your heart rate has been steady for the past 48 hours, maybe time for a run?"
         }
-    }
-    
-    @objc func handleTap(sender: UITapGestureRecognizer? = nil)
-    {
-        //print ( sender?. )
-    }
-    
-    private func play(withDelay: TimeInterval)
-    {
-        self.perform(#selector(animateViews), with: .none, afterDelay: withDelay)
-    }
-    
-    open func animateViews()
-    {
-        dailySummaryView.play()
     }
     
     public func onBloodSamples(event: Event)
@@ -316,8 +307,10 @@ class ViewController: UIViewController
     public func resume()
     {
         print("DEBUG:: RESUMING")
+        updateTimer?.invalidate()
         let when = DispatchTime.now() + 1
         DispatchQueue.main.asyncAfter(deadline: when) {
+            print ("creating timer update")
             self.updateTimer = Timer.scheduledTimer(timeInterval: 180, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
             self.updateTimer?.fire()
         }

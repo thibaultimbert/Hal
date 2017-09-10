@@ -20,10 +20,10 @@ class RemoteBridge: EventDispatcher
     private static var LOGIN_URL: String = "https://share1.dexcom.com/ShareWebServices/Services/General/LoginPublisherAccountByName"
     private var dataTask: URLSessionDataTask?
     
-    private static var sharedDXBridge: RemoteBridge =
+    private static var sharedRemoteBridge: RemoteBridge =
     {
-        let dxBridge = RemoteBridge()
-        return dxBridge
+        let bridge = RemoteBridge()
+        return bridge
     }()
     
     // authenticates the user to the dexcom REST APIs
@@ -102,7 +102,7 @@ class RemoteBridge: EventDispatcher
     
     class func shared() -> RemoteBridge
     {
-        return sharedDXBridge
+        return sharedRemoteBridge
     }
 }
 

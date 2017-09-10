@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0407A58D1F630FBD006B01E5 /* hamburger.json in Resources */ = {isa = PBXBuildFile; fileRef = 0407A58C1F630FBD006B01E5 /* hamburger.json */; };
+		0407A58F1F639DAB006B01E5 /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = 0407A58E1F639DAB006B01E5 /* data.json */; };
+		0407A5911F63A92D006B01E5 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0407A5901F63A92D006B01E5 /* SettingsController.swift */; };
 		0427012A1F1EC85200133257 /* BGSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042701291F1EC85200133257 /* BGSample.swift */; };
 		042FD2E61F2498AC00A6DF49 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042FD2E51F2498AB00A6DF49 /* Utils.swift */; };
 		042FD2EA1F2696AD00A6DF49 /* ChartManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042FD2E91F2696AD00A6DF49 /* ChartManager.swift */; };
@@ -136,6 +138,8 @@
 
 /* Begin PBXFileReference section */
 		0407A58C1F630FBD006B01E5 /* hamburger.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = hamburger.json; sourceTree = "<group>"; };
+		0407A58E1F639DAB006B01E5 /* data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = data.json; sourceTree = "<group>"; };
+		0407A5901F63A92D006B01E5 /* SettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		042701291F1EC85200133257 /* BGSample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BGSample.swift; sourceTree = "<group>"; };
 		042FD2E51F2498AB00A6DF49 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utils.swift; path = ../Utils.swift; sourceTree = "<group>"; };
 		042FD2E91F2696AD00A6DF49 /* ChartManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartManager.swift; sourceTree = "<group>"; };
@@ -299,6 +303,7 @@
 			isa = PBXGroup;
 			children = (
 				044734F01F54D6DE00C85608 /* bouncing_heart.json */,
+				0407A58E1F639DAB006B01E5 /* data.json */,
 				0437028B1F4BDC97001EF6E7 /* heart.json */,
 				0437028E1F4BDE4B001EF6E7 /* loader.json */,
 				0407A58C1F630FBD006B01E5 /* hamburger.json */,
@@ -360,6 +365,7 @@
 				042FD2E81F2498FE00A6DF49 /* Utils */,
 				044CEDE11F169E4E005CBD0E /* AppDelegate.swift */,
 				044CEDE31F169E4E005CBD0E /* ViewController.swift */,
+				0407A5901F63A92D006B01E5 /* SettingsController.swift */,
 				043702921F4D41A1001EF6E7 /* LoginViewController.swift */,
 				044CEDE51F169E4E005CBD0E /* Main.storyboard */,
 				043702901F4C0547001EF6E7 /* AppIcon.appiconset */,
@@ -719,6 +725,7 @@
 				04DDBA5D1F5E1AE000A7D4BC /* noon.jpg in Resources */,
 				044734F41F553E4100C85608 /* morning.jpg in Resources */,
 				044CEDE71F169E4E005CBD0E /* Main.storyboard in Resources */,
+				0407A58F1F639DAB006B01E5 /* data.json in Resources */,
 				045A15381F4EA82400FDEBFC /* night.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1022,6 +1029,7 @@
 				043701F81F396713001EF6E7 /* Background.swift in Sources */,
 				047495121F5A6A5A00841A31 /* DailySummary.swift in Sources */,
 				04471CA01F18982200F1023A /* HealthKitBridge.swift in Sources */,
+				0407A5911F63A92D006B01E5 /* SettingsController.swift in Sources */,
 				04471CA41F18A29000F1023A /* EventDispatcher.swift in Sources */,
 				042FD2E61F2498AC00A6DF49 /* Utils.swift in Sources */,
 				049692E31F5F9DDD006726DF /* RemoteBridge.swift in Sources */,
