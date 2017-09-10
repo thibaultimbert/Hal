@@ -149,16 +149,12 @@ class ViewController: UIViewController
     func toggleMenu(recognizer: UITapGestureRecognizer) {
         DispatchQueue.main.async(execute:
         {
-            if ( !self.toggle.boolValue ) {
-                self.animationView.play(fromProgress: 0, toProgress: 0.5, withCompletion: nil)
-                self.toggle = true
-                self.performSegue(withIdentifier: "Settings", sender: self)
-            } else {
-                self.toggle = false
-                self.animationView.play(fromProgress: 0.5, toProgress: 0, withCompletion: nil)
-            }
+            // Now the animation has finished and our image is displayed on screen
+            self.performSegue(withIdentifier: "Settings", sender: self)
         })
     }
+    
+    @IBAction func unwindToMain(sender: UIStoryboardSegue) {}
     
     @objc private func reachabilityChanged(note: Notification)
     {
@@ -310,7 +306,6 @@ class ViewController: UIViewController
         updateTimer?.invalidate()
         let when = DispatchTime.now() + 1
         DispatchQueue.main.asyncAfter(deadline: when) {
-            print ("creating timer update")
             self.updateTimer = Timer.scheduledTimer(timeInterval: 180, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
             self.updateTimer?.fire()
         }

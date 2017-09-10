@@ -37,10 +37,7 @@ class SettingsController: UIViewController
     func toggleMenu(recognizer: UITapGestureRecognizer) {
         DispatchQueue.main.async(execute:
             {
-                self.animationView.play(fromProgress: 0.5, toProgress: 0, withCompletion: { (complete: Bool) in
-                    // Now the animation has finished and our image is displayed on screen
-                    self.performSegue(withIdentifier: "SettingsToMain", sender: self)
-                })
+                self.performSegue(withIdentifier: "unwindToMain", sender: self)
         })
     }
     
