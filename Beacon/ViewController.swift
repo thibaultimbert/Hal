@@ -18,11 +18,11 @@ class ViewController: UIViewController
 {
     
     @IBOutlet weak var current: UILabel!
+    @IBOutlet weak var recent: UIButton!
     @IBOutlet weak var fulltime: UIButton!
     @IBOutlet weak var difference: UILabel!
     @IBOutlet weak var detailsL: UILabel!
     @IBOutlet weak var news: UILabel!
-    @IBOutlet weak var recent: UIButton!
     @IBOutlet weak var myChart: LineChartView!
     
     public var quotes: [String] = ["Diabetics are naturally sweet.",
@@ -346,11 +346,17 @@ class ViewController: UIViewController
     
     @IBAction func fullTime(_ sender: Any)
     {
+        let button: UIButton = sender as! UIButton
+        recent.alpha = 1.0
+        button.alpha = 0.5
         chartManager.fulltimeView()
     }
 
     @IBAction func last3Hours(_ sender: Any)
     {
+        let button: UIButton = sender as! UIButton
+        fulltime.alpha = 1.0
+        button.alpha = 0.5
         chartManager.recentView()
     }
     
