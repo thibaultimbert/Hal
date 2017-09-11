@@ -34,9 +34,11 @@ class ChartManager: EventDispatcher, ChartViewDelegate
     public var samples: [BGSample]!
     public var curvature: Double!
     public var average: Double!
+    private var parent: ViewController!
     
-    init (lineChart: LineChartView)
+    init (parent: ViewController, lineChart: LineChartView)
     {
+        self.parent = parent
         chart = lineChart
         chart.delegate = self as ChartViewDelegate
         chart.backgroundColor = .clear
@@ -132,7 +134,9 @@ class ChartManager: EventDispatcher, ChartViewDelegate
         if (zoomed.boolValue)
         {
             recentView()
-        } else { fulltimeView() }
+        } else {
+            fulltimeView()
+        }
         
         position = Int((lineDataEntry.last?.x)!)
         selectedSample = samples.last

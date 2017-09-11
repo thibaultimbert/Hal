@@ -108,7 +108,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <segue destination="II9-1w-3ub" kind="unwind" identifier="unwindToMain" unwindAction="unwindToMainWithSender:" id="AQW-G6-fY3"/>
+                        <segue destination="II9-1w-3ub" kind="unwind" identifier="unwindToMain" customClass="SegueFromRight" customModule="Hal" customModuleProvider="target" unwindAction="unwindToMainWithSender:" id="AQW-G6-fY3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mbK-ap-kXV" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -113,7 +113,7 @@ class ViewController: UIViewController
         news.text = getRandomQuote()
         
         // charts UI
-        chartManager = ChartManager(lineChart: myChart)
+        chartManager = ChartManager(parent: self, lineChart: myChart)
         let selectionHandler = EventHandler(function: onSelection)
         chartManager.addEventListener(type: EventType.selection, handler: selectionHandler)
         
