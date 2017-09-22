@@ -12,7 +12,7 @@ import UserNotifications
 import CoreData
 import Fabric
 import Crashlytics
-import DLLocalNotifications
+//import DLLocalNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

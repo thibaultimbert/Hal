@@ -20,7 +20,7 @@ class SegueFromLeft: UIStoryboardSegue
         
         UIView.animate(withDuration: 0.25,
                                    delay: 0.0,
-                                   options: UIViewAnimationOptions.curveEaseInOut,
+                                   options: UIViewAnimationOptions.curveEaseOut,
                                    animations: {
                                     dst.view.transform = CGAffineTransform(translationX: 0, y: 0)
         },
@@ -43,7 +43,7 @@ class SegueFromRight: UIStoryboardSegue
         
         UIView.animate(withDuration: 0.25,
                        delay: 0.0,
-                       options: UIViewAnimationOptions.curveEaseInOut,
+                       options: UIViewAnimationOptions.curveEaseOut,
                        animations: {
                         dst.view.transform = CGAffineTransform(translationX: 0, y: 0)
         },

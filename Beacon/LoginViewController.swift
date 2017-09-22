@@ -10,7 +10,6 @@ import UIKit
 
 class LoginViewController: UIViewController
 {
-
     @IBOutlet weak var userNameTf: UITextField!
     @IBOutlet weak var passwordTf: UITextField!
     @IBOutlet weak var loginLbl: UILabel!
@@ -29,7 +28,6 @@ class LoginViewController: UIViewController
     
     override func viewDidLoad()
     {
-        
         super.viewDidLoad()
         
         // Hal logo

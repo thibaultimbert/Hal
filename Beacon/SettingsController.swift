@@ -14,6 +14,7 @@ class SettingsController: UIViewController
 {
     private var animationView: LOTAnimationView!
     private var toggle: DarwinBoolean = false
+    private var setupBg: Background!
     
     override func viewDidLoad()
     {
@@ -27,6 +28,8 @@ class SettingsController: UIViewController
         
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(toggleMenu(recognizer:)))
         animationView.addGestureRecognizer(tapRecognizer)
+        
+        setupBg = Background (parent: self)
     }
     
     override func didReceiveMemoryWarning()

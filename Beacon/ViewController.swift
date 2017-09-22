@@ -46,7 +46,7 @@ class ViewController: UIViewController
     private var animationView: LOTAnimationView!
     private var heartView: LOTAnimationView!
     private var managedObjectContext: NSManagedObjectContext!
-    private var dailySummaryView:DailySummary!
+  // private var dailySummaryView:DailySummary!
     private var keyChain: KeychainSwift!
     private var size: Float = 0
     private var generator: UIImpactFeedbackGenerator!
@@ -64,16 +64,17 @@ class ViewController: UIViewController
         // detect connection changes (wifi, cellular, no network)
         reachability = Reachability()!
         
+        /*
         NotificationCenter.default.addObserver(self, selector: #selector(self.reachabilityChanged),name: ReachabilityChangedNotification,object: reachability)
         do{
             try reachability.startNotifier()
         }catch {
             print("Could not start reachability notifier")
-        }
+        }*/
         
         // handling background and foreground states
-        NotificationCenter.default.addObserver(self, selector: #selector(self.resume), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.pause), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
+        //NotificationCenter.default.addObserver(self, selector: #selector(self.resume), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
+        //NotificationCenter.default.addObserver(self, selector: #selector(self.pause), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
         
         // initialize coredata
         managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -144,6 +145,8 @@ class ViewController: UIViewController
         
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(toggleMenu(recognizer:)))
         animationView.addGestureRecognizer(tapRecognizer)
+        
+        resume()
     }
     
     func toggleMenu(recognizer: UITapGestureRecognizer) {
@@ -161,7 +164,9 @@ class ViewController: UIViewController
         let reachability = note.object as! Reachability
         if !reachability.isReachable {
             self.pause()
-            news.text = "Uh, oh. You seem to have lost network, we will be waiting..."
+            news.text = "Uh, oh. You seem to have lost network, waiting on network availability..."
+            current.text = "---\n---"
+            difference.text = ""
         } else {
             self.resume()
             news.text = "Your heart rate has been steady for the past 48 hours, maybe time for a run?"

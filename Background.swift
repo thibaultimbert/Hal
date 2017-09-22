@@ -16,7 +16,6 @@ class Background {
     
     init(parent: UIViewController)
     {
-        
         gradientLayer.frame = parent.view.bounds
         
         let color1 = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5).cgColor as CGColor

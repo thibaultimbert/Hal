@@ -6,6 +6,7 @@
 //  Copyright © 2017 Thibault Imbert. All rights reserved.
 //
 
+/*
 import Macaw
 import Foundation
 
@@ -112,4 +113,4 @@ open class DailySummary: MacawView {
     }
     
     open var completionCallback: (() -> ()) = { }
-}
+}*/

@@ -9,12 +9,11 @@
 import Foundation
 import UIKit
 import CoreData
-import SwiftyJSON
 import Alamofire
+import SwiftyJSON
 
 class RemoteBridge: EventDispatcher
 {
-    
     public var bloodSamples: [BGSample] = []
     public static var TOKEN: String!
     private static var LOGIN_URL: String = "https://share1.dexcom.com/ShareWebServices/Services/General/LoginPublisherAccountByName"
@@ -29,7 +28,6 @@ class RemoteBridge: EventDispatcher
     // authenticates the user to the dexcom REST APIs
     public func login(userName: String, password: String, appID: String = "d8665ade-9673-4e27-9ff6-92db4ce13d13")
     {
-        
         let parameters: Parameters = [
             "accountName": userName,
             "applicationId": appID,
