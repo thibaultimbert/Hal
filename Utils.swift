@@ -49,6 +49,18 @@ class Utils {
             default: return TimeOfDay.night
         }
     }
+    
+    public static func decomposeURL(url: URL) -> Dictionary<String, String>
+    {
+        var dict = [String:String]()
+        let components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
+        if let queryItems = components.queryItems {
+            for item in queryItems {
+                dict[item.name] = item.value!
+            }
+        }
+        return dict
+    }
 }
 
 extension Double {

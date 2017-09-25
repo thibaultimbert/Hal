@@ -11,6 +11,7 @@
 		0407A58F1F639DAB006B01E5 /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = 0407A58E1F639DAB006B01E5 /* data.json */; };
 		0407A5911F63A92D006B01E5 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0407A5901F63A92D006B01E5 /* SettingsController.swift */; };
 		0407A5931F65B4E9006B01E5 /* SegueFromLeft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0407A5921F65B4E9006B01E5 /* SegueFromLeft.swift */; };
+		041074721F76263200C86F13 /* DexcomBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041074711F76263200C86F13 /* DexcomBridge.swift */; };
 		0427012A1F1EC85200133257 /* BGSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042701291F1EC85200133257 /* BGSample.swift */; };
 		042FD2E61F2498AC00A6DF49 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042FD2E51F2498AB00A6DF49 /* Utils.swift */; };
 		042FD2EA1F2696AD00A6DF49 /* ChartManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042FD2E91F2696AD00A6DF49 /* ChartManager.swift */; };
@@ -142,6 +143,7 @@
 		0407A58E1F639DAB006B01E5 /* data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = data.json; sourceTree = "<group>"; };
 		0407A5901F63A92D006B01E5 /* SettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		0407A5921F65B4E9006B01E5 /* SegueFromLeft.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegueFromLeft.swift; sourceTree = "<group>"; };
+		041074711F76263200C86F13 /* DexcomBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexcomBridge.swift; sourceTree = "<group>"; };
 		042701291F1EC85200133257 /* BGSample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BGSample.swift; sourceTree = "<group>"; };
 		042FD2E51F2498AB00A6DF49 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utils.swift; path = ../Utils.swift; sourceTree = "<group>"; };
 		042FD2E91F2696AD00A6DF49 /* ChartManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartManager.swift; sourceTree = "<group>"; };
@@ -464,6 +466,7 @@
 			children = (
 				04471C9F1F18982200F1023A /* HealthKitBridge.swift */,
 				049692E21F5F9DDD006726DF /* RemoteBridge.swift */,
+				041074711F76263200C86F13 /* DexcomBridge.swift */,
 			);
 			name = Remote;
 			sourceTree = "<group>";
@@ -1038,6 +1041,7 @@
 				0407A5931F65B4E9006B01E5 /* SegueFromLeft.swift in Sources */,
 				043701F81F396713001EF6E7 /* Background.swift in Sources */,
 				047495121F5A6A5A00841A31 /* DailySummary.swift in Sources */,
+				041074721F76263200C86F13 /* DexcomBridge.swift in Sources */,
 				04471CA01F18982200F1023A /* HealthKitBridge.swift in Sources */,
 				0407A5911F63A92D006B01E5 /* SettingsController.swift in Sources */,
 				04471CA41F18A29000F1023A /* EventDispatcher.swift in Sources */,

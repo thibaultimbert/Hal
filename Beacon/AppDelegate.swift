@@ -12,15 +12,38 @@ import UserNotifications
 import CoreData
 import Fabric
 import Crashlytics
+import OAuthSwift
 //import DLLocalNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    private var dxBridge: DexcomBridge = DexcomBridge.shared()
     
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        let onTokenReceivedHandler = EventHandler(function: self.onTokenReceived)
+        dxBridge.addEventListener(type: EventType.token, handler: onTokenReceivedHandler)
         return UIInterfaceOrientationMask(rawValue: UIInterfaceOrientationMask.portrait.rawValue)
+    }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        if (url.host == "oauth-swift") {
+            OAuthSwift.handle(url: url)
+        }
+        let url:URL = url.absoluteURL
+        let parameters: Dictionary = Utils.decomposeURL(url: url)
+        let code: String = parameters["code"]!
+        dxBridge.getToken(code: code)
+        return true
+    }
+    
+    public func onTokenReceived(event: Event)
+    {
+        if let vc = window?.rootViewController as? LoginViewController {
+            print ("perform segue")
+            vc.performSegue(withIdentifier: "Main", sender: vc)
+        }
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {

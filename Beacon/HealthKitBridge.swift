@@ -26,7 +26,6 @@ class HealthKitBridge: EventDispatcher
     
     func getHealthKitPermission()
     {
-        
         // we want blood glucose levels
         let writableTypes: Set<HKSampleType> = [HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.bloodGlucose)!, HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!]
         let readableTypes: Set<HKSampleType> = [HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.bloodGlucose)!, HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!]
@@ -36,7 +35,10 @@ class HealthKitBridge: EventDispatcher
             
             if success {
                 self.isAuthorized = true
-                self.dispatchEvent(event: Event(type: EventType.authorized, target: self))
+                DispatchQueue.main.async(execute:
+                {
+                    self.dispatchEvent(event: Event(type: EventType.authorized, target: self))
+                })
             } else {
                 self.isAuthorized = false
                 print("error authorizating HealthStore. You're propably on iPad \(String(describing: error?.localizedDescription))")
@@ -46,9 +48,11 @@ class HealthKitBridge: EventDispatcher
     
     func getBloodSamples(fromDay: Int = -1, to: Date = Date())
     {
+        
+        print (isAuthorized)
+        
         if isAuthorized!
         {
-            
             // Get blood glucose readings
             let now = Date()
             let df = DateFormatter()
@@ -74,13 +78,16 @@ class HealthKitBridge: EventDispatcher
                 
                 if error != nil
                 {
+                    print(error)
                     return;
                 }
                 
                 // Get the first sample
                 self.bloodSamples = results as? [HKQuantitySample]
-                self.dispatchEvent(event: Event(type: EventType.bloodSamples, target: self))
-
+                DispatchQueue.main.async(execute:
+                    {
+                        self.dispatchEvent(event: Event(type: EventType.bloodSamples, target: self))
+                })
             }
             // 5. Execute the Query
             self.healthKitStore.execute(sampleQuery)
@@ -130,7 +137,7 @@ class HealthKitBridge: EventDispatcher
                     for sample in bpmResults
                     {
                         let value = sample.quantity.doubleValue(for: bpmUnit)
-                        self.heartRates.append(HeartRateSample(pValue: Int(value), pTime: Int(sample.startDate.timeIntervalSince1970), pTrend: 0))
+                        //self.heartRates.append(HeartRateSample(pValue: Int(value), pDate:pTime: Int(sample.startDate.timeIntervalSince1970), pTrend: 0))
                     }
                     self.dispatchEvent(event: Event(type: EventType.heartRate, target: self))
                 })

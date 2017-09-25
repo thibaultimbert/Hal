@@ -33,7 +33,7 @@ class ViewController: UIViewController
                                     "I am not ill, my pancreas is just lazy."]
     
     public var hkBridge: HealthKitBridge!
-    public var remoteBridge: RemoteBridge!
+    public var remoteBridge: DexcomBridge!
     private var chartManager: ChartManager!
     private var setupBg: Background!
     private var updateTimer: Timer?
@@ -64,17 +64,16 @@ class ViewController: UIViewController
         // detect connection changes (wifi, cellular, no network)
         reachability = Reachability()!
         
-        /*
         NotificationCenter.default.addObserver(self, selector: #selector(self.reachabilityChanged),name: ReachabilityChangedNotification,object: reachability)
         do{
             try reachability.startNotifier()
         }catch {
             print("Could not start reachability notifier")
-        }*/
+        }
         
         // handling background and foreground states
-        //NotificationCenter.default.addObserver(self, selector: #selector(self.resume), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
-        //NotificationCenter.default.addObserver(self, selector: #selector(self.pause), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.resume), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.pause), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
         
         // initialize coredata
         managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -118,7 +117,7 @@ class ViewController: UIViewController
         let selectionHandler = EventHandler(function: onSelection)
         chartManager.addEventListener(type: EventType.selection, handler: selectionHandler)
         
-        remoteBridge = RemoteBridge.shared()
+        remoteBridge = DexcomBridge.shared()
         let DXBloodSamples = EventHandler(function: self.onBloodSamples)
         let onLoggedInHandler = EventHandler (function: self.onLoggedIn)
         let glucoseIOHandler = EventHandler (function: self.glucoseIOFailed)
@@ -135,7 +134,6 @@ class ViewController: UIViewController
         // wait for Dexcom data
         remoteBridge.addEventListener(type: .bloodSamples, handler: DXBloodSamples)
         remoteBridge.addEventListener(type: .glucoseIOError, handler: glucoseIOHandler)
-        remoteBridge.addEventListener(type: .loggedIn, handler: onLoggedInHandler)
         
         animationView = LOTAnimationView(name: "hamburger")
         animationView.contentMode = .scaleAspectFill
@@ -146,7 +144,7 @@ class ViewController: UIViewController
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(toggleMenu(recognizer:)))
         animationView.addGestureRecognizer(tapRecognizer)
         
-        resume()
+        //resume()
     }
     
     func toggleMenu(recognizer: UITapGestureRecognizer) {
@@ -164,12 +162,12 @@ class ViewController: UIViewController
         let reachability = note.object as! Reachability
         if !reachability.isReachable {
             self.pause()
-            news.text = "Uh, oh. You seem to have lost network, waiting on network availability..."
-            current.text = "---\n---"
-            difference.text = ""
+            //news.text = "Uh, oh. You seem to have lost network, waiting on network availability..."
+            //current.text = "---\n---"
+            //difference.text = ""
         } else {
             self.resume()
-            news.text = "Your heart rate has been steady for the past 48 hours, maybe time for a run?"
+            //DispatchQueue.main.async(execute: news.text = "Your heart rate has been steady for the past 48 hours, maybe time for a run?")
         }
     }
     
@@ -188,6 +186,7 @@ class ViewController: UIViewController
         // reference the result (Array of BGSample)
         results = remoteBridge.bloodSamples
         
+        /*
         // initiate daily samples records
         let dailySample = DailySamples(context: managedObjectContext)
         dailySample.createdAt = Date() as NSDate
@@ -218,9 +217,9 @@ class ViewController: UIViewController
         do{
             let samples: [DailySamples] = try managedObjectContext.fetch(samplesRequest) as! [DailySamples]
             let records = samples[0].samples
-        } catch { print ("error loading data") }
+        } catch { print ("error loading data") }*/
         
-        let (_, _, sampleDate) = Utils.getDate(unixdate: Int(results[0].time))
+        let sampleDate:String = results[0].time
         current.text = sampleDate + "\n" + String (describing: results[0].value) + " mg/DL " + results[0].trend
         
         // details UI
@@ -277,7 +276,7 @@ class ViewController: UIViewController
     
     public func onSelection(event: Event?)
     {
-        let (_, _, sampleDate) = Utils.getDate(unixdate: Int(chartManager.selectedSample.time))
+        let sampleDate:String = chartManager.selectedSample.time
         let position: Int = chartManager.position
         if ( position > 0 ) {
             let delta: Int = chartManager.samples[position].value - chartManager.samples[position-1].value
@@ -326,9 +325,9 @@ class ViewController: UIViewController
     public func glucoseIOFailed (event: Event)
     {
         pause()
-        let userName = keyChain.get("user")
-        let password = keyChain.get("password")
-        remoteBridge.login(userName: userName!, password: password!)
+       // let userName = keyChain.get("user")
+       // let password = keyChain.get("password")
+       // remoteBridge.login(userName: userName!, password: password!)
     }
     
     public func onHKAuthorization (event: Event)

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import OAuthSwift
 
 class LoginViewController: UIViewController
 {
@@ -68,11 +69,31 @@ class LoginViewController: UIViewController
         let userName = keychain.get("user")
         let password = keychain.get("password")
         
+        let oauthswift = OAuth2Swift(
+            consumerKey:    "PufsQSdRKnVgCc8phv3CtKrg7gArPHJT",
+            consumerSecret: "sAWUZwCSmdoeWlyW",
+            authorizeUrl:   "https://sandbox-api.dexcom.com/v1/oauth2/login",
+            accessTokenUrl: "offline_access",
+            responseType:   "code"
+        )
+        
+        let handle = oauthswift.authorize(
+            withCallbackURL: URL(string: "hal://oauth-callback/dexcom")!,
+            scope: "offline_access", state:"dummy",
+            success: { credential, response, parameters in
+                // Do your request
+        },
+            failure: { error in
+                print("error " + error.localizedDescription)
+        }
+        )
+        
+        /*
         if userName != nil && password != nil {
             dxBridge.login(userName: userName!, password: password!)
             userNameTf.text = userName
             passwordTf.text = password
-        }
+        }*/
     }
 
     override func didReceiveMemoryWarning()

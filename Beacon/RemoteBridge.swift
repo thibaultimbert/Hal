@@ -69,7 +69,7 @@ class RemoteBridge: EventDispatcher
                             let trend = subJson["Trend"].int
                             let timeStamp = date.components(separatedBy: "(")[1].components(separatedBy: ")")[0].components(separatedBy: "-")[0]
                             let convertedTime: Int = Int(timeStamp)!/1000
-                            self.bloodSamples.append(BGSample(pValue: value!, pTime: convertedTime, pTrend: trend!))
+                            //self.bloodSamples.append(BGSample(pValue: value!, pDate: date, pTime: convertedTime, pTrend: trend!))
                         }
                     }
                     

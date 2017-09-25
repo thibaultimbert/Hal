@@ -73,7 +73,6 @@ class ChartManager: EventDispatcher, ChartViewDelegate
     
     public func setData(data: [BGSample], average: Double)
     {
-        
         self.average = average
         samples = data.reversed()
         hours.removeAll()
@@ -92,8 +91,8 @@ class ChartManager: EventDispatcher, ChartViewDelegate
             let sugarLevel = ChartDataEntry(x: Double(i), y: Double(sample.value))
             dx_dt.append(sugarLevel.x)
             dy_dt.append(sugarLevel.y)
-            let (_, _, hour) = Utils.getDate(unixdate: sample.time, format: "hh:mm a")
-            hours.append(hour)
+            //let (_, _, hour) = Utils.getDate(unixdate: sample.time, format: "hh:mm a")
+            hours.append(sample.time)
             lineDataEntry.append (sugarLevel)
             var color: UIColor
             if (sugarLevel.y > ChartManager.HIGH_LIMIT) {
