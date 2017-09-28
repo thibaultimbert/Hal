@@ -120,14 +120,8 @@ class DexcomBridge: EventDispatcher
                 }
                 
                 DispatchQueue.main.async(execute:
-                    {
-                        if ( self.bloodSamples.count > 0 )
-                        {
-                            self.dispatchEvent(event: Event(type: EventType.glucoseValues, target: self))
-                        } else
-                        {
-                            self.dispatchEvent(event: Event(type: EventType.glucoseIOError, target: self))
-                        }
+                {
+                    self.dispatchEvent(event: Event(type: EventType.glucoseValues, target: self))
                 })
                 
                 if (completionHandler) != nil

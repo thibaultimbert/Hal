@@ -13,7 +13,6 @@ import CoreData
 import Fabric
 import Crashlytics
 import OAuthSwift
-//import DLLocalNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,32 +20,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     private var dxBridge: DexcomBridge = DexcomBridge.shared()
     
-    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask
+    {
         let onTokenReceivedHandler = EventHandler(function: self.onTokenReceived)
         dxBridge.addEventListener(type: EventType.token, handler: onTokenReceivedHandler)
         return UIInterfaceOrientationMask(rawValue: UIInterfaceOrientationMask.portrait.rawValue)
     }
     
-    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool
+    {
         if (url.host == "oauth-swift") {
             OAuthSwift.handle(url: url)
         }
+        // retrieve the authorization code
         let url:URL = url.absoluteURL
         let parameters: Dictionary = Utils.decomposeURL(url: url)
         let code: String = parameters["code"]!
+        // authenticate to the Dexcom APIs using the authorization code
         dxBridge.getToken(code: code)
         return true
     }
     
     public func onTokenReceived(event: Event)
     {
+        // when token is received, move to the main logged-in screen
         if let vc = window?.rootViewController as? LoginViewController {
             vc.performSegue(withIdentifier: "Main", sender: vc)
         }
     }
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool
+    {
+        // enable crash tracking
         Fabric.with([Crashlytics.self])
         UIApplication.shared.statusBarStyle = .lightContent
         
@@ -63,31 +68,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             application.registerForRemoteNotifications()
          }
         
-        var date = DateComponents()
-        date.hour = 17
-        date.minute = 44
-        
-        let trigger = UNCalendarNotificationTrigger(dateMatching: date, repeats: true)
-        
-        let content = UNMutableNotificationContent()
-        content.title = "title"
-        content.body = "body"
-        // make sure you give each request a unique identifier. (nextTriggerDate description)
-        let request = UNNotificationRequest(identifier: String(Date().timeIntervalSince1970), content: content, trigger: trigger)
-        UNUserNotificationCenter.current().add(request) { error in
-            if let error = error {
-                print(error)
-                return
-            }
-            print("scheduled")
-        }
-        
         // background fetch
         UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
         return true
     }
     
-    func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+    func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void)
+    {
         if let vc = window?.rootViewController as? ViewController {
             vc.remoteBridge.getGlucoseValues(token: RemoteBridge.TOKEN, completionHandler: completionHandler)
             vc.hkBridge.getHeartRate()
@@ -95,7 +82,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     // Called when APNs has assigned the device a unique token
-    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data)
+    {
         // Convert token to string
         _ = deviceToken.reduce("", {$0 + String(format: "%02X", $1)})
         // Print it to console
@@ -104,37 +92,44 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     // Called when APNs failed to register the device for push notifications
-    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error)
+    {
         // Print the error to console (you should alert the user that registration failed)
         print("APNs registration failed: \(error)")
     }
 
-    func applicationWillResignActive(_ application: UIApplication) {
+    func applicationWillResignActive(_ application: UIApplication)
+    {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
     }
 
-    func applicationDidEnterBackground(_ application: UIApplication) {
+    func applicationDidEnterBackground(_ application: UIApplication)
+    {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }
     
     // Push notification received
-    func application(_ application: UIApplication, didReceiveRemoteNotification data: [AnyHashable : Any]) {
+    func application(_ application: UIApplication, didReceiveRemoteNotification data: [AnyHashable : Any])
+    {
         // Print notification payload data
         print("Push notification received: \(data)")
     }
 
-    func applicationWillEnterForeground(_ application: UIApplication) {
+    func applicationWillEnterForeground(_ application: UIApplication)
+    {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
         
     }
 
-    func applicationDidBecomeActive(_ application: UIApplication) {
+    func applicationDidBecomeActive(_ application: UIApplication)
+    {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
 
-    func applicationWillTerminate(_ application: UIApplication) {
+    func applicationWillTerminate(_ application: UIApplication)
+    {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
@@ -142,7 +137,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: - Core Data stack
 
-    lazy var persistentContainer: NSPersistentContainer = {
+    lazy var persistentContainer: NSPersistentContainer =
+    {
         /*
          The persistent container for the application. This implementation
          creates and returns a container, having loaded the store for the
@@ -171,7 +167,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: - Core Data Saving support
 
-    func saveContext () {
+    func saveContext ()
+    {
         let context = persistentContainer.viewContext
         if context.hasChanges {
             do {
@@ -187,7 +184,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // MARK: - Core Data Blog Glucose Samples Deletion support
     
-    func deleteSamplesData () {
+    func deleteSamplesData ()
+    {
         let context = persistentContainer.viewContext
         let fetchRequest: NSFetchRequest<NSFetchRequestResult> = DailySamples.fetchRequest()
         do {

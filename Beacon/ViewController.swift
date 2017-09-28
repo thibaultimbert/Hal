@@ -145,8 +145,6 @@ class ViewController: UIViewController
         
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(toggleMenu(recognizer:)))
         animationView.addGestureRecognizer(tapRecognizer)
-        
-        resume()
     }
     
     func toggleMenu(recognizer: UITapGestureRecognizer) {
@@ -350,17 +348,16 @@ class ViewController: UIViewController
 
     @objc func update()
     {
-        print("DEBUG:: Pulling latest data")
+        print("UPDATE:: Pulling latest data")
         remoteBridge.getGlucoseValues()
         hkBridge.getHeartRate()
     }
     
     @objc func refresh()
     {
-        print("DEBUG:: Pulling latest data")
+        print("REFRESH:: Refreshing token")
         pause()
         remoteBridge.refreshToken()
-        hkBridge.getHeartRate()
     }
     
     @IBAction func fullTime(_ sender: Any)
