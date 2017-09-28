@@ -14,7 +14,7 @@ import SwiftyJSON
 
 class RemoteBridge: EventDispatcher
 {
-    public var bloodSamples: [BGSample] = []
+    public var bloodSamples: [GlucoseSample] = []
     public static var TOKEN: String!
     private static var LOGIN_URL: String = "https://share1.dexcom.com/ShareWebServices/Services/General/LoginPublisherAccountByName"
     private var dataTask: URLSessionDataTask?
@@ -82,7 +82,7 @@ class RemoteBridge: EventDispatcher
                         {
                         if ( self.bloodSamples.count > 0 )
                         {
-                            self.dispatchEvent(event: Event(type: EventType.bloodSamples, target: self))
+                            self.dispatchEvent(event: Event(type: EventType.glucoseValues, target: self))
                         } else
                         {
                             self.dispatchEvent(event: Event(type: EventType.glucoseIOError, target: self))

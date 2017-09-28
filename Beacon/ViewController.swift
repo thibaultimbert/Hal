@@ -37,9 +37,10 @@ class ViewController: UIViewController
     private var chartManager: ChartManager!
     private var setupBg: Background!
     private var updateTimer: Timer?
+    private var refreshTimer: Timer?
     private var recoverTimer: Timer?
     private var firstTime:DarwinBoolean = true
-    private var results: [BGSample]!
+    private var results: [GlucoseSample]!
     private var bodyFont: UIFont!
     private var quoteFont: UIFont!
     private var quoteText: UILabel!
@@ -72,8 +73,8 @@ class ViewController: UIViewController
         }
         
         // handling background and foreground states
-        NotificationCenter.default.addObserver(self, selector: #selector(self.resume), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.pause), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
+        //NotificationCenter.default.addObserver(self, selector: #selector(self.resume), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
+        //NotificationCenter.default.addObserver(self, selector: #selector(self.pause), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
         
         // initialize coredata
         managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -117,22 +118,23 @@ class ViewController: UIViewController
         let selectionHandler = EventHandler(function: onSelection)
         chartManager.addEventListener(type: EventType.selection, handler: selectionHandler)
         
+        // initialize the Dexcom bridge
         remoteBridge = DexcomBridge.shared()
-        let DXBloodSamples = EventHandler(function: self.onBloodSamples)
+        let glucoseValuesHandler = EventHandler(function: self.onGlucoseValues)
+        let refreshedTokenHandler = EventHandler(function: self.onTokenRefreshed)
         let onLoggedInHandler = EventHandler (function: self.onLoggedIn)
         let glucoseIOHandler = EventHandler (function: self.glucoseIOFailed)
         let hkAuthorizedHandler = EventHandler (function: self.onHKAuthorization)
         let hkHeartRateHandler = EventHandler (function: self.onHKHeartRate)
-    
-        // Do any additional setup after loading the view, typically from a nib.
-        // initialize the Dexcom bridge
+        
         hkBridge = HealthKitBridge.shared()
         hkBridge.getHealthKitPermission()
         hkBridge.addEventListener(type: EventType.authorized, handler: hkAuthorizedHandler)
         hkBridge.addEventListener(type: EventType.heartRate, handler: hkHeartRateHandler)
         
         // wait for Dexcom data
-        remoteBridge.addEventListener(type: .bloodSamples, handler: DXBloodSamples)
+        remoteBridge.addEventListener(type: .glucoseValues, handler: glucoseValuesHandler)
+        remoteBridge.addEventListener(type: .refreshToken, handler: refreshedTokenHandler)
         remoteBridge.addEventListener(type: .glucoseIOError, handler: glucoseIOHandler)
         
         animationView = LOTAnimationView(name: "hamburger")
@@ -144,7 +146,7 @@ class ViewController: UIViewController
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(toggleMenu(recognizer:)))
         animationView.addGestureRecognizer(tapRecognizer)
         
-        //resume()
+        resume()
     }
     
     func toggleMenu(recognizer: UITapGestureRecognizer) {
@@ -171,7 +173,7 @@ class ViewController: UIViewController
         }
     }
     
-    public func onBloodSamples(event: Event)
+    public func onGlucoseValues(event: Event)
     {
         // updates background based on current time
         setupBg.updateBackground()
@@ -246,9 +248,9 @@ class ViewController: UIViewController
         news.alpha = 1
         
         // calculate distribution
-        let highs: [BGSample] = Math.computeHighBG(samples: results)
-        let lows: [BGSample] = Math.computeLowBG(samples: results)
-        let normal: [BGSample] = Math.computeNormalRangeBG(samples: results)
+        let highs: [GlucoseSample] = Math.computeHighBG(samples: results)
+        let lows: [GlucoseSample] = Math.computeLowBG(samples: results)
+        let normal: [GlucoseSample] = Math.computeNormalRangeBG(samples: results)
         
         let averageHigh: Double = ceil(Math.computeAverage(samples: highs))
         let averageNormal: Double = ceil(Math.computeAverage(samples: normal))
@@ -302,20 +304,26 @@ class ViewController: UIViewController
     {
         print("DEBUG:: PAUSING")
         updateTimer?.invalidate()
+        refreshTimer?.invalidate()
     }
     
     public func resume()
     {
         print("DEBUG:: RESUMING")
         updateTimer?.invalidate()
+        refreshTimer?.invalidate()
         let when = DispatchTime.now() + 1
         DispatchQueue.main.asyncAfter(deadline: when) {
             self.updateTimer = Timer.scheduledTimer(timeInterval: 180, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
+            self.refreshTimer = Timer.scheduledTimer(timeInterval: 480, target: self, selector: #selector(self.refresh), userInfo: nil, repeats: true)
             self.updateTimer?.fire()
         }
     }
     
-    public func onHKHeartRate (event: Event){}
+    public func onTokenRefreshed (event: Event)
+    {
+        resume()
+    }
     
     public func onLoggedIn (event: Event)
     {
@@ -325,10 +333,9 @@ class ViewController: UIViewController
     public func glucoseIOFailed (event: Event)
     {
         pause()
-       // let userName = keyChain.get("user")
-       // let password = keyChain.get("password")
-       // remoteBridge.login(userName: userName!, password: password!)
     }
+    
+    public func onHKHeartRate (event: Event){}
     
     public func onHKAuthorization (event: Event)
     {
@@ -345,6 +352,14 @@ class ViewController: UIViewController
     {
         print("DEBUG:: Pulling latest data")
         remoteBridge.getGlucoseValues()
+        hkBridge.getHeartRate()
+    }
+    
+    @objc func refresh()
+    {
+        print("DEBUG:: Pulling latest data")
+        pause()
+        remoteBridge.refreshToken()
         hkBridge.getHeartRate()
     }
     

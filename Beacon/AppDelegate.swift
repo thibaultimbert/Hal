@@ -41,7 +41,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     public func onTokenReceived(event: Event)
     {
         if let vc = window?.rootViewController as? LoginViewController {
-            print ("perform segue")
             vc.performSegue(withIdentifier: "Main", sender: vc)
         }
     }

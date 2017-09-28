@@ -140,12 +140,13 @@ enum EventType: String
     case change
     case tap
     case authorized
-    case bloodSamples
+    case glucoseValues
     case loggedIn
     case selection
     case glucoseIOError
     case authLoginError
     case heartRate
+    case refreshToken
     case token
 }
 

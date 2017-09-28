@@ -8,22 +8,22 @@
 
 import Foundation
 
-class BGSample: EventDispatcher
+class GlucoseSample: EventDispatcher
 {
-    
     public var value: Int = 0
     public let time: String
     public let date: String
     public var trend: String
-    public var trends: [String] = ["", "\u{2191}\u{2191}", "\u{2191}", "\u{2197}", "\u{2192}", "\u{2198}", "\u{2193}", "\u{2193}\u{2193}"]
+    public var trends: [String: String] = ["doubleUp": "\u{2191}\u{2191}", "singleUp": "\u{2191}", "fortyFiveUp": "\u{2197}", "flat": "\u{2192}",
+                                           "fortyFiveDown": "\u{2198}", "singleDown": "\u{2193}", "doubleDown": "\u{2193}\u{2193}"]
     
     init (pValue: Int, pDate: String, pTime: String, pTrend: String)
     {
         value = pValue
         date = pDate
         time = pTime
-        trend = ""
+        trend = trends[pTrend]!
     }
 }
 
-class HeartRateSample: BGSample {}
+class HeartRateSample: GlucoseSample {}

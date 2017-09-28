@@ -29,9 +29,9 @@ class ChartManager: EventDispatcher, ChartViewDelegate
     private var highLimitLine = ChartLimitLine(limit: Double(ChartManager.HIGH_LIMIT))
     private var averageLimitLine = ChartLimitLine(limit: Double(0))
     
-    public var selectedSample: BGSample!
+    public var selectedSample: GlucoseSample!
     public var position: Int!
-    public var samples: [BGSample]!
+    public var samples: [GlucoseSample]!
     public var curvature: Double!
     public var average: Double!
     private var parent: ViewController!
@@ -71,7 +71,7 @@ class ChartManager: EventDispatcher, ChartViewDelegate
         chart.xAxis.axisMinimum = 5.5
     }
     
-    public func setData(data: [BGSample], average: Double)
+    public func setData(data: [GlucoseSample], average: Double)
     {
         self.average = average
         samples = data.reversed()

@@ -86,7 +86,7 @@ class HealthKitBridge: EventDispatcher
                 self.bloodSamples = results as? [HKQuantitySample]
                 DispatchQueue.main.async(execute:
                     {
-                        self.dispatchEvent(event: Event(type: EventType.bloodSamples, target: self))
+                        self.dispatchEvent(event: Event(type: EventType.glucoseValues, target: self))
                 })
             }
             // 5. Execute the Query
@@ -137,7 +137,7 @@ class HealthKitBridge: EventDispatcher
                     for sample in bpmResults
                     {
                         let value = sample.quantity.doubleValue(for: bpmUnit)
-                        //self.heartRates.append(HeartRateSample(pValue: Int(value), pDate:pTime: Int(sample.startDate.timeIntervalSince1970), pTrend: 0))
+                        self.heartRates.append(HeartRateSample(pValue: Int(value), pDate: "", pTime: "", pTrend: ""))
                     }
                     self.dispatchEvent(event: Event(type: EventType.heartRate, target: self))
                 })

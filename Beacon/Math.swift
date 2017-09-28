@@ -12,7 +12,7 @@ import Charts
 
 class Math {
     
-    static func computeAverage (samples: [BGSample]) -> Double {
+    static func computeAverage (samples: [GlucoseSample]) -> Double {
         if (samples.count == 0) { return 0.0 }
         var sum: Double = 0
         let total: Double = Double (samples.count)
@@ -22,7 +22,7 @@ class Math {
         return ( sum / total )
     }
     
-    static func computeSD(samples: [BGSample]) -> Double {
+    static func computeSD(samples: [GlucoseSample]) -> Double {
         let mean: Double = Math.computeAverage(samples: samples)
         var difference: Double
         var absoluteDifference: Double
@@ -38,21 +38,21 @@ class Math {
         return (sum / total).squareRoot()
     }
 
-    static func A1C(samples: [BGSample]) -> Double {
+    static func A1C(samples: [GlucoseSample]) -> Double {
         return ( (46.7 + Math.computeAverage(samples: samples)) / 28.7 )
     }
     
-    static func computeHighBG (samples: [BGSample]) -> [BGSample] {
+    static func computeHighBG (samples: [GlucoseSample]) -> [GlucoseSample] {
         let highBG: Double = 150.0
         return samples.filter { Double($0.value) > highBG }
     }
     
-    static func computeLowBG (samples: [BGSample]) -> [BGSample] {
+    static func computeLowBG (samples: [GlucoseSample]) -> [GlucoseSample] {
         let lowBG: Double = 80
         return samples.filter { Double($0.value) < lowBG }
     }
     
-    static func computeNormalRangeBG (samples: [BGSample]) -> [BGSample] {
+    static func computeNormalRangeBG (samples: [GlucoseSample]) -> [GlucoseSample] {
         let lowBG: Double = 80
         let highBG: Double = 150.0
         return samples.filter { Double($0.value) > lowBG && Double($0.value) < highBG }
@@ -100,6 +100,7 @@ class Math {
         return buffer
     }
     
+    // Calculates the acceleration of the curve
     static func curvature(x: [Double], y: [Double]) -> Double{
         var dx_dt = Math.gradient(samples: x)
         var dy_dt = Math.gradient(samples: y)
@@ -229,13 +230,12 @@ class Math {
             }
             sum += abs(next + current)
         }
-        
         return ((sum/Double(x.count)))
     }
 }
 
 extension Double {
-    /// Rounds the double to decimal places value
+    // Rounds the double to decimal places value
     func roundTo(places:Int) -> Double {
         if self == 0 { return 0.0 }
         let divisor = pow(10.0, Double(places))

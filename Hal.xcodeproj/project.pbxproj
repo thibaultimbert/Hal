@@ -12,7 +12,7 @@
 		0407A5911F63A92D006B01E5 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0407A5901F63A92D006B01E5 /* SettingsController.swift */; };
 		0407A5931F65B4E9006B01E5 /* SegueFromLeft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0407A5921F65B4E9006B01E5 /* SegueFromLeft.swift */; };
 		041074721F76263200C86F13 /* DexcomBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041074711F76263200C86F13 /* DexcomBridge.swift */; };
-		0427012A1F1EC85200133257 /* BGSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042701291F1EC85200133257 /* BGSample.swift */; };
+		0427012A1F1EC85200133257 /* GlucoseSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042701291F1EC85200133257 /* GlucoseSample.swift */; };
 		042FD2E61F2498AC00A6DF49 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042FD2E51F2498AB00A6DF49 /* Utils.swift */; };
 		042FD2EA1F2696AD00A6DF49 /* ChartManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042FD2E91F2696AD00A6DF49 /* ChartManager.swift */; };
 		043701F81F396713001EF6E7 /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043701F71F396713001EF6E7 /* Background.swift */; };
@@ -144,7 +144,7 @@
 		0407A5901F63A92D006B01E5 /* SettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		0407A5921F65B4E9006B01E5 /* SegueFromLeft.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegueFromLeft.swift; sourceTree = "<group>"; };
 		041074711F76263200C86F13 /* DexcomBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexcomBridge.swift; sourceTree = "<group>"; };
-		042701291F1EC85200133257 /* BGSample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BGSample.swift; sourceTree = "<group>"; };
+		042701291F1EC85200133257 /* GlucoseSample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlucoseSample.swift; sourceTree = "<group>"; };
 		042FD2E51F2498AB00A6DF49 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utils.swift; path = ../Utils.swift; sourceTree = "<group>"; };
 		042FD2E91F2696AD00A6DF49 /* ChartManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartManager.swift; sourceTree = "<group>"; };
 		043701F71F396713001EF6E7 /* Background.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Background.swift; path = ../Background.swift; sourceTree = "<group>"; };
@@ -482,7 +482,7 @@
 		046D86EF1F2237FA000BC423 /* GlucoseSample */ = {
 			isa = PBXGroup;
 			children = (
-				042701291F1EC85200133257 /* BGSample.swift */,
+				042701291F1EC85200133257 /* GlucoseSample.swift */,
 			);
 			name = GlucoseSample;
 			sourceTree = "<group>";
@@ -1048,7 +1048,7 @@
 				042FD2E61F2498AC00A6DF49 /* Utils.swift in Sources */,
 				049692E31F5F9DDD006726DF /* RemoteBridge.swift in Sources */,
 				044CEDEA1F169E4E005CBD0E /* Beacon.xcdatamodeld in Sources */,
-				0427012A1F1EC85200133257 /* BGSample.swift in Sources */,
+				0427012A1F1EC85200133257 /* GlucoseSample.swift in Sources */,
 				044734FB1F57DDAA00C85608 /* AnimatedBackground.swift in Sources */,
 				042FD2EA1F2696AD00A6DF49 /* ChartManager.swift in Sources */,
 				044CEDE41F169E4E005CBD0E /* ViewController.swift in Sources */,
