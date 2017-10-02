@@ -17,6 +17,7 @@ import ReachabilitySwift
 class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
 {
     
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var current: UILabel!
     @IBOutlet weak var difference: UILabel!
     @IBOutlet weak var detailsL: UILabel!
@@ -57,6 +58,8 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+        activityIndicator.startAnimating()
         
         range.dataSource = self;
         range.delegate = self;
@@ -162,6 +165,8 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         // use the row to get the selected row from the picker view
         // using the row extract the value from your datasource (array[row])
         var selectedValue = pickerDataSource[pickerView.selectedRow(inComponent: 0)]
+        activityIndicator.startAnimating()
+        activityIndicator.alpha = 1
         if (selectedValue == "24 hours") {
             remoteBridge.getGlucoseValues(token: DexcomBridge.TOKEN, startDate: "2017-06-19T07:00:00", endDate: "2017-06-19T19:00:00")
         } else if (selectedValue == "48 hours") {
@@ -205,6 +210,9 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     
     public func onGlucoseValues(event: Event)
     {
+        activityIndicator.stopAnimating()
+        activityIndicator.alpha = 0
+        
         // updates background based on current time
         setupBg.updateBackground()
         
