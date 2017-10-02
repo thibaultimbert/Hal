@@ -11,12 +11,9 @@ import OAuthSwift
 
 class LoginViewController: UIViewController
 {
-    @IBOutlet weak var userNameTf: UITextField!
-    @IBOutlet weak var passwordTf: UITextField!
-    @IBOutlet weak var loginLbl: UILabel!
-    @IBOutlet weak var passwordLbl: UILabel!
     @IBOutlet weak var errorLbl: UILabel!
     @IBOutlet weak var taglineLbl: UILabel!
+    @IBOutlet weak var loginButton: UIButton!
     
     public var defaults: UserDefaults!
     public var dxBridge: DexcomBridge!
@@ -51,14 +48,13 @@ class LoginViewController: UIViewController
         bodyFont = UIFont(name: ".SFUIText-Semibold", size :11)
         titleFont = UIFont(name: ".SFUIText-Semibold", size :26)
         taglineLbl.font = titleFont
-        userNameTf.font = bodyFont
-        passwordTf.font = bodyFont
-        loginLbl.font = bodyFont
-        passwordLbl.font = bodyFont
         errorLbl.font = bodyFont
         
         // tagline
         taglineLbl.text = "HAL, your diabetic\ncoach in your pocket."
+        
+        // rounded corners
+        loginButton.layer.cornerRadius = 5
         
         // load the keychain
         keychain = KeychainSwift.shared()
@@ -90,17 +86,17 @@ class LoginViewController: UIViewController
         self.performSegue(withIdentifier: "Main", sender: self)
     }
     
-    @IBAction func `continue`(_ sender: Any)
+    @IBAction func login(_ sender: Any)
     {
         let handle = oauthswift.authorize(
-                withCallbackURL: URL(string: "hal://oauth-callback/dexcom")!,
-                scope: "offline_access", state:"dummy",
-                success: { credential, response, parameters in
-                    // Do your request
-            },
+            withCallbackURL: URL(string: "hal://oauth-callback/dexcom")!,
+            scope: "offline_access", state:"dummy",
+            success: { credential, response, parameters in
+                // Do your request
+        },
             failure: { error in
-                    print("error " + error.localizedDescription)
-            }
+                print("error " + error.localizedDescription)
+        }
         )
     }
 

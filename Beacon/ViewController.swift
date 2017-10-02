@@ -14,16 +14,15 @@ import Lottie
 import CoreData
 import ReachabilitySwift
 
-class ViewController: UIViewController
+class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
 {
     
     @IBOutlet weak var current: UILabel!
-    @IBOutlet weak var recent: UIButton!
-    @IBOutlet weak var fulltime: UIButton!
     @IBOutlet weak var difference: UILabel!
     @IBOutlet weak var detailsL: UILabel!
     @IBOutlet weak var news: UILabel!
     @IBOutlet weak var myChart: LineChartView!
+    @IBOutlet weak var range: UIPickerView!
     
     public var quotes: [String] = ["Diabetics are naturally sweet.",
                                    "You are Type-One-Der-Ful.",
@@ -35,6 +34,7 @@ class ViewController: UIViewController
     public var hkBridge: HealthKitBridge!
     public var remoteBridge: DexcomBridge!
     private var chartManager: ChartManager!
+    private var pickerDataSource = ["24 hours", "48 hours", "3 days", "7 days"];
     private var setupBg: Background!
     private var updateTimer: Timer?
     private var refreshTimer: Timer?
@@ -47,7 +47,6 @@ class ViewController: UIViewController
     private var animationView: LOTAnimationView!
     private var heartView: LOTAnimationView!
     private var managedObjectContext: NSManagedObjectContext!
-  // private var dailySummaryView:DailySummary!
     private var keyChain: KeychainSwift!
     private var size: Float = 0
     private var generator: UIImpactFeedbackGenerator!
@@ -58,6 +57,9 @@ class ViewController: UIViewController
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+        range.dataSource = self;
+        range.delegate = self;
         
         // load credentials
         keyChain = KeychainSwift.shared()
@@ -84,8 +86,6 @@ class ViewController: UIViewController
         
         // reset UI
         myChart.noDataText = ""
-        recent.alpha = 0
-        fulltime.alpha = 0
         
         // setup background
         setupBg = Background (parent: self)
@@ -106,8 +106,6 @@ class ViewController: UIViewController
         detailsL.font = detailsFont
         current.font = headerFont
         difference.font = newsFont
-        fulltime.titleLabel?.font = bodyFont
-        recent.titleLabel?.font = bodyFont
         
         // centers launch quote label
         news.center = CGPoint(x: view.frame.width/2,y: view.frame.height/2);
@@ -145,6 +143,40 @@ class ViewController: UIViewController
         
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(toggleMenu(recognizer:)))
         animationView.addGestureRecognizer(tapRecognizer)
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return pickerDataSource.count;
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return pickerDataSource[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
+    {
+        // use the row to get the selected row from the picker view
+        // using the row extract the value from your datasource (array[row])
+        var selectedValue = pickerDataSource[pickerView.selectedRow(inComponent: 0)]
+        if (selectedValue == "24 hours") {
+            remoteBridge.getGlucoseValues(token: DexcomBridge.TOKEN, startDate: "2017-06-19T07:00:00", endDate: "2017-06-19T19:00:00")
+        } else if (selectedValue == "48 hours") {
+            remoteBridge.getGlucoseValues(token: DexcomBridge.TOKEN, startDate: "2017-06-18T08:00:00", endDate: "2017-06-20T08:00:00")
+        } else if (selectedValue == "3 days") {
+            remoteBridge.getGlucoseValues(token: DexcomBridge.TOKEN, startDate: "2017-06-17T08:00:00", endDate: "2017-06-20T08:00:00")
+        } else if (selectedValue == "7 days") {
+            remoteBridge.getGlucoseValues(token: DexcomBridge.TOKEN, startDate: "2017-06-13T08:00:00", endDate: "2017-06-20T08:00:00")
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+        let titleData = pickerDataSource[row]
+        let myTitle = NSAttributedString(string: titleData, attributes: [NSFontAttributeName:bodyFont,NSForegroundColorAttributeName:UIColor.white])
+        return myTitle
     }
     
     func toggleMenu(recognizer: UITapGestureRecognizer) {
@@ -241,8 +273,6 @@ class ViewController: UIViewController
         infosLeft += "\nAverage: " + String (average) + " mg/dL"
         infosLeft += "\nAcceleration: " + String (chartManager.curvature.roundTo(places: 2)) + ", ideal close to: 0"
         
-        recent.alpha = 1
-        fulltime.alpha = 1
         news.alpha = 1
         
         // calculate distribution
@@ -366,15 +396,12 @@ class ViewController: UIViewController
     @IBAction func fullTime(_ sender: Any)
     {
         let button: UIButton = sender as! UIButton
-        recent.alpha = 1.0
-        button.alpha = 0.5
         chartManager.fulltimeView()
     }
 
     @IBAction func last3Hours(_ sender: Any)
     {
         let button: UIButton = sender as! UIButton
-        fulltime.alpha = 1.0
         button.alpha = 0.5
         chartManager.recentView()
     }
