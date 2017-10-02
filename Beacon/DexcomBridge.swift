@@ -94,13 +94,13 @@ class DexcomBridge: EventDispatcher
     }
     
     // retrieves the user last 24 hours glucose levels
-    public func getGlucoseValues (token: String = DexcomBridge.TOKEN, completionHandler: ((UIBackgroundFetchResult) -> Void)! = nil)
+    public func getGlucoseValues (token: String = DexcomBridge.TOKEN, startDate: String, endDate: String, completionHandler: ((UIBackgroundFetchResult) -> Void)! = nil)
     {
         let headers: HTTPHeaders = [
             "authorization": "Bearer " + DexcomBridge.TOKEN
         ]
-        
-        Alamofire.request(DexcomBridge.GLUCOSE_URL+"?startDate=2017-06-20T08:00:00&endDate=2017-06-27T20:00:00", method: .get, headers: headers).responseJSON { response in
+
+        Alamofire.request(DexcomBridge.GLUCOSE_URL+"?startDate="+startDate+"&endDate="+endDate, method: .get, headers: headers).responseJSON { response in
             
             if (response.result.isSuccess) {
                 let result: JSON = JSON(data: response.data!)

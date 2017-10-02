@@ -19,7 +19,7 @@ class LoginViewController: UIViewController
     @IBOutlet weak var taglineLbl: UILabel!
     
     public var defaults: UserDefaults!
-    public var dxBridge: RemoteBridge!
+    public var dxBridge: DexcomBridge!
     private var loggedIn: EventHandler!
     private var setupBg: AnimatedBackground!
     private var keychain:KeychainSwift!
@@ -67,33 +67,17 @@ class LoginViewController: UIViewController
         setupBg = AnimatedBackground (parent: self)
         
         // auth login
-        dxBridge = RemoteBridge.shared()
-        loggedIn = EventHandler(function: self.onLoggedIn)
-        let authError = EventHandler(function: self.onAuthError)
-        dxBridge.addEventListener(type: .loggedIn, handler: loggedIn)
-        dxBridge.addEventListener(type: .authLoginError, handler: authError)
+        dxBridge = DexcomBridge.shared()
+        let onTokenReceivedHandler = EventHandler(function: self.onTokenReceived)
+        dxBridge.addEventListener(type: EventType.token, handler: onTokenReceivedHandler)
         
         // password management
-        let userName = keychain.get("user")
-        let password = keychain.get("password")
+        let code = keychain.get("code")
         
-        let handle = oauthswift.authorize(
-            withCallbackURL: URL(string: "hal://oauth-callback/dexcom")!,
-            scope: "offline_access", state:"dummy",
-            success: { credential, response, parameters in
-                // Do your request
-        },
-            failure: { error in
-                print("error " + error.localizedDescription)
+        if code != nil
+        {
+            dxBridge.getToken(code: code!)
         }
-        )
-        
-        /*
-        if userName != nil && password != nil {
-            dxBridge.login(userName: userName!, password: password!)
-            userNameTf.text = userName
-            passwordTf.text = password
-        }*/
     }
 
     override func didReceiveMemoryWarning()
@@ -101,29 +85,23 @@ class LoginViewController: UIViewController
         super.didReceiveMemoryWarning()
     }
     
-    @IBAction func `continue`(_ sender: Any)
+    public func onTokenReceived(event: Event)
     {
-        // test if there is username and password
-        if let userName = userNameTf.text, !userName.isEmpty, let password = passwordTf.text, !password.isEmpty
-        {
-            // save username and password
-            keychain.set(userName, forKey: "user")
-            keychain.set(password, forKey: "password")
-            // attempt login auth
-            dxBridge.login(userName: userName, password: password)
-        }
-    }
-    
-    public func onLoggedIn(event: Event)
-    {
-        dxBridge.removeEventListener(type: .loggedIn, handler: loggedIn)
-        // go to the logged in screen
         self.performSegue(withIdentifier: "Main", sender: self)
     }
     
-    public func onAuthError(event: Event)
+    @IBAction func `continue`(_ sender: Any)
     {
-        errorLbl.text = "Oops, can you double check your username/password?"
+        let handle = oauthswift.authorize(
+                withCallbackURL: URL(string: "hal://oauth-callback/dexcom")!,
+                scope: "offline_access", state:"dummy",
+                success: { credential, response, parameters in
+                    // Do your request
+            },
+            failure: { error in
+                    print("error " + error.localizedDescription)
+            }
+        )
     }
 
     /*

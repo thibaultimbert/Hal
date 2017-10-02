@@ -318,13 +318,15 @@ class ViewController: UIViewController
         }
     }
     
-    public func onTokenRefreshed (event: Event)
+    public func onLoggedIn (event: Event)
     {
+        // after login, initiate the first data pull
         resume()
     }
     
-    public func onLoggedIn (event: Event)
+    public func onTokenRefreshed (event: Event)
     {
+        // once token is refreshed, resume
         resume()
     }
     
@@ -333,12 +335,13 @@ class ViewController: UIViewController
         pause()
     }
     
-    public func onHKHeartRate (event: Event){}
-    
     public func onHKAuthorization (event: Event)
     {
+        // request heart rate data from HealthKit
         hkBridge.getHeartRate()
     }
+    
+    public func onHKHeartRate (event: Event){}
     
     public func getRandomQuote() -> String
     {
@@ -349,7 +352,7 @@ class ViewController: UIViewController
     @objc func update()
     {
         print("UPDATE:: Pulling latest data")
-        remoteBridge.getGlucoseValues()
+        remoteBridge.getGlucoseValues(token: DexcomBridge.TOKEN, startDate: "2017-06-19T08:00:00", endDate: "2017-06-20T08:00:00")
         hkBridge.getHeartRate()
     }
     

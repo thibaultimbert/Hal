@@ -19,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     private var dxBridge: DexcomBridge = DexcomBridge.shared()
+    private var keyChain: KeychainSwift = KeychainSwift.shared()
     
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask
     {
@@ -36,6 +37,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let url:URL = url.absoluteURL
         let parameters: Dictionary = Utils.decomposeURL(url: url)
         let code: String = parameters["code"]!
+        // we store the code
+        keyChain.set(code, forKey: "code")
         // authenticate to the Dexcom APIs using the authorization code
         dxBridge.getToken(code: code)
         return true
@@ -76,7 +79,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void)
     {
         if let vc = window?.rootViewController as? ViewController {
-            vc.remoteBridge.getGlucoseValues(token: RemoteBridge.TOKEN, completionHandler: completionHandler)
+            vc.remoteBridge.getGlucoseValues(token: RemoteBridge.TOKEN, startDate: "2017-06-19T08:00:00", endDate: "2017-06-20T08:00:00", completionHandler: completionHandler)
             vc.hkBridge.getHeartRate()
         }
     }
