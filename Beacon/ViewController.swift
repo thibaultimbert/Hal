@@ -54,6 +54,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     private var gestureRecognizer: UIGestureRecognizer!
     private var reachability: Reachability!
     private var toggle: DarwinBoolean = false
+    private var summaryItems: [Summary]! = []
 
     override func viewDidLoad()
     {
@@ -161,12 +162,13 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 12
+        return summaryItems.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionViewCell", for: indexPath) as! CollectionViewCell
-        cell.displayContent(title: "hello")
+        let summary: Summary = summaryItems[indexPath.row]
+        cell.displayContent(title: summary.content)
         return cell
     }
     
@@ -220,6 +222,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     
     public func onGlucoseValues(event: Event)
     {
+        summaryItems.removeAll()
         activityIndicator.stopAnimating()
         activityIndicator.alpha = 0
         
@@ -283,11 +286,11 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         
         // display results
         infosLeft +=  "24-hour report"
-        infosLeft +=  "\n\nA1C: " + String(round(Math.A1C(samples: results)))
-        infosLeft +=  "\nHeart BPM: " + String(round(averageHrate))
-        infosLeft +=  "\nStandard Deviation: " + String (round(Math.computeSD(samples: results))) + ", ideal below: " + String(maxSD.roundTo(places: 2))
-        infosLeft += "\nAverage: " + String (average) + " mg/dL"
-        infosLeft += "\nAcceleration: " + String (chartManager.curvature.roundTo(places: 2)) + ", ideal close to: 0"
+        let a1C:Summary = Summary (content: "A1C: " + String(round(Math.A1C(samples: results))))
+        let heartBpm: Summary = Summary (content: "Heart BPM: " + String(round(averageHrate)))
+        let sd:Summary = Summary(content: "Standard Deviation: " + String (round(Math.computeSD(samples: results))) + ", ideal below: " + String(maxSD.roundTo(places: 2)))
+        let avg: Summary = Summary (content: "Average: " + String (average) + " mg/dL")
+        let acceleration: Summary = Summary (content: "Acceleration: " + String (chartManager.curvature.roundTo(places: 2)) + ", ideal close to: 0")
         
         news.alpha = 1
         
@@ -300,7 +303,9 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         let averageNormal: Double = ceil(Math.computeAverage(samples: normal))
         let averageLow: Double = ceil(Math.computeAverage(samples: lows))
         
-        infosLeft += "\nAvg/High: " + String(describing: averageHigh.roundTo(places: 2)) + " mg/dL \nAvg/Normal: " + String(describing: averageNormal.roundTo(places: 2)) + " mg/dL \nAvg/Low: " + String(describing: averageLow.roundTo(places: 2)) + " mg/dL"
+        let avgHigh:Summary = Summary(content: "Avg/High: " + String(describing: averageHigh.roundTo(places: 2)))
+        let avgNormal: Summary = Summary (content: "mg/dL \nAvg/Normal: " + String(describing: averageNormal.roundTo(places: 2)) + " mg/dL")
+        let avgLow: Summary = Summary (content: "Avg/Low: " + String(describing: averageLow.roundTo(places: 2)) + " mg/dL")
         
         // percentages
         let highsPercentage : Double = Double (highs.count) / Double (results.count)
@@ -308,16 +313,29 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         let lowsPercentage : Double = Double (lows.count) / Double(results.count)
         
         let highRatio: Double = (24.0 * highsPercentage).roundTo(places: 2)
-        infosLeft += "\nHighs: " + String ( highsPercentage.roundTo(places: 2) * 100 ) + "%"
+        let highsSum:Summary = Summary (content: "Highs: " + String ( highsPercentage.roundTo(places: 2) * 100 ) + "%")
+        let normalSum: Summary = Summary (content: "Normal" + String ( normalRangePercentage.roundTo(places: 2) * 100 ) + "%")
+        let low: Summary = Summary (content: "Lows: " + String ( lowsPercentage.roundTo(places: 2) * 100 ) + "%")
        // infosRight += " "+String(describing: highRatio) + " hours total"
         let normalRatio: Double = (24.0 * normalRangePercentage).roundTo(places: 2)
-        infosLeft += "\nNormal: " + String ( normalRangePercentage.roundTo(places: 2) * 100 ) + "%"
+        //infosLeft += "\nNormal: " + String ( normalRangePercentage.roundTo(places: 2) * 100 ) + "%"
         //infosRight += " "+String(describing: normalRatio) + " hours total"
         let lowRatio: Double = (24.0 * lowsPercentage).roundTo(places: 2)
-        infosLeft += "\nLows: " + String ( lowsPercentage.roundTo(places: 2) * 100 ) + "%"
+        //infosLeft += "\nLows: " + String ( lowsPercentage.roundTo(places: 2) * 100 ) + "%"
         //infosRight += " "+String(describing: lowRatio) + " hours total"
         
-        print ( "data received" )
+        summaryItems.append(a1C)
+        summaryItems.append(heartBpm)
+        summaryItems.append(sd)
+        summaryItems.append(avg)
+        summaryItems.append(acceleration)
+        summaryItems.append(avgHigh)
+        summaryItems.append(avgNormal)
+        summaryItems.append(avgLow)
+        summaryItems.append(highsSum)
+        summaryItems.append(normalSum)
+        summaryItems.append(low)
+        collectionView.reloadSections(IndexSet(integer: 0))
        // detailsL.text = infosLeft
     }
     
