@@ -103,30 +103,31 @@ class DexcomBridge: EventDispatcher
         Alamofire.request(DexcomBridge.GLUCOSE_URL+"?startDate="+startDate+"&endDate="+endDate, method: .get, headers: headers).responseJSON { response in
             
             if (response.result.isSuccess) {
-                let result: JSON = JSON(data: response.data!)
-                self.bloodSamples.removeAll()
-                let egvs = result["egvs"].array
-                for item:JSON in egvs!
-                {
-                    if item["value"] != JSON.null && item["systemTime"] != JSON.null && item["trend"] != JSON.null
+                if let result: JSON = JSON(data: response.data!) {
+                    self.bloodSamples.removeAll()
+                    let egvs = result["egvs"].array
+                    for item:JSON in egvs!
                     {
-                        let value = item["value"].int!
-                        let dateTime = item["systemTime"].stringValue
-                        let trend = item["trend"].stringValue
-                        let date = dateTime.components(separatedBy: "T")[0]
-                        let time = dateTime.components(separatedBy: "T")[1]
-                        self.bloodSamples.append(GlucoseSample(pValue: value, pDate: date, pTime: time, pTrend: trend))
+                        if item["value"] != JSON.null && item["systemTime"] != JSON.null && item["trend"] != JSON.null
+                        {
+                            let value = item["value"].int!
+                            let dateTime = item["systemTime"].stringValue
+                            let trend = item["trend"].stringValue
+                            let date = dateTime.components(separatedBy: "T")[0]
+                            let time = dateTime.components(separatedBy: "T")[1]
+                            self.bloodSamples.append(GlucoseSample(pValue: value, pDate: date, pTime: time, pTrend: trend))
+                        }
                     }
-                }
-                
-                DispatchQueue.main.async(execute:
-                {
-                    self.dispatchEvent(event: Event(type: EventType.glucoseValues, target: self))
-                })
-                
-                if (completionHandler) != nil
-                {
-                    completionHandler(.newData)
+                    
+                    DispatchQueue.main.async(execute:
+                        {
+                            self.dispatchEvent(event: Event(type: EventType.glucoseValues, target: self))
+                    })
+                    
+                    if (completionHandler) != nil
+                    {
+                        completionHandler(.newData)
+                    }
                 }
             } else
             {

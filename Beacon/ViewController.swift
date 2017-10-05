@@ -14,13 +14,13 @@ import Lottie
 import CoreData
 import ReachabilitySwift
 
-class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
+class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate
 {
     
+    @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var current: UILabel!
     @IBOutlet weak var difference: UILabel!
-    @IBOutlet weak var detailsL: UILabel!
     @IBOutlet weak var news: UILabel!
     @IBOutlet weak var myChart: LineChartView!
     @IBOutlet weak var range: UIPickerView!
@@ -106,12 +106,12 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         let headerFont = UIFont(name: ".SFUIText-Semibold", size :26)
         let newsFont = UIFont(name: ".SF-Pro-Display-Thin", size :18)
         
-        detailsL.font = detailsFont
+        //detailsL.font = detailsFont
         current.font = headerFont
         difference.font = newsFont
         
         // centers launch quote label
-        news.center = CGPoint(x: view.frame.width/2,y: view.frame.height/2);
+        //news.center = CGPoint(x: view.frame.width/2,y: view.frame.height/2);
         news.text = getRandomQuote()
         
         // charts UI
@@ -160,6 +160,16 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         return pickerDataSource[row]
     }
     
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 12
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionViewCell", for: indexPath) as! CollectionViewCell
+        cell.displayContent(title: "hello")
+        return cell
+    }
+    
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
     {
         // use the row to get the selected row from the picker view
@@ -204,7 +214,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
             //difference.text = ""
         } else {
             self.resume()
-            //DispatchQueue.main.async(execute: news.text = "Your heart rate has been steady for the past 48 hours, maybe time for a run?")
+            //news.text = "Your heart rate has been steady for the past 48 hours, maybe time for a run?"
         }
     }
     
@@ -217,7 +227,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         setupBg.updateBackground()
         
         // reposition encouragement label
-        news.center = CGPoint(x: view.frame.width/2,y: -173+view.frame.height/2);
+        //news.center = CGPoint(x: view.frame.width/2,y: -173+view.frame.height/2);
         news.text = "Your heart rate has been steady for the past 48 hours, maybe time for a run?"
         
         // clean past data (debug)
@@ -226,7 +236,6 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         // reference the result (Array of BGSample)
         results = remoteBridge.bloodSamples
         
-        /*
         // initiate daily samples records
         let dailySample = DailySamples(context: managedObjectContext)
         dailySample.createdAt = Date() as NSDate
@@ -236,15 +245,14 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         
         // fill the results
         for result in results {
-            let bgSample = GlucoseSample(context: managedObjectContext)
-            bgSample.time = Int32(result.time)
+            let bgSample = GSample(context: managedObjectContext)
+            bgSample.time = result.time
             bgSample.value = Int32(result.value)
             bgSample.trend = result.trend
             samples.append(bgSample)
         }
         
         let data = NSSet(array: samples)
-        
         dailySample.samples = data
         
         do {
@@ -257,7 +265,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         do{
             let samples: [DailySamples] = try managedObjectContext.fetch(samplesRequest) as! [DailySamples]
             let records = samples[0].samples
-        } catch { print ("error loading data") }*/
+        } catch { print ("error loading data") }
         
         let sampleDate:String = results[0].time
         current.text = sampleDate + "\n" + String (describing: results[0].value) + " mg/DL " + results[0].trend
@@ -309,7 +317,8 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         infosLeft += "\nLows: " + String ( lowsPercentage.roundTo(places: 2) * 100 ) + "%"
         //infosRight += " "+String(describing: lowRatio) + " hours total"
         
-        detailsL.text = infosLeft
+        print ( "data received" )
+       // detailsL.text = infosLeft
     }
     
     public func onSelection(event: Event?)

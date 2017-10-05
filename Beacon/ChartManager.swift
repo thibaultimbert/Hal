@@ -91,8 +91,8 @@ class ChartManager: EventDispatcher, ChartViewDelegate
             let sugarLevel = ChartDataEntry(x: Double(i), y: Double(sample.value))
             dx_dt.append(sugarLevel.x)
             dy_dt.append(sugarLevel.y)
-            //let (_, _, hour) = Utils.getDate(unixdate: sample.time, format: "hh:mm a")
             hours.append(sample.time)
+            //let (_, _, hour) = Utils.getDate(unixdate: sample.time, format: "hh:mm a")
             lineDataEntry.append (sugarLevel)
             var color: UIColor
             if (sugarLevel.y > ChartManager.HIGH_LIMIT) {
@@ -103,6 +103,15 @@ class ChartManager: EventDispatcher, ChartViewDelegate
             circleColors.append(color)
             i = i + 1
         }
+        
+        /*
+        var step: Int = samples.count / 5
+        for var index in 1...5 {
+            let inc: Int = index * step
+            let time: String = samples[inc-1].time
+            hours.append(time)
+            print ( index * step )
+        }*/
         
         curvature = Math.curvature(x: dx_dt, y: dy_dt)
     
