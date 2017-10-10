@@ -16,8 +16,6 @@ import ReachabilitySwift
 
 class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate
 {
-    
-    @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var current: UILabel!
     @IBOutlet weak var difference: UILabel!
@@ -55,6 +53,11 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     private var reachability: Reachability!
     private var toggle: DarwinBoolean = false
     private var summaryItems: [Summary]! = []
+    private var a1cSummary: StatSummary!
+    private var bpmSummary: StatSummary!
+    private var sdSummary: StatSummary!
+    private var avgSummary: StatSummary!
+    private var accelSummary: StatSummary!
 
     override func viewDidLoad()
     {
@@ -138,6 +141,23 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         remoteBridge.addEventListener(type: .glucoseValues, handler: glucoseValuesHandler)
         remoteBridge.addEventListener(type: .refreshToken, handler: refreshedTokenHandler)
         remoteBridge.addEventListener(type: .glucoseIOError, handler: glucoseIOHandler)
+        
+        // init summary stats
+        a1cSummary = StatSummary()
+        a1cSummary.center = CGPoint(x: 120,y: 250)
+        self.view.addSubview(a1cSummary)
+        bpmSummary = StatSummary()
+        bpmSummary.center = CGPoint(x: 200,y: 250)
+        self.view.addSubview(bpmSummary)
+        sdSummary = StatSummary()
+        sdSummary.center = CGPoint(x: 120,y: 290)
+        self.view.addSubview(sdSummary)
+        avgSummary = StatSummary()
+        avgSummary.center = CGPoint(x: 210,y: 290)
+        self.view.addSubview(avgSummary)
+        accelSummary = StatSummary()
+        accelSummary.center = CGPoint(x: 300,y: 250)
+        self.view.addSubview(accelSummary)
         
         animationView = LOTAnimationView(name: "hamburger")
         animationView.contentMode = .scaleAspectFill
@@ -286,11 +306,11 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         
         // display results
         infosLeft +=  "24-hour report"
-        let a1C:Summary = Summary (content: "A1C: " + String(round(Math.A1C(samples: results))))
-        let heartBpm: Summary = Summary (content: "Heart BPM: " + String(round(averageHrate)))
-        let sd:Summary = Summary(content: "Standard Deviation: " + String (round(Math.computeSD(samples: results))) + ", ideal below: " + String(maxSD.roundTo(places: 2)))
-        let avg: Summary = Summary (content: "Average: " + String (average) + " mg/dL")
-        let acceleration: Summary = Summary (content: "Acceleration: " + String (chartManager.curvature.roundTo(places: 2)) + ", ideal close to: 0")
+        let a1C:Summary = Summary (content: String(round(Math.A1C(samples: results))))
+        let heartBpm: Summary = Summary (content: String(round(averageHrate)))
+        let sd:Summary = Summary(content: String (round(Math.computeSD(samples: results))))
+        let avg: Summary = Summary (content: String (average) + " mg/dL")
+        let acceleration: Summary = Summary (content: String (chartManager.curvature.roundTo(places: 2)))
         
         news.alpha = 1
         
@@ -324,19 +344,12 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         //infosLeft += "\nLows: " + String ( lowsPercentage.roundTo(places: 2) * 100 ) + "%"
         //infosRight += " "+String(describing: lowRatio) + " hours total"
         
-        summaryItems.append(a1C)
-        summaryItems.append(heartBpm)
-        summaryItems.append(sd)
-        summaryItems.append(avg)
-        summaryItems.append(acceleration)
-        summaryItems.append(avgHigh)
-        summaryItems.append(avgNormal)
-        summaryItems.append(avgLow)
-        summaryItems.append(highsSum)
-        summaryItems.append(normalSum)
-        summaryItems.append(low)
-        collectionView.reloadSections(IndexSet(integer: 0))
-       // detailsL.text = infosLeft
+        // update stats
+        a1cSummary.initialize(icon: "Glucose", text: a1C.content, offsetX: 0, offsetY: 0, width: 20, height: 28)
+        bpmSummary.initialize(icon: "Heart", text: heartBpm.content, offsetX: 0, offsetY: 0, width: 29, height: 25)
+        sdSummary.initialize(icon: "SD", text: sd.content, offsetX: -12, offsetY: 0, width: 40, height: 19)
+        avgSummary.initialize(icon: "Average", text: avg.content, offsetX: -14, offsetY: 0, width: 40, height: 21)
+        accelSummary.initialize(icon: "Acceleration", text: acceleration.content, offsetX: -11, offsetY: 0, width: 44, height: 25)
     }
     
     public func onSelection(event: Event?)
