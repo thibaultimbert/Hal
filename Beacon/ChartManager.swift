@@ -132,7 +132,10 @@ class ChartManager: EventDispatcher, ChartViewDelegate
         chartData.addDataSet(chartDataSet)
         chart.data = chartData
         
-        chart.animate(xAxisDuration: 1.0, yAxisDuration: 1.0, easingOption: .easeInOutQuart)
+        if ( !inited.boolValue ){
+            chart.animate(xAxisDuration: 1.0, yAxisDuration: 1.0, easingOption: .easeInOutQuart)
+            inited = true;
+        }
         
         chart.xAxis.valueFormatter = IndexAxisValueFormatter(values:hours)
      

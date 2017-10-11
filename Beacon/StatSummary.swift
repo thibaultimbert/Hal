@@ -21,7 +21,7 @@ class StatSummary: UIView {
         imageView  = UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 28))
         self.addSubview(imageView)
         let detailsFont = UIFont(name: ".SFUIText-Semibold", size :14)
-        label = UILabel(frame: CGRect(x: 30, y: 4, width: 200, height: 21))
+        label = UILabel()
         label.textColor = UIColor.white
         label.font = detailsFont
         self.addSubview(label)
@@ -31,9 +31,10 @@ class StatSummary: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func initialize (icon: String, text: String, offsetX: Int, offsetY: Int, width: Int, height: Int){
+    func update (icon: String, text: String, txtOffsetX: Int, txtOffsetY:Int, offsetX: Int, offsetY: Int, width: Int, height: Int){
         image = UIImage(named: icon)!
         imageView.frame = CGRect(x: offsetX, y: offsetY, width: width, height: height)
+        label.frame = CGRect(x: txtOffsetX, y: txtOffsetY, width: 200, height: 21)
         imageView.image = image
         label.text = text
     }

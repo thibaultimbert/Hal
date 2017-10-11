@@ -58,6 +58,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     private var sdSummary: StatSummary!
     private var avgSummary: StatSummary!
     private var accelSummary: StatSummary!
+    private var percentageNormalSummary: StatSummary!
 
     override func viewDidLoad()
     {
@@ -144,20 +145,23 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         
         // init summary stats
         a1cSummary = StatSummary()
-        a1cSummary.center = CGPoint(x: 120,y: 250)
+        a1cSummary.center = CGPoint(x: 75,y: 250)
         self.view.addSubview(a1cSummary)
         bpmSummary = StatSummary()
-        bpmSummary.center = CGPoint(x: 200,y: 250)
+        bpmSummary.center = CGPoint(x: 160,y: 252)
         self.view.addSubview(bpmSummary)
         sdSummary = StatSummary()
-        sdSummary.center = CGPoint(x: 120,y: 290)
+        sdSummary.center = CGPoint(x: 75,y: 290)
         self.view.addSubview(sdSummary)
         avgSummary = StatSummary()
-        avgSummary.center = CGPoint(x: 210,y: 290)
+        avgSummary.center = CGPoint(x: 160,y: 290)
         self.view.addSubview(avgSummary)
         accelSummary = StatSummary()
-        accelSummary.center = CGPoint(x: 300,y: 250)
+        accelSummary.center = CGPoint(x: 260,y: 252)
         self.view.addSubview(accelSummary)
+        percentageNormalSummary = StatSummary()
+        percentageNormalSummary.center = CGPoint(x: 260,y: 290)
+        self.view.addSubview(percentageNormalSummary)
         
         animationView = LOTAnimationView(name: "hamburger")
         animationView.contentMode = .scaleAspectFill
@@ -309,7 +313,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         let a1C:Summary = Summary (content: String(round(Math.A1C(samples: results))))
         let heartBpm: Summary = Summary (content: String(round(averageHrate)))
         let sd:Summary = Summary(content: String (round(Math.computeSD(samples: results))))
-        let avg: Summary = Summary (content: String (average) + " mg/dL")
+        let avg: Summary = Summary (content: String (average))
         let acceleration: Summary = Summary (content: String (chartManager.curvature.roundTo(places: 2)))
         
         news.alpha = 1
@@ -334,7 +338,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         
         let highRatio: Double = (24.0 * highsPercentage).roundTo(places: 2)
         let highsSum:Summary = Summary (content: "Highs: " + String ( highsPercentage.roundTo(places: 2) * 100 ) + "%")
-        let normalSum: Summary = Summary (content: "Normal" + String ( normalRangePercentage.roundTo(places: 2) * 100 ) + "%")
+        let normalSum: Summary = Summary (content: String ( normalRangePercentage.roundTo(places: 2) * 100 ))
         let low: Summary = Summary (content: "Lows: " + String ( lowsPercentage.roundTo(places: 2) * 100 ) + "%")
        // infosRight += " "+String(describing: highRatio) + " hours total"
         let normalRatio: Double = (24.0 * normalRangePercentage).roundTo(places: 2)
@@ -345,11 +349,12 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         //infosRight += " "+String(describing: lowRatio) + " hours total"
         
         // update stats
-        a1cSummary.initialize(icon: "Glucose", text: a1C.content, offsetX: 0, offsetY: 0, width: 20, height: 28)
-        bpmSummary.initialize(icon: "Heart", text: heartBpm.content, offsetX: 0, offsetY: 0, width: 29, height: 25)
-        sdSummary.initialize(icon: "SD", text: sd.content, offsetX: -12, offsetY: 0, width: 40, height: 19)
-        avgSummary.initialize(icon: "Average", text: avg.content, offsetX: -14, offsetY: 0, width: 40, height: 21)
-        accelSummary.initialize(icon: "Acceleration", text: acceleration.content, offsetX: -11, offsetY: 0, width: 44, height: 25)
+        a1cSummary.update(icon: "Glucose", text: a1C.content, txtOffsetX: 30, txtOffsetY:0, offsetX: 0, offsetY: 0, width: 20, height: 28)
+        bpmSummary.update(icon: "Heart", text: heartBpm.content, txtOffsetX: 35, txtOffsetY:0, offsetX: 0, offsetY: 0, width: 27, height: 23)
+        sdSummary.update(icon: "SD", text: sd.content, txtOffsetX: 30, txtOffsetY: 0, offsetX: -12, offsetY: 0, width: 40, height: 19)
+        avgSummary.update(icon: "Average", text: avg.content, txtOffsetX: 35, txtOffsetY:0, offsetX: -5, offsetY: 2, width: 36, height: 17)
+        accelSummary.update(icon: "Acceleration", text: acceleration.content, txtOffsetX: 20, txtOffsetY:0, offsetX: -11, offsetY: 0, width: 24, height: 22)
+        percentageNormalSummary.update(icon: "Percentage", text: normalSum.content, txtOffsetX: 20, txtOffsetY:0, offsetX: -11, offsetY: 0, width: 22, height: 22)
     }
     
     public func onSelection(event: Event?)
