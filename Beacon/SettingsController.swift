@@ -12,7 +12,6 @@ import Lottie
 
 class SettingsController: UIViewController
 {
-    private var animationView: LOTAnimationView!
     private var toggle: DarwinBoolean = false
     private var setupBg: Background!
     
@@ -20,14 +19,14 @@ class SettingsController: UIViewController
     {
         super.viewDidLoad()
         
-        animationView = LOTAnimationView(name: "hamburger")
-        animationView.contentMode = .scaleAspectFill
-        animationView.frame = CGRect(x: -40, y: -20, width: 130, height: 130)
-        animationView.isUserInteractionEnabled = true
-        self.view.addSubview(animationView)
+        var imageView  = UIImageView(frame: CGRect(x: 20, y: 40, width: 20, height: 17))
+        imageView.isUserInteractionEnabled = true
+        var image = UIImage(named: "Menu")!
+        imageView.image = image
+        self.view.addSubview(imageView)
         
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(toggleMenu(recognizer:)))
-        animationView.addGestureRecognizer(tapRecognizer)
+        imageView.addGestureRecognizer(tapRecognizer)
         
         setupBg = Background (parent: self)
     }

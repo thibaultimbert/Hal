@@ -43,7 +43,6 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     private var bodyFont: UIFont!
     private var quoteFont: UIFont!
     private var quoteText: UILabel!
-    private var animationView: LOTAnimationView!
     private var heartView: LOTAnimationView!
     private var managedObjectContext: NSManagedObjectContext!
     private var keyChain: KeychainSwift!
@@ -145,7 +144,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         
         // init summary stats
         a1cSummary = StatSummary()
-        a1cSummary.center = CGPoint(x: 75,y: 250)
+        a1cSummary.center = CGPoint(x: 73,y: 250)
         self.view.addSubview(a1cSummary)
         bpmSummary = StatSummary()
         bpmSummary.center = CGPoint(x: 160,y: 252)
@@ -163,14 +162,14 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         percentageNormalSummary.center = CGPoint(x: 260,y: 290)
         self.view.addSubview(percentageNormalSummary)
         
-        animationView = LOTAnimationView(name: "hamburger")
-        animationView.contentMode = .scaleAspectFill
-        animationView.frame = CGRect(x: -40, y: -20, width: 130, height: 130)
-        animationView.isUserInteractionEnabled = true
-        self.view.addSubview(animationView)
+        var imageView  = UIImageView(frame: CGRect(x: 20, y: 40, width: 20, height: 17))
+        imageView.isUserInteractionEnabled = true
+        var image = UIImage(named: "Menu")!
+        imageView.image = image
+        self.view.addSubview(imageView)
         
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(toggleMenu(recognizer:)))
-        animationView.addGestureRecognizer(tapRecognizer)
+        imageView.addGestureRecognizer(tapRecognizer)
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -196,8 +195,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         return cell
     }
     
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
-    {
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         // use the row to get the selected row from the picker view
         // using the row extract the value from your datasource (array[row])
         var selectedValue = pickerDataSource[pickerView.selectedRow(inComponent: 0)]
@@ -212,6 +210,13 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         } else if (selectedValue == "7 days") {
             remoteBridge.getGlucoseValues(token: DexcomBridge.TOKEN, startDate: "2017-06-13T08:00:00", endDate: "2017-06-20T08:00:00")
         }
+        
+        let pickerLabel = UILabel()
+        pickerLabel.textColor = UIColor.white
+        pickerLabel.text = selectedValue
+        pickerLabel.font = UIFont(name: ".SFUIText-Semibold", size :18) // In this use your custom font
+        pickerLabel.textAlignment = NSTextAlignment.center
+        return pickerLabel
     }
     
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
@@ -263,6 +268,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         // reference the result (Array of BGSample)
         results = remoteBridge.bloodSamples
         
+        /*
         // initiate daily samples records
         let dailySample = DailySamples(context: managedObjectContext)
         dailySample.createdAt = Date() as NSDate
@@ -293,6 +299,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
             let samples: [DailySamples] = try managedObjectContext.fetch(samplesRequest) as! [DailySamples]
             let records = samples[0].samples
         } catch { print ("error loading data") }
+ */
         
         let sampleDate:String = results[0].time
         current.text = sampleDate + "\n" + String (describing: results[0].value) + " mg/DL " + results[0].trend
