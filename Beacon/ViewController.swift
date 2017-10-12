@@ -168,6 +168,9 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         imageView.image = image
         self.view.addSubview(imageView)
         
+        let summaryView: SummaryView = SummaryView(coder: nil)
+        self.view.addSubview(summaryView)
+        
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(toggleMenu(recognizer:)))
         imageView.addGestureRecognizer(tapRecognizer)
     }
