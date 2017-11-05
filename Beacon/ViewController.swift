@@ -160,7 +160,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         // self.view.addSubview(accelSummary)
         percentageNormalSummary = StatSummary()
         percentageNormalSummary.center = CGPoint(x: 246,y: 290)
-        //self.view.addSubview(percentageNormalSummary)
+        self.view.addSubview(percentageNormalSummary)
         
         var imageView  = UIImageView(frame: CGRect(x: 20, y: 40, width: 20, height: 17))
         imageView.isUserInteractionEnabled = true
