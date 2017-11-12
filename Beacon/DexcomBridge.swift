@@ -59,7 +59,7 @@ class DexcomBridge: EventDispatcher
                     DexcomBridge.TOKEN = token
                     DexcomBridge.REFRESH_TOKEN = refreshToken
                     DispatchQueue.main.async(execute:
-                        {
+                    {
                             self.dispatchEvent(event: Event(type: EventType.token, target: self))
                     })
                 } catch {

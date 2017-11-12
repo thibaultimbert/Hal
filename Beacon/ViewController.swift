@@ -367,7 +367,6 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         //infosRight += " "+String(describing: lowRatio) + " hours total"
         
         // update stats
-        // to center
         a1cSummary.update(icon: "Droplet", text: a1C.content, txtOffsetX: 35, txtOffsetY:3, offsetX: 0, offsetY: 0, width: 28, height: 28)
         bpmSummary.update(icon: "Heart", text: heartBpm.content, txtOffsetX: 35, txtOffsetY:3, offsetX: 0, offsetY: 0, width: 28, height: 28)
         sdSummary.update(icon: "UpArrows", text: sd.content, txtOffsetX: 35, txtOffsetY: 3, offsetX: 0, offsetY: 0, width: 28, height: 28)
