@@ -78,10 +78,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void)
     {
+        /*
         if let vc = window?.rootViewController as? ViewController {
-            vc.remoteBridge.getGlucoseValues(token: RemoteBridge.TOKEN, startDate: "2017-06-19T08:00:00", endDate: "2017-06-20T08:00:00", completionHandler: completionHandler)
+            vc.remoteBridge.getGlucoseValues(token: DexcomBridge.TOKEN, startDate: "2017-06-19T08:00:00", endDate: "2017-06-20T08:00:00", completionHandler: completionHandler)
             vc.hkBridge.getHeartRate()
-        }
+        }*/
     }
     
     // Called when APNs has assigned the device a unique token

@@ -27,6 +27,11 @@ class DexcomBridge: EventDispatcher
         return bridge
     }()
     
+    class func shared() -> DexcomBridge
+    {
+        return sharedDexcomBridge
+    }
+    
     // authenticates the user to the dexcom REST APIs
     public func getToken(code: String)
     {
@@ -47,15 +52,19 @@ class DexcomBridge: EventDispatcher
             
             if (response.result.isSuccess)
             {
-                let result: JSON = JSON(data: response.data!)
-                let token: String = result["access_token"].stringValue
-                let refreshToken: String = result["refresh_token"].stringValue
-                DexcomBridge.TOKEN = token
-                DexcomBridge.REFRESH_TOKEN = refreshToken
-                DispatchQueue.main.async(execute:
-                {
-                    self.dispatchEvent(event: Event(type: EventType.token, target: self))
-                })
+                do {
+                    let result: JSON = try JSON(data: response.data!)
+                    let token: String = result["access_token"].stringValue
+                    let refreshToken: String = result["refresh_token"].stringValue
+                    DexcomBridge.TOKEN = token
+                    DexcomBridge.REFRESH_TOKEN = refreshToken
+                    DispatchQueue.main.async(execute:
+                        {
+                            self.dispatchEvent(event: Event(type: EventType.token, target: self))
+                    })
+                } catch {
+                    print ( "error while parsing JSON" )
+                }
             }
         }
     }
@@ -80,15 +89,19 @@ class DexcomBridge: EventDispatcher
             
             if (response.result.isSuccess)
             {
-                let result: JSON = JSON(data: response.data!)
-                let token: String = result["access_token"].stringValue
-                let refreshToken: String = result["refresh_token"].stringValue
-                DexcomBridge.TOKEN = token
-                DexcomBridge.REFRESH_TOKEN = refreshToken
-                DispatchQueue.main.async(execute:
-                    {
-                        self.dispatchEvent(event: Event(type: EventType.refreshToken, target: self))
-                })
+                do {
+                    let result: JSON = try JSON(data: response.data!)
+                    let token: String = result["access_token"].stringValue
+                    let refreshToken: String = result["refresh_token"].stringValue
+                    DexcomBridge.TOKEN = token
+                    DexcomBridge.REFRESH_TOKEN = refreshToken
+                    DispatchQueue.main.async(execute:
+                        {
+                            self.dispatchEvent(event: Event(type: EventType.refreshToken, target: self))
+                    })
+                } catch {
+                    print ( "error while parsing JSON" )
+                }
             }
         }
     }
@@ -103,24 +116,29 @@ class DexcomBridge: EventDispatcher
         Alamofire.request(DexcomBridge.GLUCOSE_URL+"?startDate="+startDate+"&endDate="+endDate, method: .get, headers: headers).responseJSON { response in
             
             if (response.result.isSuccess) {
-                if let result: JSON = JSON(data: response.data!) {
-                    self.bloodSamples.removeAll()
-                    let egvs = result["egvs"].array
-                    for item:JSON in egvs!
-                    {
-                        if item["value"] != JSON.null && item["systemTime"] != JSON.null && item["trend"] != JSON.null
-                        {
-                            let value = item["value"].int!
-                            let dateTime = item["systemTime"].stringValue
-                            let trend = item["trend"].stringValue
-                            let date = dateTime.components(separatedBy: "T")[0]
-                            let time = dateTime.components(separatedBy: "T")[1]
-                            self.bloodSamples.append(GlucoseSample(pValue: value, pDate: date, pTime: time, pTrend: trend))
+                do {
+                    if let result: JSON = try JSON(data: response.data!) {
+                        self.bloodSamples.removeAll()
+                        if let egvs = result["egvs"].array {
+                            for item:JSON in egvs
+                            {
+                                if item["value"] != JSON.null && item["systemTime"] != JSON.null && item["trend"] != JSON.null
+                                {
+                                    let value = item["value"].int!
+                                    let dateTime = item["systemTime"].stringValue
+                                    let trend = item["trend"].stringValue
+                                    let date = dateTime.components(separatedBy: "T")[0]
+                                    let time = dateTime.components(separatedBy: "T")[1]
+                                    self.bloodSamples.append(GlucoseSample(pValue: value, pDate: date, pTime: time, pTrend: trend))
+                                }
+                            }
                         }
                     }
-                    
+                } catch {
+                    print ("error while parsing JSON" )
+                }
                     DispatchQueue.main.async(execute:
-                        {
+                    {
                             self.dispatchEvent(event: Event(type: EventType.glucoseValues, target: self))
                     })
                     
@@ -129,17 +147,10 @@ class DexcomBridge: EventDispatcher
                         completionHandler(.newData)
                     }
                 }
-            } else
-            {
+    
                 DispatchQueue.main.async(execute: {
                     self.dispatchEvent(event: Event(type: EventType.glucoseIOError, target: self))
                 })
             }
         }
-    }
-    
-    class func shared() -> DexcomBridge
-    {
-        return sharedDexcomBridge
-    }
 }

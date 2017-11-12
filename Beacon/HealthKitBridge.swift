@@ -48,9 +48,6 @@ class HealthKitBridge: EventDispatcher
     
     func getBloodSamples(fromDay: Int = -1, to: Date = Date())
     {
-        
-        print (isAuthorized)
-        
         if isAuthorized!
         {
             // Get blood glucose readings
@@ -102,7 +99,6 @@ class HealthKitBridge: EventDispatcher
     {
         if isAuthorized!
         {
-            
             // Get blood glucose readings
             let now = Date()
             let df = DateFormatter()
@@ -125,6 +121,7 @@ class HealthKitBridge: EventDispatcher
             let sampleQuery = HKSampleQuery(sampleType: sampleType!, predicate: mostRecentPredicate, limit: limit, sortDescriptors: [sortDescriptor])
             { (sampleQuery, results, error ) -> Void in
                 
+                print ( error )
                 if error != nil {
                     return;
                 }

@@ -10,9 +10,8 @@ import UIKit
 import HealthKit
 import UserNotifications
 import Charts
-import Lottie
 import CoreData
-import ReachabilitySwift
+import Reachability
 
 class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate
 {
@@ -43,7 +42,6 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     private var bodyFont: UIFont!
     private var quoteFont: UIFont!
     private var quoteText: UILabel!
-    private var heartView: LOTAnimationView!
     private var managedObjectContext: NSManagedObjectContext!
     private var keyChain: KeychainSwift!
     private var size: Float = 0
@@ -63,6 +61,19 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     {
         super.viewDidLoad()
         
+        /*
+        let firstNotification = DLNotification(identifier: "firstNotification", alertTitle: "Notification Alert", alertBody: "You have successfully created a notification", date: Date(), repeats: .Minute)
+        
+        // You can now change the repeat interval here
+        firstNotification.repeatInterval = .Yearly
+        
+        // You can add a launch image name
+        firstNotification.launchImageName = "Hello.png"
+        
+        let scheduler = DLNotificationScheduler()
+        scheduler.scheduleNotification(notification: firstNotification)
+ */
+        
         activityIndicator.startAnimating()
         
         range.dataSource = self;
@@ -74,7 +85,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         // detect connection changes (wifi, cellular, no network)
         reachability = Reachability()!
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.reachabilityChanged),name: ReachabilityChangedNotification,object: reachability)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.reachabilityChanged),name: Notification.Name.reachabilityChanged,object: reachability)
         do{
             try reachability.startNotifier()
         }catch {
@@ -82,8 +93,8 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         }
         
         // handling background and foreground states
-        //NotificationCenter.default.addObserver(self, selector: #selector(self.resume), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
-        //NotificationCenter.default.addObserver(self, selector: #selector(self.pause), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.resume), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.pause), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
         
         // initialize coredata
         managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -144,32 +155,29 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         
         // init summary stats
         a1cSummary = StatSummary()
-        a1cSummary.center = CGPoint(x: 70,y: 250)
-        // self.view.addSubview(a1cSummary)
+        a1cSummary.center = CGPoint(x: 70,y: 245)
+        self.view.addSubview(a1cSummary)
         bpmSummary = StatSummary()
-        bpmSummary.center = CGPoint(x: 157,y: 250)
-        // self.view.addSubview(bpmSummary)
+        bpmSummary.center = CGPoint(x: 157,y: 245)
+        self.view.addSubview(bpmSummary)
         sdSummary = StatSummary()
-        sdSummary.center = CGPoint(x: 70,y: 290)
-        //self.view.addSubview(sdSummary)
+        sdSummary.center = CGPoint(x: 70,y: 285)
+        self.view.addSubview(sdSummary)
         avgSummary = StatSummary()
-        avgSummary.center = CGPoint(x: 157,y: 290)
-        //self.view.addSubview(avgSummary)
+        avgSummary.center = CGPoint(x: 157,y: 285)
+        self.view.addSubview(avgSummary)
         accelSummary = StatSummary()
-        accelSummary.center = CGPoint(x: 246,y: 250)
-        // self.view.addSubview(accelSummary)
+        accelSummary.center = CGPoint(x: 244,y: 245)
+        self.view.addSubview(accelSummary)
         percentageNormalSummary = StatSummary()
-        percentageNormalSummary.center = CGPoint(x: 246,y: 290)
+        percentageNormalSummary.center = CGPoint(x: 244,y: 285)
         self.view.addSubview(percentageNormalSummary)
         
-        var imageView  = UIImageView(frame: CGRect(x: 20, y: 40, width: 20, height: 17))
+        let imageView  = UIImageView(frame: CGRect(x: 20, y: 40, width: 20, height: 17))
         imageView.isUserInteractionEnabled = true
-        var image = UIImage(named: "Menu")!
+        let image = UIImage(named: "Menu")!
         imageView.image = image
         self.view.addSubview(imageView)
-        
-        //let summaryView: SummaryView = SummaryView(coder: nil)
-        //self.view.addSubview(summaryView)
         
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(toggleMenu(recognizer:)))
         imageView.addGestureRecognizer(tapRecognizer)
@@ -201,7 +209,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         // use the row to get the selected row from the picker view
         // using the row extract the value from your datasource (array[row])
-        var selectedValue = pickerDataSource[pickerView.selectedRow(inComponent: 0)]
+        let selectedValue = pickerDataSource[pickerView.selectedRow(inComponent: 0)]
         activityIndicator.startAnimating()
         activityIndicator.alpha = 1
         if (selectedValue == "24 hours") {
@@ -242,7 +250,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     {
         let reachability = note.object as! Reachability
         if !reachability.isReachable {
-            self.pause()
+            //self.pause()
             //news.text = "Uh, oh. You seem to have lost network, waiting on network availability..."
             //current.text = "---\n---"
             //difference.text = ""
@@ -359,12 +367,12 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         //infosRight += " "+String(describing: lowRatio) + " hours total"
         
         // update stats
-        a1cSummary.update(icon: "Glucose", text: a1C.content, txtOffsetX: 30, txtOffsetY:0, offsetX: 0, offsetY: 0, width: 20, height: 28)
-        bpmSummary.update(icon: "Heart", text: heartBpm.content, txtOffsetX: 35, txtOffsetY:0, offsetX: 0, offsetY: 0, width: 27, height: 23)
-        sdSummary.update(icon: "SD", text: sd.content, txtOffsetX: 30, txtOffsetY: 0, offsetX: -12, offsetY: 0, width: 40, height: 19)
-        avgSummary.update(icon: "Average", text: avg.content, txtOffsetX: 35, txtOffsetY:0, offsetX: -5, offsetY: 2, width: 36, height: 17)
-        accelSummary.update(icon: "Acceleration", text: acceleration.content, txtOffsetX: 20, txtOffsetY:0, offsetX: -11, offsetY: 0, width: 24, height: 22)
-        percentageNormalSummary.update(icon: "Percentage", text: normalSum.content, txtOffsetX: 20, txtOffsetY:0, offsetX: -11, offsetY: 0, width: 22, height: 22)
+        a1cSummary.update(icon: "Droplet", text: a1C.content, txtOffsetX: 35, txtOffsetY:3, offsetX: 0, offsetY: 0, width: 28, height: 28)
+        bpmSummary.update(icon: "Heart", text: heartBpm.content, txtOffsetX: 35, txtOffsetY:3, offsetX: 0, offsetY: 0, width: 28, height: 28)
+        sdSummary.update(icon: "UpArrows", text: sd.content, txtOffsetX: 35, txtOffsetY: 3, offsetX: 0, offsetY: 0, width: 28, height: 28)
+        avgSummary.update(icon: "Chart", text: avg.content, txtOffsetX: 35, txtOffsetY:3, offsetX: 0, offsetY: 0, width: 28, height: 28)
+        accelSummary.update(icon: "Rising", text: acceleration.content, txtOffsetX: 35, txtOffsetY:3, offsetX: 0, offsetY: 0, width: 28, height: 28)
+        percentageNormalSummary.update(icon: "UpArrows", text: normalSum.content, txtOffsetX: 35, txtOffsetY:3, offsetX:0, offsetY: 0, width: 28, height: 28)
     }
     
     public func onSelection(event: Event?)
@@ -425,7 +433,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     
     public func glucoseIOFailed (event: Event)
     {
-        pause()
+        //pause()
     }
     
     public func onHKAuthorization (event: Event)
@@ -434,7 +442,10 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         hkBridge.getHeartRate()
     }
     
-    public func onHKHeartRate (event: Event){}
+    public func onHKHeartRate (event: Event)
+    {
+        print (hkBridge.heartRates)
+    }
     
     public func getRandomQuote() -> String
     {
