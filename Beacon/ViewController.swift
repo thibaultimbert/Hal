@@ -312,6 +312,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         } catch { print ("error loading data") }
  */
         
+        //
         let sampleDate:String = results[0].time
         current.text = sampleDate + "\n" + String (describing: results[0].value) + " mg/DL " + results[0].trend
         
